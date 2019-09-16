@@ -66,6 +66,12 @@
                 <ul class="clearfix hd">
                     <li><a href="getUser.do?method=userInfo">个人信息</a></li>
                     <li class="cur"><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li>开辟板块<br>
+                        <form action="" method="post">
+                            板块名称：<input type="text" name="zoneName"><br>
+                            申请理由：<input type="text" name="reason" >
+                        </form>
+                    </li>
                 </ul>
                 <form action="#" method="post">
                   <ul class="bd">
