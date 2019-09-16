@@ -29,6 +29,8 @@
     <orderEntry type="module" module-name="royal_common" />
     <orderEntry type="module" module-name="royal_service" />
     <orderEntry type="module" module-name="royal_dao" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.8" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.0.2.RELEASE" level="project" />
@@ -75,7 +77,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.2" level="project" />
-    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.0" level="project" />
   </component>
 </module>

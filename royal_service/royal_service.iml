@@ -17,6 +17,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="royal_dao" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.0" level="project" />
     <orderEntry type="module" module-name="royal_domain" />
     <orderEntry type="module" module-name="royal_common" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.8" level="project" />
@@ -65,7 +67,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper:5.1.2" level="project" />
-    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:1.0" level="project" />
   </component>
 </module>
