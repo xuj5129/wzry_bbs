@@ -1,46 +1,24 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8"/>
     <title>黑马程序员论坛详情页</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/common-new.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/search.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/detail.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/getArticle.css"/>
-    <script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../js/hm-bbs.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common-new.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/search.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/getArticle.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
 </head>
 <body>
+
+
 <!-- 头部 -->
-<div class="hm-top-nav">
-    <div class="hm-inner clearfix">
-        <div class="hm-inner-l l">
-        </div>
-        <div class="hm-inner-r r">
-            <div class="box">
-                欢迎<a href="user_info.html" style="margin-right:0px;padding:0px 5px;color:blue;">scott</a>回来！
-                <a href="#">【注销】</a>
-                <div id="dialogBg"></div>
-                <div id="dialog" class="animated">
-                    <img class="dialogIco" width="50" height="40" src="../images/ico.png"/>
-                    <div class="dialogTop" style="height:25px;">
-                        <a href="javascript:;" class="closeDialogBtn">关闭</a>
-                    </div>
-                    <form action="" method="post">
-                        <ul class="editInfos">
-                            <li>用户名：<input type="text" id="userName" name="userName" class="ipt"/></li>
-                            <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userPass" name="userPass" class="ipt"/></li>
-                            <li><input type="submit" value="登录" class="submitBtn"/></li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<jsp:include page="common/header.jsp" />
 
 
 
@@ -51,7 +29,7 @@
         <!--帖子标题，点赞数，回复数，搜索-->
         <div class="hm-bbs-info">
             <div class="hm-bbs-icon l" style="width:130px;">
-                <span><img src="../images/bbs-icon.png" height="80"/></span>
+                <span><img src="images/bbs-icon.png" height="80"/></span>
             </div>
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix">
@@ -77,7 +55,7 @@
 
         <!--导航，回首页，帖子标题，排序-->
         <div class="detail-page-box clearfix">
-            <a href="index.html">
+            <a href="index.do">
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
@@ -94,7 +72,7 @@
                 <!--原帖楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/></div>
+                        <div class="floorer-photo"><img src="images/default.png"/></div>
                         <div class="floorer-name">晨曦初露</div>
                     </div>
                     <div class="floor-con l">
@@ -116,7 +94,7 @@
                 <!-- 评论部分,一楼及以后 -->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/></div>
+                        <div class="floorer-photo"><img src="images/default.png"/></div>
                         <div class="floorer-name">不哭不闹不炫耀</div>
                     </div>
                     <div class="floor-con l">
@@ -133,7 +111,7 @@
 
                                     <!-- 回复部分,楼中楼 -->
                                     <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
+                                        <div class="floor-ans-pho l"><img src="images/default.png"/></div>
                                         <div class="floor-ans-con l">
                                             <span class="name">张无忌</span>：顶顶顶！
                                             <span class="ans-time">2017-05-24 10:11:00</span>
@@ -153,7 +131,7 @@
                 <!--二楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/> </div>
+                        <div class="floorer-photo"><img src="images/default.png"/> </div>
                         <div class="floorer-name">不哭不闹不炫耀</div>
                     </div>
                     <div class="floor-con l">
@@ -170,7 +148,7 @@
 
                                     <!-- 回复部分 -->
                                     <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
+                                        <div class="floor-ans-pho l"><img src="images/default.png"/></div>
                                         <div class="floor-ans-con l">
                                             <span class="name">张无忌</span>：顶顶顶！
                                             <span class="ans-time">2017-05-24 10:11:00</span>
@@ -190,7 +168,7 @@
                 <!--三楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/></div>
+                        <div class="floorer-photo"><img src="images/default.png"/></div>
                         <div class="floorer-name">不哭不闹不炫耀</div>
                     </div>
                     <div class="floor-con l">
@@ -207,7 +185,7 @@
 
                                     <!-- 回复部分 -->
                                     <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
+                                        <div class="floor-ans-pho l"><img src="images/default.png"/></div>
                                         <div class="floor-ans-con l">
                                             <span class="name">张无忌</span>：顶顶顶！
                                             <span class="ans-time">2017-05-24 10:11:00</span>
@@ -236,7 +214,7 @@
             <form action="#" method="post">
                 <div class="con con-loged">
                     <div class="con-t">
-                        <textarea id="content" name="content" placeholder="请在此输入您要回复的信息"></textarea>
+                        <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
                     </div>
                     <div class="con-b">
                         <input type="submit" class="btn"/>
@@ -251,14 +229,7 @@
 
 
 <!-- 底部 -->
-<div class="hm-footer" style="padding-top:10px;">
-    <div class="hm-inner">
-        <div class="hm-footer-cpr">
-            <p>Copyright@2006-2017 ITCAST. All Rights Reserved</p>
-            <p>传智播客 版权所有</p>
-        </div>
-    </div>
-</div>
+<jsp:include page="common/footer.jsp"/>
 
 
 
@@ -273,12 +244,13 @@
             </div>
             <div class="win_bd">
                 <div class="win_bd_b">
-                    <textarea id="replyContent" name="content" placeholder="回复内容限于40字以内"></textarea>
+                    <textarea id="replyContent" name="replyContent" placeholder="回复内容限于40字以内"></textarea>
                 </div>
             </div>
             <div class="win_ft">
                 <div class="win_ft_in">
                     <input type="submit" class="btn" value="回复"/>
+					<input type="hidden" id="commentId" name="commentId"/>
                 </div>
             </div>
         </div>
@@ -297,7 +269,13 @@
 
 <script type="text/javascript">
 //弹出回复框
-function showDialog(num) {
+function showDialog(num, commentId) {
+	var loginUser = "${loginUser}";
+	if(!loginUser){
+		alert("请登录");
+		return;
+	}
+	$("#commentId").val(commentId);
     $('.pop-box').css('display', 'block');
     $("#floorSpan").html(num);
 }
