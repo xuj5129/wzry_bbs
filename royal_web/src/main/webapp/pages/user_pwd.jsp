@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,6 @@
     </style>
 </head>
 <body>
-
 
 <!-- 头部 -->
 <div class="hm-top-nav">

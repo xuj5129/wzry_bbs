@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,7 @@
     </style>
 </head>
 <body>
+
 
 <!-- 头部 -->
 <div class="hm-top-nav">
@@ -52,7 +54,7 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="../images/logo.png" alt=""/></a>
+                <a href="javascript:;"><img src="../images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
                 <form action="javascript:;">
@@ -63,54 +65,71 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.html">首页</a><span>></span>修改密码
+            <a href="index.html">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
 
 
-<!--修改密码-->
+
 <div class="hm-body hm-body-bgc">
     <div class="hm-inner">
         <div class="user-info clearfix">
             <div class="user-info-t" style="height:20px;"></div>
+
+            <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="../images/default.png" alt=""/>
+                    <img src="../images/default.png"/>
                     <div class="username">张无忌</div>
                 </div>
                 <ul class="user-info-l-b">
-                    <li><i class="info-icon"></i>我的资料</li>
-                    <li class="cur"><i class="safe-icon"></i>修改密码</li>
+                    <li class="cur"><i class="info-icon"></i>我的资料</li>
+                    <li><i class="safe-icon"></i>修改密码</li>
                 </ul>
             </div>
 
 
+            <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="user_info.html">个人信息</a></li>
-                    <li class="cur"><a href="user_pwd.html">修改密码</a></li>
+                    <li class="cur"><a href="user_info.html">个人信息</a></li>
+                    <li><a href="user_pwd.html">修改密码</a></li>
                 </ul>
 
-                <ul class="bd">
-                    <li class="clearfix">
-                        <div class="info-l"><i class="red">*</i>旧密码：</div>
-                        <div class="info-r"><input type="password" class="txt"/></div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="info-l"><i class="red">*</i>新密码：</div>
-                        <div class="info-r"><input type="password" class="txt"/></div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="info-l"></div>
-                        <div class="info-r"><input type="submit" class="btn" value="保存"/></div>
-                    </li>
-                </ul>
+
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <ul class="bd">
+                        <li class="clearfix">
+                            <div class="info-l"><i class="red">*</i>用户名：</div>
+                            <div class="info-r"><input type="text" class="txt" value="" readonly="readonly"/></div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="info-l">邮箱地址：</div>
+                            <div class="info-r"><input type="text" name="email" class="txt" value=""/></div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="info-l">上传头像：</div>
+                            <div class="info-r"><input type="file" name="picUrl" class="file-btn"/></div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="info-l"></div>
+                            <div class="info-r">
+                                <input type="submit" class="btn" value="保存"/>
+                                <span style="color:red;">修改成功！</span>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+
 
             </div>
+
+
         </div>
     </div>
 </div>
+
 
 <!-- 底部 -->
 <div class="hm-footer" style="padding-top:10px;">
@@ -121,5 +140,8 @@
         </div>
     </div>
 </div>
+
+
+
 </body>
 </html>
