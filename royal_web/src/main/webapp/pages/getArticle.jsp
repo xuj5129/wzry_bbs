@@ -29,17 +29,17 @@
         <!--帖子标题，点赞数，回复数，搜索-->
         <div class="hm-bbs-info">
             <div class="hm-bbs-icon l" style="width:130px;">
-                <span><img src="images/bbs-icon.png" height="80"/></span>
+                <span><img src="${pageContext.request.contextPath}/images/bbs-icon.png" height="80"/></span>
             </div>
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix">
-                    <h2 class="l">求官方出艾琳英雄活动</h2>
+                    <h2 class="l">${article.title}</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
-					         <a href="#"><i></i>3</a>
+					         <a href="#"><i></i>${article.upvotecount}</a>
 					     </span>
                         <span class="icon-talk">
-						     <i></i>10
+						     <i></i>${article.replycount}
 						</span>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
-            <a href="#">求官方出艾琳英雄活动</a>
+            <a href="#">${article.title}</a>
             <a class="new-to-old r" href="" style="font-size:12px;float: right;">
                 <i></i>从新到旧查看
             </a>
@@ -77,12 +77,12 @@
                     </div>
                     <div class="floor-con l">
                         <div class="floor-info clearfix">
-                            <div class="floor-time l">发帖时间：2017-05-24 09:10:00</div>
-                            <div class="r">100次查看</div>
+                            <div class="floor-time l">发帖时间：${article.sendtime}</div>
+                            <div class="r">${article.browsecount}次查看</div>
                         </div>
                         <div class="floor-art-ans">
                             <div class="floor-art">
-                                <p>本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</p>
+                                <p>${article.content}</p>
                             </div>
                             <div class="floor-ans"></div>
                         </div>
@@ -212,9 +212,10 @@
 
             <!-- 登录后显示评论输入框-->
             <form action="#" method="post">
+                <input hidden name="articleid" value="${article.articleid}">
                 <div class="con con-loged">
                     <div class="con-t">
-                        <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
+                        <textarea id="content" name="content" placeholder="请在此输入您要回复的信息"></textarea>
                     </div>
                     <div class="con-b">
                         <input type="submit" class="btn"/>

@@ -11,4 +11,6 @@ public interface ArticleService {
     List<Article> findAll(int page,int pageSize);
 
     int getTotalArticleNum();
+
+    Article findById(Integer id);
 }

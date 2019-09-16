@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
@@ -19,16 +17,18 @@ public class ArticleController {
     @RequestMapping("/saveArticle.do")
     public String saveArticle(Article article){
         articleService.saveArticle(article);
-        return "redirect:";
+        return "redirect:findById";
     }
 
-    @RequestMapping("/findAll.do")
-    public ModelAndView findAll(){
-        ModelAndView mv = new ModelAndView();
-        List<Article> articleList = articleService.findAll();
-        mv.addObject("articleList",articleList);
-        mv.setViewName("index");
+    @RequestMapping("getArticle.do")
+    public ModelAndView findById(int id){
+        ModelAndView mv=new ModelAndView();
+        Article article=articleService.findById(id);
+        mv.addObject("article",article);
+
+        mv.setViewName("getArticle");
         return mv;
     }
+
 
 }

@@ -1,9 +1,11 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Article;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -25,8 +27,17 @@ public interface ArticleDao {
 
 
     /**
-     *
+     *发表帖子
      * @param article
      */
+    @Insert("INSERT  INTO bbs_article_table(title,content,sendTime,senderName,isTop,replyCount,upvoteCount,browseCount,zoneId,isReport) VALUES (#{title},#{content},#{sendtime},#{sendername},0,0,0,0,#{zoneid},0)")
     void saveArticle(Article article);
+
+    /**
+     * 显示帖子详情
+     * @param id
+     * @return
+     */
+    @Select("select * from bbs_article_table where articleid=#{id}")
+    Article findById(Integer id);
 }

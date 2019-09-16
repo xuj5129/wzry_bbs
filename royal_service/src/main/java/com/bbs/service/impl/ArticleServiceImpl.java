@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("articleService")
@@ -16,6 +17,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void saveArticle(Article article) {
+        article.setSendtime(new Date());
         articleDao.saveArticle(article);
     }
 
@@ -28,5 +30,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int getTotalArticleNum() {
         return articleDao.getTotalArticleNum();
+    }
+
+    @Override
+    public Article findById(Integer id) {
+        return articleDao.findById(id);
     }
 }
