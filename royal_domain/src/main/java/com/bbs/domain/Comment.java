@@ -1,65 +1,79 @@
 package com.bbs.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Comment {
-    private Integer commentid;
+    private Integer commentId;
 
-    private String commentcontent;
+    private String commentContent;
 
-    private Date commenttime;
+    private Date commentTime;
 
-    private String commentusername;
+    private String commentUserName;
 
-    private Integer commentstatus;
+    private Integer commentStatus;
 
-    private Integer articleid;
+    private Integer articleId;
 
-    public Integer getCommentid() {
-        return commentid;
+    private List<Reply> replys;
+
+
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setCommentid(Integer commentid) {
-        this.commentid = commentid;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
-    public String getCommentcontent() {
-        return commentcontent;
+    public String getCommentContent() {
+        return commentContent;
     }
 
-    public void setCommentcontent(String commentcontent) {
-        this.commentcontent = commentcontent == null ? null : commentcontent.trim();
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 
-    public Date getCommenttime() {
-        return commenttime;
+    public String getCommentTime() {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        return sdf.format(commentTime);
     }
 
-    public void setCommenttime(Date commenttime) {
-        this.commenttime = commenttime;
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
     }
 
-    public String getCommentusername() {
-        return commentusername;
+    public String getCommentUserName() {
+        return commentUserName;
     }
 
-    public void setCommentusername(String commentusername) {
-        this.commentusername = commentusername == null ? null : commentusername.trim();
+    public void setCommentUserName(String commentUserName) {
+        this.commentUserName = commentUserName;
     }
 
-    public Integer getCommentstatus() {
-        return commentstatus;
+    public Integer getCommentStatus() {
+        return commentStatus;
     }
 
-    public void setCommentstatus(Integer commentstatus) {
-        this.commentstatus = commentstatus;
+    public void setCommentStatus(Integer commentStatus) {
+        this.commentStatus = commentStatus;
     }
 
-    public Integer getArticleid() {
-        return articleid;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setArticleid(Integer articleid) {
-        this.articleid = articleid;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
+    }
+
+    public List<Reply> getReplys() {
+        return replys;
+    }
+
+    public void setReplies(List<Reply> replys) {
+        this.replys = replys;
     }
 }

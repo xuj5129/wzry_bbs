@@ -1,8 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Article;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public interface ArticleDao {
      *发表帖子
      * @param article
      */
-    @Insert("INSERT  INTO bbs_article_table(title,content,sendTime,senderName,isTop,replyCount,upvoteCount,browseCount,zoneId,isReport) VALUES (#{title},#{content},#{sendtime},#{sendername},0,0,0,0,#{zoneid},0)")
+    @Insert("INSERT  INTO bbs_article_table(title,content,sendTime,senderName,isTop,replyCount,upvoteCount,browseCount,zoneId,isReport) VALUES (#{title},#{content},#{sendTime},#{senderName},0,0,0,0,#{zoneId},0)")
     void saveArticle(Article article);
 
     /**
@@ -36,7 +35,21 @@ public interface ArticleDao {
      * @param id
      * @return
      */
-    @Select("select * from bbs_article_table where articleid=#{id}")
+
+    @Select("select * from bbs_article_table where articleId=#{id}")
+    @Results({
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "title",property = "title"),
+            @Result(column = "content",property = "content"),
+            @Result(column = "sendTime",property = "sendTime"),
+            @Result(column = "senderName",property = "senderName"),
+            @Result(column = "isTop",property = "isTop"),
+            @Result(column = "replyCount",property = "replyCount"),
+            @Result(column = "upvoteCount",property = "upvoteCount"),
+            @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "articleId", property = "comments", javaType = List.class, many =
+            @Many(select = "com.bbs.dao.CommentDao.findCommentByArticleId"))
+    })
     Article findById(Integer id);
     //查询今日贴数
     @Select("select count(*) from bbs_article_table where sendTime like 'format%'")

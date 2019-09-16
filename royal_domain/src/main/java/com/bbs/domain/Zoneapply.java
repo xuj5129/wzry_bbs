@@ -1,38 +1,38 @@
 package com.bbs.domain;
 
 public class Zoneapply {
-    private Integer applyzoneid;
+    private Integer applyZoneId;
 
-    private String zonename;
+    private String zoneName;
 
-    private String username;
+    private String userName;
 
     private String reason;
 
     private Integer status;
 
-    public Integer getApplyzoneid() {
-        return applyzoneid;
+    public Integer getApplyZoneId() {
+        return applyZoneId;
     }
 
-    public void setApplyzoneid(Integer applyzoneid) {
-        this.applyzoneid = applyzoneid;
+    public void setApplyZoneId(Integer applyZoneId) {
+        this.applyZoneId = applyZoneId;
     }
 
-    public String getZonename() {
-        return zonename;
+    public String getZoneName() {
+        return zoneName;
     }
 
-    public void setZonename(String zonename) {
-        this.zonename = zonename == null ? null : zonename.trim();
+    public void setZoneName(String zoneName) {
+        this.zoneName = zoneName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getReason() {
@@ -40,7 +40,7 @@ public class Zoneapply {
     }
 
     public void setReason(String reason) {
-        this.reason = reason == null ? null : reason.trim();
+        this.reason = reason;
     }
 
     public Integer getStatus() {

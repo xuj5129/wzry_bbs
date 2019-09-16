@@ -27,7 +27,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public void saveArticle(Article article) {
-        article.setSendtime(new Date());
+        article.setSendTime(new Date());
         articleDao.saveArticle(article);
     }
 

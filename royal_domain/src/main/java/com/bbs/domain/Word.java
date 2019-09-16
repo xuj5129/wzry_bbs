@@ -4,18 +4,18 @@ package com.bbs.domain;
  *
  */
 public class Word {
-    private Integer wordid;
+    private Integer wordId;
 
     private String word;
 
     private Integer status;
 
-    public Integer getWordid() {
-        return wordid;
+    public Integer getWordId() {
+        return wordId;
     }
 
-    public void setWordid(Integer wordid) {
-        this.wordid = wordid;
+    public void setWordId(Integer wordId) {
+        this.wordId = wordId;
     }
 
     public String getWord() {
@@ -23,7 +23,7 @@ public class Word {
     }
 
     public void setWord(String word) {
-        this.word = word == null ? null : word.trim();
+        this.word = word;
     }
 
     public Integer getStatus() {
