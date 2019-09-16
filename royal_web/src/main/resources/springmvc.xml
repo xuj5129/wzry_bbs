@@ -17,8 +17,8 @@
 
     <!--  配置视图解析器的前缀和后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/html/"></property>
-        <property name="suffix" value=".html"></property>
+        <property name="prefix" value="/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
     </bean>
 
     <!-- 设置静态资源不过滤 -->
