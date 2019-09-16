@@ -7,23 +7,23 @@ public class UserInfo {
 
     private String username;
 
-    private String userpass;
+    private String userpass;//密码
 
-    private String email;
+    private String email;//邮箱
 
-    private String picurl;
+    private String picurl;//头像
 
-    private Integer role;
+    private Integer role;//1代表普通用户；2代表高级用户，3代表超级管理员
 
     private Date lastlogintime;
 
-    private Integer loginstatus;
+    private Integer loginstatus;//登录状态，0代表未登录，1代表已登录
 
     private Integer talkstatus;
 
-    private Integer isupdating;
+    private Integer isupdating;//申请升级(0-未申请,1-已申请)
 
-    private Integer updatestatus;
+    private Integer updatestatus;//申请升级审核状态(0-未处理,1-已处理)
 
     public Integer getUserid() {
         return userid;
