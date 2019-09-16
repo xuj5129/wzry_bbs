@@ -24,4 +24,9 @@ public interface ArticleDao {
     int getTotalArticleNum();
 
 
+    /**
+     *
+     * @param article
+     */
+    void saveArticle(Article article);
 }

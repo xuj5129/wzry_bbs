@@ -3,6 +3,7 @@ package com.bbs.service.impl;
 import com.bbs.dao.ArticleDao;
 import com.bbs.domain.Article;
 import com.bbs.service.ArticleService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void saveArticle(Article article) {
-
+        articleDao.saveArticle(article);
     }
 
     @Override
-    public List<Article> findAll() {
+    public List<Article> findAll(int page,int pageSize) {
+        PageHelper.startPage(page,pageSize);
         return articleDao.findAll();
+    }
+
+    @Override
+    public int getTotalArticleNum() {
+        return articleDao.getTotalArticleNum();
     }
 }

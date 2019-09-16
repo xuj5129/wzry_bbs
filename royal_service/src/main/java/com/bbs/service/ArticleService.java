@@ -8,5 +8,7 @@ public interface ArticleService {
 
     void saveArticle(Article article);
 
-    List<Article> findAll();
+    List<Article> findAll(int page,int pageSize);
+
+    int getTotalArticleNum();
 }
