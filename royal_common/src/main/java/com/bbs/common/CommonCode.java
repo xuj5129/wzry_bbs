@@ -51,4 +51,5 @@ public enum CommonCode implements ResultCode{
                 ", message='" + message + '\'' +
                 '}';
     }
+    /*测试*/
 }
