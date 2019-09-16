@@ -16,7 +16,7 @@
     </ul>
     <ul class="nav nav-pills nav-stacked dept_sidebar">
         <li role="presentation" class="active">
-            <a href="#"  data-toggle="collapse" data-target="#collapse_dept">
+            <a href="${pageContext.request.contextPath}/articleController"  data-toggle="collapse" data-target="#collapse_dept">
                 <span class="glyphicon glyphicon-cloud" aria-hidden="true">用户帖管理</span>
             </a>
             <ul class="nav nav-pills nav-stacked">

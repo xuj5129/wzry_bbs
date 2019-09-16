@@ -15,6 +15,7 @@ public interface ArticleDao {
     @Select("select * from bbs_article_table")
     List<Article> findAll();
 
+
     /**
      * 获取所有帖子数
      * @return
@@ -22,4 +23,10 @@ public interface ArticleDao {
     @Select("select count(*) from bbs_article_table")
     int getTotalArticleNum();
 
+
+    /**
+     *
+     * @param article
+     */
+    void saveArticle(Article article);
 }
