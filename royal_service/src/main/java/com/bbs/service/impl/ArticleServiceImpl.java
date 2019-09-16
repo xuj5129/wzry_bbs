@@ -17,10 +17,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleDao articleDao;
 
-    @Override
-    public int getTotalArticle() {
-        return articleDao.getTotalArticleNum();
-    }
 
     @Override
     public int getNumOfTodayArticle() {
