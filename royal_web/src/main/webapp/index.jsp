@@ -4,11 +4,12 @@
     <title>王者荣耀论坛</title>
     <script src="js/jquery-1.7.2.min.js"></script>
     <script>
-        $(function () {
+       /* $(function () {
             location.href="article/getArticleList.do";
-        })
+        })*/
     </script>
 </head>
 <body>
+<jsp:forward page="pages/index.jsp"></jsp:forward>
 </body>
 </html>
