@@ -8,5 +8,5 @@ public interface UserService {
 
     ResultInfo login(UserInfo userInfo);
 
-    UserInfo findByUsername(String username);
+    ResultInfo findByUsername(String username);
 }

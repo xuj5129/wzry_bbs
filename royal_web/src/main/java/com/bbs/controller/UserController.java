@@ -40,14 +40,13 @@ public class UserController {
     }
 
     //根据用户名查询用户
-    /*@RequestMapping("/findByUsername.do")
-    public @ResponseBody UserInfo findByUsername(String username){
-        UserInfo user=userService.findByUsername(username);
-        return user;
+    @RequestMapping("/checkUsernameByAjax.do")
+    public @ResponseBody ResultInfo checkUsernameByAjax(String username){
+        ResultInfo resultInfo=userService.findByUsername(username);
+        return resultInfo;
 
 
-
-    }*/
+    }
     //新用户注册
     @RequestMapping("/register.do")
     public ModelAndView register(){

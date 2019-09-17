@@ -33,7 +33,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfo findByUsername(String username) {
-        return null;
+    public ResultInfo findByUsername(String username) {
+        ResultInfo resultInfo = new ResultInfo();
+        UserInfo userInfo=userDao.findByUsername(username);
+        //用户名已被注册
+        if(userInfo!=null){
+            resultInfo.setSuccess(false);
+        }else {
+            resultInfo.setSuccess(true);
+        }
+        return resultInfo;
     }
 }
