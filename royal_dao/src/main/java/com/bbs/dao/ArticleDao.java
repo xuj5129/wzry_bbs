@@ -14,6 +14,21 @@ public interface ArticleDao {
      * @return
      */
     @Select("select * from bbs_article_table")
+    @Results({
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "title",property = "title"),
+            @Result(column = "content",property = "content"),
+            @Result(column = "sendTime",property = "sendTime"),
+            @Result(column = "senderName",property = "senderName"),
+            @Result(column = "isTop",property = "isTop"),
+            @Result(column = "replyCount",property = "replyCount"),
+            @Result(column = "upvoteCount",property = "upvoteCount"),
+            @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "zoneId",property = "zoneId"),
+            @Result(column = "zoneId",property = "zoneName",one = @One(
+                select = "com.bbs.dao.ZoneDao.findNameById"
+            ))
+    })
     List<Article> findAll();
 
     /**
@@ -59,4 +74,7 @@ public interface ArticleDao {
 
     @Update("update bbs_article_table set isTop = #{isTop} where articleId =#{id}")
     void changeStatus(@Param("id") int id,@Param("isTop") Integer isTop);
+
+    @Update("update bbs_article_table set isReport = #{isReport} where articleId =#{id}")
+    void deleteArticle(@Param("id")int id,@Param("isReport") Integer isReport);
 }

@@ -101,9 +101,15 @@
                                 <td width="5%">${articles.replyCount}</td>
                                 <td width="5%">${articles.upvoteCount}</td>
                                 <td width="5%">${articles.browseCount}</td>
-                                <td width="15%">${articles.zoneId}</td>
+                                <td width="15%">${articles.zoneName}</td>
                                 <td width="15%">
-                                    <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">屏蔽</a>
+                                    <c:if test="${articles.isReport==0}">
+                                        <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">屏蔽</a>
+                                    </c:if>
+                                    <c:if test="${articles.isReport==1}">
+                                        <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-default" >解除</a>
+                                    </c:if>
+
                                     <c:if test="${articles.isTop==0}">
                                         <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-danger" >置顶</a>
                                     </c:if>
@@ -117,6 +123,7 @@
                 </table>
 
 
+
             </div><!-- /.panel panel-success -->
             <!--显示分页信息-->
             <div class="row">
@@ -124,6 +131,7 @@
                 <div class="col-md-6">
                     当前第 ${pageInfo.pageNum} 页.总共 ${pageInfo.pages} 页.一共 ${pageInfo.total} 条记录
                 </div>
+
 
                 <!--点击分页-->
                 <div class="col-md-6">

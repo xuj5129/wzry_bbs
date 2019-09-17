@@ -18,4 +18,6 @@ public interface ArticleService {
 
 
     void changeStatus(int id, Integer isTop);
+
+    void deleteArticle(int id, Integer isReport);
 }

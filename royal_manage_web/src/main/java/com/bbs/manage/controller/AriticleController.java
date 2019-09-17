@@ -37,4 +37,12 @@ public class AriticleController  {
         articleService.changeStatus(id,isTop);
         return "redirect:findAll.do";
     }
+
+    @RequestMapping("/deleteArticle.do")
+    public String deleteArticle(int id){
+        Article article = articleService.findById(id);
+        Integer isReport = article.getIsReport();
+        articleService.deleteArticle(id,isReport);
+        return "redirect:findAll.do";
+    }
 }

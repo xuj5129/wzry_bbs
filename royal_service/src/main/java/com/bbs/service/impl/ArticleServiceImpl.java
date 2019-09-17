@@ -38,6 +38,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+    @Override
+    public void deleteArticle(int id, Integer isReport) {
+        if(isReport == 1){
+            isReport = 0;
+            articleDao.deleteArticle(id,isReport);
+        }else{
+            isReport = 1;
+            articleDao.deleteArticle(id,isReport);
+        }
+    }
 
 
     public void saveArticle(Article article) {
