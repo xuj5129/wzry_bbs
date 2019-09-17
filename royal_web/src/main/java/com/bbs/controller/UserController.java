@@ -4,8 +4,6 @@ import com.bbs.domain.ResultInfo;
 import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.bbs.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,9 +47,19 @@ public class UserController {
 
 
     }
+
+    //用户退出
+    @RequestMapping("/logout.do")
+    public  String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/pages/index.jsp";
+    }
     //新用户注册
     @RequestMapping("/register.do")
-    public ModelAndView register(){
+    public ModelAndView register(@RequestBody UserInfo userInfo){
+        System.out.println(userInfo);
+
+
        return null;
     }
     //修改用户邮箱地址和头像
@@ -60,6 +68,7 @@ public class UserController {
         userService.update(userInfo);
         return "index";
     }
+    //用户修改密码
     @RequestMapping("/updatePwd.do")
     public String updatePwd(String oldPassword,String newPassword){
         return "index";

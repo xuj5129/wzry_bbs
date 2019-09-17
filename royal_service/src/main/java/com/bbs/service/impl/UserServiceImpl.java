@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
         userDao.update(userInfo);
 
     }
-
+    //用户登录
     @Override
     public ResultInfo login(UserInfo userInfo) {
         ResultInfo resultInfo = new ResultInfo();

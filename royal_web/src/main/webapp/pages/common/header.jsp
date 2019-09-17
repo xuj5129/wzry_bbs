@@ -97,5 +97,14 @@
           });
       });
   });
+
+
+//用户退出
+  function logout() {
+      if(confirm("您确定要退出吗？")){
+          location.href="${pageContext.request.contextPath}/user/logout.do"
+      }
+
+  }
 </script>
 </html>

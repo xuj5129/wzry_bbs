@@ -55,11 +55,13 @@
             <div class="user-info-l l">
                 <div class="user-info-l-t">
                     <img src="images/default.png"/>
-                    <div class="username">张无忌</div>
+                    <div class="username">${existUser.username}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
+                    <li><i class="safe-icon"></i>开辟新板块</li>
+
                 </ul>
             </div>
 
@@ -67,9 +69,9 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li class="cur"><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li><a href="getUser.do?method=userPwd">修改密码</a></li>
-                    <li><a href="getUser.do?method=userPwd">开辟新板块</a></li>
+                    <li class="cur"><a href="#">个人信息</a></li>
+                    <li><a href="${pageContext.request.contextPath}/pages/userPwd.jsp">修改密码</a></li>
+                    <li><a href="${pageContext.request.contextPath}/pages/addzone.jsp">开辟新板块</a></li>
 
                 </ul>
 
@@ -77,7 +79,7 @@
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" class="txt" value="" readonly="readonly"/></div>
+                            <div class="info-r"><input type="text" class="txt" value="${existUser.username}" readonly="readonly"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>

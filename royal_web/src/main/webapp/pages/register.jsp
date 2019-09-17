@@ -10,50 +10,64 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/search.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
-    <script>
+    <script type="text/javascript">
         $(function () {
+
             //用户名输入框离焦，发送Ajax请求，校验用户名是否可用
             $("#username").blur(function () {
                 var username = $("#username").val();
                 if (username) {
                     $.ajax({
                         url:"${pageContext.request.contextPath}/user/checkUsernameByAjax.do",
-                        data:{username: $("#username").val()},
+                        data:{username: username},
                         //contentType:"application/json",
                         type:"post",
                         dataType:"json",
                         success:function (data) {
                             if(data.success){
-                                $("#userInfo").html("用户名可用");
-                            }
-                            else {
-                                $("#userInfo").html("该用户名已被注册过");
+                                $("#userTips").html("用户名可用");
+                            }else {
+                                $("#userTips").html("该用户名已被注册过");
                             }
 
                         }
                     });
 
-                    /*$.post("${pageContext.request.contextPath}/user/checkUsernameByAjax.do",
-                        {username: username}, function (data) {
-                            if (data.success) {
-                                //用户名可用
-                                $("#userInfo").html("用户名可用");
-                            } else {
-                                //该用户名已被注册过
-                                $("#userInfo").html("该用户名已被注册过");
-                            }
-
-                        }, "json")*/
 
                 }
 
             })
 
             //用户注册
+
+            /*
+            *   用户名必填，并且填入信息必须由英文、数字、下划线组成。/^[a-zA-Z0-9_]*$/
+                密码必填，密码长度保证6-10位英文或者数字组成。/^[a-z|A-Z|0-9]{6,10}$/
+                邮箱必填，并且注册前存在格式合法性校验
+                /^[a-z0-9]+@([a-z0-9]+\.)+[a-z]{2,4}$/
+               用户名检验，保证用户名的唯一性。
+            * */
             $("#registerBtn").click(function () {
+                if($("#username").val() && $("#userpass").val()&& $("email").val()) {
+                    $.ajax({
+                        url:"${pageContext.request.contextPath}/user/register.do",
+                        // data:$("#logForm").serialize(),
 
+                        data:{username:$("#username").val(),userpass:$("#userpass").val(),email:$("email").val()},
+                        //contentType:"application/json",
+                        type:"post",
+                        dataType:"json",
+                        success:function (data) {
+                            if(data.success){
+                                location.href="${pageContext.request.contextPath}/pages/success.jsp";
+                            }
+                            else {
 
+                            }
 
+                        }
+                    });
+                }
 
 
             });
@@ -94,7 +108,7 @@
         <div class="reg-box">
             <h2>用户注册<span>（红色型号代表必填）</span></h2>
             <div class="reg-info">
-                <form action="#" method="post" >
+                <form action="#" method="post" id="registerForm">
                     <ul>
                         <li>
                             <div class="reg-l">
@@ -103,7 +117,8 @@
                             <div class="reg-c">
                                 <input type="text" id="username" name="username" class="txt" value=""/>
                             </div>
-                            <span class="tips" id="userInfo">用户名必须是由英文、数字、下划线组成</span>
+                            <span class="tips" >用户名必须是由英文、数字、下划线组成</span>
+                            <span id="userTips" style="color: red"></span>
                         </li>
                         <li>
                             <div class="reg-l">
@@ -117,7 +132,7 @@
                         <li class="no-tips">
                             <div class="reg-l">&nbsp;&nbsp;邮&nbsp;&nbsp;&nbsp;箱：</div>
                             <div class="reg-c">
-                                <input type="text" id="email" name="email" class="txt" value=""/>
+                                <input type="email" id="email" name="email" class="txt" value=""/>
                             </div>
                         </li>
                         <li>
