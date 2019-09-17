@@ -24,9 +24,6 @@
     <div class="hm-inner">
         <div class="hm-banner"></div>
 
-
-
-
         <!--头部，帖子统计，搜索-->
         <div class="hm-bbs-info">
             <div class="hm-bbs-icon l" style="width:130px;">
@@ -35,8 +32,8 @@
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
                 <p>
-                    <span>今日帖子<strong>99</strong></span>
-                    <span>全部帖子<strong>250</strong></span>
+                    <span>今日帖子<strong>${num2}</strong></span>
+                    <span>全部帖子<strong>${num1}</strong></span>
                 </p>
             </div>
             <div class="search-box l">
@@ -65,9 +62,6 @@
                 <a href="#"><em></em>活动专区</a>
             </li>
         </ul>
-
-
-
 
         <!-- 主体部分 -->
         <div class="hm-bbs-main border-lrb clearfix">
@@ -165,17 +159,15 @@
             <div class="aside l">
                 <div class="aside-box">
                     <h3 class="t">
-                        <a href="javascript:;">在线用户(2)</a>
+                        <a href="javascript:;">在线用户(${num3})</a>
                     </h3>
                     <ul class="b clearfix">
+                        <c:forEach items="${list}" var="user">
                         <li>
-                            <div><img src="images/default.png" height="55"/> </div>
-                            <p>Mr.King</p>
+                            <div><img src="${pageContext.request.contextPath}/images/${user.picurl}" height="55"/> </div>
+                            <p>${user.username}</p>
                         </li>
-                        <li>
-                            <div><img src="images/default.png" height="55"/></div>
-                            <p>疯子</p>
-                        </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

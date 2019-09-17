@@ -1,36 +1,60 @@
 package com.bbs.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Article {
-    private Integer articleid;
+    private Integer articleId;
 
     private String title;
 
-    private Date sendtime;
+    private Date sendTime;
 
-    private String sendername;
+    private String senderName;
 
-    private Integer istop;
+    private Integer isTop;
 
-    private Integer replycount;
+    private Integer replyCount;
 
-    private Integer upvotecount;
+    private Integer upvoteCount;
 
-    private Integer browsecount;
+    private Integer browseCount;
 
-    private Integer zoneid;
+    private Integer zoneId;
 
-    private Integer isreport;
+    private Integer isReport;
 
     private String content;
 
-    public Integer getArticleid() {
-        return articleid;
+    private UserInfo userInfo;
+
+    private List<Comment> comments;
+
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setArticleid(Integer articleid) {
-        this.articleid = articleid;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    private String zoneName;
+
+    public String getZoneName() {
+        return zoneName;
+    }
+
+    public void setZoneName(String zoneName) {
+        this.zoneName = zoneName;
+    }
+
+    public Integer getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getTitle() {
@@ -41,68 +65,69 @@ public class Article {
         this.title = title;
     }
 
-    public Date getSendtime() {
-        return sendtime;
+    public String getSendTime() {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        return sdf.format(sendTime);
     }
 
-    public void setSendtime(Date sendtime) {
-        this.sendtime = sendtime;
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
     }
 
-    public String getSendername() {
-        return sendername;
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setSendername(String sendername) {
-        this.sendername = sendername;
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
-    public Integer getIstop() {
-        return istop;
+    public Integer getIsTop() {
+        return isTop;
     }
 
-    public void setIstop(Integer istop) {
-        this.istop = istop;
+    public void setIsTop(Integer isTop) {
+        this.isTop = isTop;
     }
 
-    public Integer getReplycount() {
-        return replycount;
+    public Integer getReplyCount() {
+        return replyCount;
     }
 
-    public void setReplycount(Integer replycount) {
-        this.replycount = replycount;
+    public void setReplyCount(Integer replyCount) {
+        this.replyCount = replyCount;
     }
 
-    public Integer getUpvotecount() {
-        return upvotecount;
+    public Integer getUpvoteCount() {
+        return upvoteCount;
     }
 
-    public void setUpvotecount(Integer upvotecount) {
-        this.upvotecount = upvotecount;
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
     }
 
-    public Integer getBrowsecount() {
-        return browsecount;
+    public Integer getBrowseCount() {
+        return browseCount;
     }
 
-    public void setBrowsecount(Integer browsecount) {
-        this.browsecount = browsecount;
+    public void setBrowseCount(Integer browseCount) {
+        this.browseCount = browseCount;
     }
 
-    public Integer getZoneid() {
-        return zoneid;
+    public Integer getZoneId() {
+        return zoneId;
     }
 
-    public void setZoneid(Integer zoneid) {
-        this.zoneid = zoneid;
+    public void setZoneId(Integer zoneId) {
+        this.zoneId = zoneId;
     }
 
-    public Integer getIsreport() {
-        return isreport;
+    public Integer getIsReport() {
+        return isReport;
     }
 
-    public void setIsreport(Integer isreport) {
-        this.isreport = isreport;
+    public void setIsReport(Integer isReport) {
+        this.isReport = isReport;
     }
 
     public String getContent() {
@@ -111,5 +136,13 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

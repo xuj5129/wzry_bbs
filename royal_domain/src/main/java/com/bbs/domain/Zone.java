@@ -1,33 +1,33 @@
 package com.bbs.domain;
 
 public class Zone {
-    private Integer zoneid;
+    private Integer zoneId;
 
-    private String zonename;
+    private String zoneName;
 
-    private Integer isdef;
+    private Integer isDef;
 
-    public Integer getZoneid() {
-        return zoneid;
+    public Integer getZoneId() {
+        return zoneId;
     }
 
-    public void setZoneid(Integer zoneid) {
-        this.zoneid = zoneid;
+    public void setZoneId(Integer zoneId) {
+        this.zoneId = zoneId;
     }
 
-    public String getZonename() {
-        return zonename;
+    public String getZoneName() {
+        return zoneName;
     }
 
-    public void setZonename(String zonename) {
-        this.zonename = zonename == null ? null : zonename.trim();
+    public void setZoneName(String zoneName) {
+        this.zoneName = zoneName;
     }
 
-    public Integer getIsdef() {
-        return isdef;
+    public Integer getIsDef() {
+        return isDef;
     }
 
-    public void setIsdef(Integer isdef) {
-        this.isdef = isdef;
+    public void setIsDef(Integer isDef) {
+        this.isDef = isDef;
     }
 }

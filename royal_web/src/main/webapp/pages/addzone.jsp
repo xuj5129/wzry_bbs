@@ -67,31 +67,26 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li class="cur"><a href="getUser.do?method=userInfo">个人信息</a></li>
+                    <li><a href="getUser.do?method=userInfo">个人信息</a></li>
                     <li><a href="getUser.do?method=userPwd">修改密码</a></li>
-                    <li><a href="getUser.do?method=userPwd">开辟新板块</a></li>
+                    <li class="cur"><a href="getUser.do?method=userPwd">开辟新板块</a></li>
 
                 </ul>
 
                 <form action="#" method="post" enctype="multipart/form-data">
                     <ul class="bd">
                         <li class="clearfix">
-                            <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" class="txt" value="" readonly="readonly"/></div>
+                            <div class="info-l">板块名称：</div>
+                            <div class="info-r"><input type="text" name="zoneName" class="txt" value=""/></div>
                         </li>
                         <li class="clearfix">
-                            <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" value=""/></div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="info-l">上传头像：</div>
-                            <div class="info-r"><input type="file" name="picUrl" class="file-btn"/></div>
+                            <div class="info-l">申请理由：</div>
+                            <div class="info-r"><input type="textarea" name="reason" class="txt" value="" style="height:80px;width:200px " /></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit" class="btn" value="保存"/>
-                                <span style="color:red;">修改成功！</span>
                             </div>
                         </li>
                     </ul>
