@@ -3,7 +3,6 @@ package com.bbs.dao;
 import com.bbs.domain.Article;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -80,19 +79,4 @@ public interface ArticleDao {
     //查询今日贴数
     @Select("select count(*) from bbs_article_table where sendTime like #{format}%")
     int getNumOfTodayArticle(String format);
-
-
-    @Update("update bbs_article_table set isTop = #{isTop} where articleId =#{id}")
-    void changeStatus(@Param("id") int id,@Param("isTop") Integer isTop);
-
-    @Update("update bbs_article_table set isReport = #{isReport} where articleId =#{id}")
-    void deleteArticle(@Param("id")int id,@Param("isReport") Integer isReport);
-
-    /**
-     * 根据 帖子标题和 发帖人 模糊查询
-     *  参数：帖子标题，发帖 人
-     * @return 帖子 的 查询结果集
-     */
-    @Select("select * from bbs_article_table  where title like #{title} or sendername like #{senderName}")
-    List<Article> findByTicle(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
 }

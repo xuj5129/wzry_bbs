@@ -53,12 +53,11 @@
             <div class="user-info-l l">
                 <div class="user-info-l-t">
                     <img src="images/default.png" alt=""/>
-                    <div class="username">${existUser.username}</div>
+                    <div class="username">张无忌</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li><i class="info-icon"></i>我的资料</li>
                     <li class="cur"><i class="safe-icon"></i>修改密码</li>
-                    <li><i class="safe-icon"></i>开辟新板块</li>
                 </ul>
             </div>
 
@@ -68,12 +67,7 @@
                     <li><a href="${pageContext.request.contextPath}/pages/userInfo.jsp">个人信息</a></li>
                     <li class="cur"><a href="#">修改密码</a></li>
                     <li><a href="${pageContext.request.contextPath}/pages/addzone.jsp">开辟新板块</a></li>
-                    <%--<li>开辟板块<br>
-                        <form action="" method="post">
-                            板块名称：<input type="text" name="zoneName"><br>
-                            申请理由：<input type="text" name="reason" >
-                        </form>
-                    </li>--%>
+
                 </ul>
                 <form action="#" method="post">
                   <ul class="bd">

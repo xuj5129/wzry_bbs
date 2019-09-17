@@ -1,5 +1,6 @@
 package com.bbs.controller;
 
+import com.bbs.domain.Article;
 import com.bbs.domain.UserInfo;
 import com.bbs.service.ArticleService;
 import com.bbs.service.UserService;
@@ -28,11 +29,14 @@ public class BeginController {
         //查询今日帖数
         int num2 = articleService.getNumOfTodayArticle();
         //查询在线用户信息
-        List<UserInfo> list = userService.findUserOnline();
+        List<UserInfo> userOnlineList = userService.findUserOnline();
         //查询在线用户数
         int num3 = userService.numOfUserOnline();
 
-        mv.addObject("list",list);
+        //查询所有没被举报帖子
+        List<Article> articleList = articleService.findArticleNotReport();
+        mv.addObject("articleList",articleList);
+        mv.addObject("userOnlineList",userOnlineList);
         mv.addObject("num1", num1);
         mv.addObject("num2", num2);
         mv.addObject("num3", num3);
@@ -40,4 +44,8 @@ public class BeginController {
         mv.setViewName("index");
         return mv;
     }
+
+
+
+
 }

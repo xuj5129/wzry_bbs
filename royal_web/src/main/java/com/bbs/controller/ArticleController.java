@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
@@ -45,5 +47,15 @@ public class ArticleController {
         return "getArticle.do?articleId="+articleId;
     }
 
+
+    @RequestMapping("/findArticleByWord.do")
+    public ModelAndView findArticleByWord(String keyWord){
+        ModelAndView mv = new ModelAndView();
+        List<Article> articleList = articleService.findArticleByWord(keyWord);
+        mv.addObject("articleList",articleList);
+        mv.addObject("keyWord",keyWord);
+        mv.setViewName("index");
+        return mv;
+    }
 
 }
