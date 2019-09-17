@@ -32,6 +32,12 @@ public interface ArticleDao {
     List<Article> findAll();
 
     /**
+     * 前台显示查询所有帖子信息，不查询出被举报的帖子
+     */
+    @Select("select * from bbs_article_table where isReport=0")
+    List<Article> findAllWhereNotReport();
+
+    /**
      * 获取所有帖子数
      * @return
      */
@@ -63,12 +69,16 @@ public interface ArticleDao {
             @Result(column = "replyCount",property = "replyCount"),
             @Result(column = "upvoteCount",property = "upvoteCount"),
             @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "articleId",property = "replyCount",one =
+            @One(select = "com.bbs.dao.CommentDao.getCommentCountByArticleId")),
+            @Result(column = "senderName",property = "userInfo",one =
+            @One(select = "com.bbs.dao.UserDao.findUserByUserName")),
             @Result(column = "articleId", property = "comments", javaType = List.class, many =
             @Many(select = "com.bbs.dao.CommentDao.findCommentByArticleId"))
     })
     Article findById(Integer id);
     //查询今日贴数
-    @Select("select count(*) from bbs_article_table where sendTime like 'format%'")
+    @Select("select count(*) from bbs_article_table where sendTime like #{format}%")
     int getNumOfTodayArticle(String format);
 
 

@@ -71,8 +71,8 @@
                 <!--原帖楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="images/default.png"/></div>
-                        <div class="floorer-name">${article.senderName}</div>
+                        <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/${article.userInfo.picurl}"/></div>
+                        <div class="floorer-name">${article.userInfo.username}</div>
                     </div>
                     <div class="floor-con l">
                         <div class="floor-info clearfix">
@@ -93,7 +93,7 @@
                 <c:forEach items="${article.comments}" var="comment" varStatus="i">
                     <li class="floor clearfix">
                         <div class="floorer-info l">
-                            <div class="floorer-photo"><img src="images/default.png"/></div>
+                            <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/${comment.userInfo.picurl}"/></div>
                             <div class="floorer-name">${comment.commentUserName}</div>
                         </div>
                         <div class="floor-con l">
@@ -111,9 +111,9 @@
                                         <!-- 回复部分,楼中楼 -->
                                         <c:forEach items="${comment.replys}" var="reply">
                                         <li class="clearfix">
-                                            <div class="floor-ans-pho l"><img src="images/default.png"/></div>
+                                            <div class="floor-ans-pho l"><img src="${pageContext.request.contextPath}/images/${reply.userInfo.picurl}"/></div>
                                             <div class="floor-ans-con l">
-                                                <span class="name">${reply.replyUserName}</span>：${reply.replyContent}
+                                                <span class="name">${reply.userInfo.username}</span>：${reply.replyContent}
                                                 <span class="ans-time">${reply.replyTime}</span>
                                             </div>
                                         </li>
@@ -135,10 +135,13 @@
         <div class="detail-to-comment">
             <div class="tit"><a name="comment">发表评论</a></div>
             <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
+            <c:if test="${empty loginUser}"><div class="con">您没有登录论坛，请登录后再进行回复</div></c:if>
 
+            <c:if test="${not empty loginUser}">
             <!-- 登录后显示评论输入框-->
-            <form action="#" method="post">
+            <form action="/article/saveComment.do" method="post">
                 <input hidden name="articleid" value="${article.articleId}">
+                <input hidden name="commentUserName" value="${loginUser.username}">
                 <div class="con con-loged">
                     <div class="con-t">
                         <textarea id="content" name="content" placeholder="请在此输入您要回复的信息"></textarea>
@@ -149,6 +152,7 @@
                     </div>
                 </div>
             </form>
+            </c:if>
         </div>
     </div>
 </div>
@@ -159,7 +163,7 @@
 
 
 <!-- 回复弹出框 -->
-<form action="" method="post">
+<form action="/article/saveReply.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">

@@ -27,7 +27,17 @@ public class Article {
 
     private String content;
 
+    private UserInfo userInfo;
+
     private List<Comment> comments;
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     private String zoneName;
 

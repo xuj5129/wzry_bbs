@@ -19,6 +19,17 @@ public class Comment {
 
     private List<Reply> replys;
 
+    private UserInfo userInfo;
+
+
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     public Integer getCommentId() {
         return commentId;
@@ -67,6 +78,10 @@ public class Comment {
 
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
+    }
+
+    public void setReplys(List<Reply> replys) {
+        this.replys = replys;
     }
 
     public List<Reply> getReplys() {

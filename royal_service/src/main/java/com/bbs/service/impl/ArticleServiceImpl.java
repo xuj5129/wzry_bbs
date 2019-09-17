@@ -1,7 +1,11 @@
 package com.bbs.service.impl;
 
 import com.bbs.dao.ArticleDao;
+import com.bbs.dao.CommentDao;
+import com.bbs.dao.ReplyDao;
 import com.bbs.domain.Article;
+import com.bbs.domain.Comment;
+import com.bbs.domain.Reply;
 import com.bbs.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,15 @@ import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
-@Service
+@Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDao articleDao;
+    @Autowired
+    private CommentDao commentDao;
+    @Autowired
+    private ReplyDao replyDao;
 
 
     @Override
@@ -50,15 +58,38 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
+    @Override
     public void saveArticle(Article article) {
         article.setSendTime(new Date());
         articleDao.saveArticle(article);
     }
 
     @Override
+    public void saveComment(Comment comment) {
+        comment.setCommentTime(new Date());
+        commentDao.saveComment(comment);
+    }
+
+    @Override
+    public void saveReply(Reply reply) {
+        reply.setReplyTime(new Date());
+        replyDao.saveReply(reply);
+    }
+
+    @Override
+    public int findArticleIdByCommentId(int commentId) {
+        return commentDao.findArticleIdByCommentId(commentId);
+    }
+
+    @Override
     public List<Article> findAll(int page,int pageSize) {
         PageHelper.startPage(page,pageSize);
         return articleDao.findAll();
+    }
+
+    @Override
+    public List<Article> findAllWhereNotReport() {
+        return articleDao.findAllWhereNotReport();
     }
 
     @Override

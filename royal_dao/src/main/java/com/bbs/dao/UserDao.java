@@ -12,4 +12,7 @@ public interface UserDao {
 
     @Select("SELECT count(*) FROM bbs_user_table WHERE loginStatus = 1 ")
     int numOfUserOnline();
+
+    @Select("select * from bbs_user_table where username=#{username}")
+    UserInfo findUserByUserName(String username);
 }

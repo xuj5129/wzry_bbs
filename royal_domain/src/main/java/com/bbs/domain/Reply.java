@@ -14,6 +14,15 @@ public class Reply {
 
     private Integer commentId;
 
+    private UserInfo userInfo;
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     public Integer getReplyId() {
         return replyId;
