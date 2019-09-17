@@ -15,7 +15,7 @@ public class ZoneServiceImpl implements ZoneService {
     //添加新板块
     @Override
     public String findZoneName(ZoneApply zoneApply) {
-        ZoneApply exitZoneApply = zoneDao.findZoneName(zoneApply.getzoneName());
+        ZoneApply exitZoneApply = zoneDao.findZoneName(zoneApply.getZoneName());
         if(exitZoneApply==null){
             //板块不存在，新增
             zoneApply.setStatus(0);

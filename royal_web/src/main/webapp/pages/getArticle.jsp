@@ -85,7 +85,9 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        <span id="thisUpvote" class="icon-feedback" style="right: 150px"><a href="javascript:changeUpvote()"> <i></i> 点赞</a></span>
+                        <span class="icon-comment" style="right: 80px"><a href="#comment"> <i></i> 评论</a></span>
+                        <span class="icon-report" ><a href="javascript:(0)"> <i></i> 举报</a></span>
                     </div>
                 </li>
 
@@ -120,8 +122,8 @@
                                         </c:forEach>
                                     </ul>
                                 </div>
-                                <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(${comment.commentId})"> <i></i> 回复</a>
+                                <span class="icon-comment">
+                                <a href="javascript:;" onclick="showReplyDialog(${i.index+1},${comment.commentId})"> <i></i> 回复</a>
                             </span>
                             </div>
                         </div>
@@ -135,19 +137,19 @@
         <div class="detail-to-comment">
             <div class="tit"><a name="comment">发表评论</a></div>
             <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
-            <c:if test="${empty loginUser}"><div class="con">您没有登录论坛，请登录后再进行回复</div></c:if>
+            <c:if test="${empty existUser}"><div class="con">您没有登录论坛，请登录后再进行回复</div></c:if>
 
-            <c:if test="${not empty loginUser}">
+            <c:if test="${not empty existUser}">
             <!-- 登录后显示评论输入框-->
-            <form action="/article/saveComment.do" method="post">
-                <input hidden name="articleid" value="${article.articleId}">
-                <input hidden name="commentUserName" value="${loginUser.username}">
+            <form id="commentForm" action="/article/saveComment.do" method="post">
+                <input hidden name="articleId" value="${article.articleId}">
+                <input hidden name="commentUserName" value="${existUser.username}">
                 <div class="con con-loged">
                     <div class="con-t">
-                        <textarea id="content" name="content" placeholder="请在此输入您要回复的信息"></textarea>
+                        <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
                     </div>
                     <div class="con-b">
-                        <input type="submit" class="btn"/>
+                        <input type="button" onclick="commentCode()" value="提交" class="btn"/>
                         <span class="num">不能超过5000字</span>
                     </div>
                 </div>
@@ -163,7 +165,7 @@
 
 
 <!-- 回复弹出框 -->
-<form action="/article/saveReply.do" method="post">
+<form id="replyForm" action="" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
@@ -178,8 +180,9 @@
             </div>
             <div class="win_ft">
                 <div class="win_ft_in">
-                    <input type="submit" class="btn" value="回复"/>
+                    <input type="button" class="btn" onclick="saveReply()" value="回复"/>
                     <input type="hidden" id="commentId" name="commentId"/>
+                    <input type="hidden" id="replyUserName" name="replyUserName">
                 </div>
             </div>
         </div>
@@ -196,16 +199,113 @@
 </body>
 
 <script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url:"/upvote/findIsUpvote.do",
+            data:{"userName":<c:if test="${empty existUser}">'游客'</c:if>
+                <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                "articleId":${article.articleId}
+            },
+            dataType:"json",
+            type:"post",
+            success:function (isUpvote) {
+                if(isUpvote==1){
+                    $('#thisUpvote').attr("class","icon-feedback1");
+                }
+            }
+        })
+    })
+
     //弹出回复框
-    function showDialog(num, commentId) {
-        var loginUser = "${loginUser}";
-        if (!loginUser) {
+    function showReplyDialog(num, commentId) {
+        var existUser = "${existUser}";
+        if (!existUser) {
             alert("请登录");
             return;
         }
+        $("#replyUserName").val("admin");
         $("#commentId").val(commentId);
         $('.pop-box').css('display', 'block');
         $("#floorSpan").html(num);
+    }
+
+    //回复验证
+    function saveReply() {
+        if ($("#replyContent").val().length>0){
+            $.ajax({
+                url:"/article/saveReply.do",
+                data:$("#replyForm").serialize(),
+                type:"post",
+                dataType:"text",
+                success:function(){
+                    alert("发表成功")
+                    location.href="/article/getArticle.do?articleId="+${article.articleId};
+                },
+                error:function () {
+                    alter("发表失败")
+                }
+            })
+        }else{
+            alert("请填写内容");
+        }
+    }
+
+    //弹出举报框
+    function showReport() {
+        
+    }
+
+    //评论验证
+    function commentCode() {
+        if($('#content').val().trim()=="") {
+            alert("请先输入内容，再提交");
+        }else{
+            $('#commentForm').submit();
+        }
+    }
+
+    //改变点赞状态
+    function changeUpvote() {
+        
+        if(${empty existUser}){
+            alert("请先登录！");
+        }else if($('#thisUpvote').hasClass("icon-feedback")){
+            $.ajax({
+                url:"/upvote/changeIsUpvote.do",
+                data:{
+                    "upvoteUserName":
+                        <c:if test="${empty existUser}">'游客'</c:if>
+                    <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                    "upvoteArticleId":${article.articleId},
+                    "isUpvote":"0"
+                },
+                dataType:"json",
+                type:"POST",
+                success: function () {
+                    $('#thisUpvote').attr("class","icon-feedback1");
+                },
+                error:function () {
+                    alert("点赞失败！")
+                }
+            })
+
+        }else if($('#thisUpvote').hasClass('icon-feedback1')){
+            $.ajax({
+                url:"/upvote/changeIsUpvote.do",
+                data:{
+                    "upvoteUserName":<c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                    "upvoteArticleId":${article.articleId},
+                    "isUpvote":1},
+                dataType:"json",
+                type:"POST",
+                success: function () {
+                    $('#thisUpvote').attr("class","icon-feedback");
+                },
+                error:function () {
+                    alert("取消点赞失败！")
+                }
+            })
+        }
     }
 </script>
 </html>

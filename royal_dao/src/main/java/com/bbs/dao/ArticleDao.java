@@ -29,13 +29,6 @@ public interface ArticleDao {
             ))
     })
     List<Article> findAll();
-
-    /**
-     * 前台显示查询所有帖子信息，不查询出被举报的帖子
-     */
-    @Select("select * from bbs_article_table where isReport=0")
-    List<Article> findAllWhereNotReport();
-
     /**
      * 获取所有帖子数
      * @return
@@ -68,6 +61,8 @@ public interface ArticleDao {
             @Result(column = "replyCount",property = "replyCount"),
             @Result(column = "upvoteCount",property = "upvoteCount"),
             @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "articleId",property = "upvoteCount",one =
+            @One(select = "com.bbs.dao.UpvoteDao.getUpvoteCountByArticleId")),
             @Result(column = "articleId",property = "replyCount",one =
             @One(select = "com.bbs.dao.CommentDao.getCommentCountByArticleId")),
             @Result(column = "senderName",property = "userInfo",one =
@@ -77,6 +72,27 @@ public interface ArticleDao {
     })
     Article findById(Integer id);
     //查询今日贴数
-    @Select("select count(*) from bbs_article_table where sendTime like #{format}%")
+    @Select("select count(*) from bbs_article_table where sendTime like #{format}")
     int getNumOfTodayArticle(String format);
+
+    @Update("update bbs_article_table set isTop = #{isTop} where articleId =#{id}")
+    void changeStatus(@Param("id") int id,@Param("isTop") Integer isTop);
+
+    @Update("update bbs_article_table set isReport = #{isReport} where articleId =#{id}")
+    void deleteArticle(@Param("id")int id,@Param("isReport") Integer isReport);
+
+    /**
+     * 根据 帖子标题和 发帖人 模糊查询
+     *  参数：帖子标题，发帖 人
+     * @return 帖子 的 查询结果集
+     */
+    @Select("select * from bbs_article_table  where title like #{title} or sendername like #{senderName}")
+    List<Article> findByTicle(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
+
+    @Select("select * from bbs_article_table where isReport=0 order by isTop DESC")
+    List<Article> findAllWhereNotReport();
+
+    @Select("SELECT * FROM bbs_article_table WHERE title LIKE #{word} OR content LIKE #{word} order by isTop DESC")
+    List<Article> findArticleByWord(String word);
+
 }

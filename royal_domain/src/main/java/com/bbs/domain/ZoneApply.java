@@ -1,5 +1,6 @@
 package com.bbs.domain;
 
+
 public class ZoneApply {
     private Integer applyZoneId;
 

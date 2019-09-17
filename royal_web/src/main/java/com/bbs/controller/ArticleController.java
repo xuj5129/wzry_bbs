@@ -8,6 +8,7 @@ import com.bbs.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -37,14 +38,13 @@ public class ArticleController {
     @RequestMapping("/saveComment.do")
     public String saveComment(Comment comment){
         articleService.saveComment(comment);
-        return "getArticle.do?articleId="+comment.getArticleId();
+        return "redirect:getArticle.do?articleId="+comment.getArticleId();
     }
 
     @RequestMapping("/saveReply.do")
-    public String saveReply(Reply reply){
+    public @ResponseBody String saveReply(Reply reply){
         articleService.saveReply(reply);
-        int articleId = articleService.findArticleIdByCommentId(reply.getCommentId());
-        return "getArticle.do?articleId="+articleId;
+        return "发表成功";
     }
 
 

@@ -524,9 +524,18 @@ a:visited {
 
   /*评论*/
 .floor-con .icon-comment i{
-  background-position: -128px -32px;
+    background-position: -128px -32px;
 }
-.floor-con .icon-comment,.floor-con .icon-feedback {
+
+.floor-con .icon-report i{
+    background-position: -64px -16px;
+}
+
+.floor-con .icon-feedback1 i{
+    background-position: -112px -32px;
+}
+
+.floor-con .icon-comment,.floor-con .icon-feedback ,.floor-con .icon-report ,.floor-con .icon-feedback1{
   position: absolute;
   right: 10px;
   bottom: 10px;
