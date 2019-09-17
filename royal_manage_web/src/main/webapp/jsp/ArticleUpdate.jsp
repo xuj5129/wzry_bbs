@@ -19,13 +19,13 @@
                     <div class="form-group">
                         <label for="detail_title" class="col-sm-2 control-label">标题</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" name="title" id="detail_title" disabled></textarea>
+                            <textarea class="form-control" rows="3" name="title" id="detail_title" disabled>${article.title}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="detail_content" class="col-sm-2 control-label">内容</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" name="content" id="detail_content" disabled></textarea>
+                            <textarea class="form-control" rows="3" name="content" id="detail_content" disabled>${article.content}</textarea>
                         </div>
                     </div>
                 </form>
