@@ -101,4 +101,15 @@ public class ArticleServiceImpl implements ArticleService {
     public Article findById(Integer id) {
         return articleDao.findById(id);
     }
+
+    @Override
+    public List<Article> findByTitle(String title, String sendername) throws Exception {
+        PageHelper.startPage(1,7);
+
+
+
+       List<Article> articleList = articleDao.findByTicle("%"+title+"%","%"+sendername+"%");
+
+        return articleList;
+    }
 }

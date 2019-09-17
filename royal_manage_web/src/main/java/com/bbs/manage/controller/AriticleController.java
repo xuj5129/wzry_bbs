@@ -45,4 +45,19 @@ public class AriticleController  {
         articleService.deleteArticle(id,isReport);
         return "redirect:findAll.do";
     }
+
+    @RequestMapping("/findByTitle.do")
+    public ModelAndView findByTitleName( @RequestParam(name = "title",required = true, defaultValue = "") String title ,@RequestParam(name="sendername",required = true,defaultValue = "") String sendername) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+//        System.out.println("hello controller");
+
+        List<Article> articleList = articleService.findByTitle(title,sendername);
+
+        PageInfo pageInfo = new PageInfo(articleList);
+
+        modelAndView.addObject("pageInfo",pageInfo);
+        modelAndView.setViewName("ArticlePage");
+        return modelAndView;
+    }
 }

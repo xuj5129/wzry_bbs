@@ -20,9 +20,7 @@
 
 
 </style>
-<script>
 
-</script>
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
@@ -48,7 +46,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm">
+                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/article/findByTitle.do"?page=1&size=7>
                             <table>
                                 <tr>
                                     <th>
@@ -67,7 +65,7 @@
                                                name="sendername" value="">
                                     </th>
                                     <th colspan="2">
-                                        <input type="button" value="查询" class="form-control btn-primary">
+                                        <input type="submit" value="查询" class="form-control btn-primary" >
                                     </th>
                                 </tr>
                             </table>
@@ -172,4 +170,6 @@
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
 <%@ include file="ArticleUpdate.jsp"%>
 </body>
+
+
 </html>

@@ -24,10 +24,16 @@ public interface ArticleService {
 
     Article findById(Integer id);
 
+
+    List<Article> findByTitle(String title , String sendername) throws Exception;
+
     int getNumOfTodayArticle();
 
 
     void changeStatus(int id, Integer isTop);
 
     void deleteArticle(int id, Integer isReport);
+
+
 }
+
