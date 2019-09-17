@@ -1,6 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Word;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -16,4 +17,7 @@ public interface WordDao {
 
     @Update("update bbs_word_table set status = #{status} where wordId =#{wordId}")
     void changeStatus(@Param("wordId") Integer wordId,@Param("status") Integer status);
+
+    @Insert("insert into bbs_word_table (word) values(#{word})")
+    void addWord(String word);
 }

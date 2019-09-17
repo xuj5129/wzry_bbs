@@ -22,4 +22,7 @@ public interface UserDao {
 
     @Select("select * from bbs_user_table where username=#{username}")
     UserInfo findUserByUserName(String username);
+
+    @Select("select * from bbs_user_table")
+    List<UserInfo> findAll();
 }

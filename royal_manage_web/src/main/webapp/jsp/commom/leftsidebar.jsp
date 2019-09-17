@@ -7,7 +7,7 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true">用户管理</span>
             </a>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/user/findByPage.do" >用户信息</a></li>
+                <li role="presentation"><a href="/user/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >用户信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation"><a href="/zoneApply/findByPage.do" >版块审核</a></li>

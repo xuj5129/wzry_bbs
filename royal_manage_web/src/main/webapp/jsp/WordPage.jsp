@@ -40,13 +40,13 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="#">用户帖管理</a></li>
+                        <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=1&pageSize=8">用户帖管理</a></li>
                         <li class="active">敏感词汇管理</li>
                     </ol>
                 </div>
                 <hr>
                 <!-- Table -->
-                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#article_detail" >新增敏感词</button>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">新增敏感词</button>
 
                 <div style="clear:both"></div>
                 <hr>
@@ -135,5 +135,48 @@
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
 <%@ include file="ArticleUpdate.jsp"%>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                   新增敏感词汇
+                </h4>
+            </div>
+            <div class="modal-body"  >
+                <input id="addWord" type="text" style="height: 67px;width: 540px">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="addWord()">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<script type="text/javascript">
+    function addWord() {
+        var addWord = $("#addWord").val();
+        $.ajax({
+            url : "${pageContext.request.contextPath}/word/addWord.do",
+            type : "POST",
+            data : {"word":addWord},
+            // 成功后开启模态框
+            success : function(){
+                location.reload()
+            }
+        });
+    }
+
+
+</script>
 </body>
 </html>

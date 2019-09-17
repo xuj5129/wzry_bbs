@@ -40,7 +40,7 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="#">用户帖管理</a></li>
+                        <li><a href="${pageContext.request.contextPath}/report/findAll.do?page=1&pageSize=${pageInfo.pageSize}">用户帖管理</a></li>
                         <li class="active">审批举报</li>
                     </ol>
                 </div>

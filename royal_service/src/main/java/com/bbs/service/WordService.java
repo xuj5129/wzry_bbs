@@ -8,4 +8,6 @@ public interface WordService {
     List<Word> findAll(Integer page, Integer pageSize);
 
     void changeStatus(Integer wordId, Integer status);
+
+    void addWord(String word);
 }

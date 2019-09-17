@@ -22,6 +22,7 @@ public class WordServiceImpl implements WordService {
         return wordDao.findAll();
     }
 
+    //更改敏感词汇使用状态
     @Override
     public void changeStatus(Integer wordId, Integer status) {
         if(status == 0){
@@ -31,5 +32,11 @@ public class WordServiceImpl implements WordService {
             status = 0;
             wordDao.changeStatus(wordId,status);
         }
+    }
+
+    //增加敏感词汇
+    @Override
+    public void addWord(String word) {
+        wordDao.addWord(word);
     }
 }
