@@ -23,7 +23,7 @@
                 <li role="presentation"><a href="/article/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >帖子信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/word/findByPage.do" >敏感词汇管理</a></li>
+                <li role="presentation"><a href="/word/findAll.do?page=1&pageSize=8" >敏感词汇管理</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation"><a href="/report/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >审批举报</a></li>
