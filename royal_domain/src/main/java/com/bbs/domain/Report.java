@@ -16,6 +16,9 @@ public class Report {
 
     private Integer articleId;
 
+    private Article article;
+
+
     public Integer getReportId() {
         return reportId;
     }

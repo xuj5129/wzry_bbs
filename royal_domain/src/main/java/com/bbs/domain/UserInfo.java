@@ -1,8 +1,9 @@
 package com.bbs.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserInfo {
+public class UserInfo implements Serializable {
     private Integer userid;
 
     private String username;
@@ -14,6 +15,7 @@ public class UserInfo {
     private String picurl;//头像
 
     private Integer role;//1代表普通用户；2代表高级用户，3代表超级管理员
+    private String  roleStr;//1代表普通用户；2代表高级用户，3代表超级管理员
 
     private Date lastlogintime;
 
@@ -71,6 +73,24 @@ public class UserInfo {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public String getRoleStr() {
+        //1代表普通用户；2代表高级用户，3代表超级管理员
+        if(role!=null){
+            if(role==1){
+                roleStr="普通用户";
+            }else if(role==2){
+                roleStr="高级用户";
+            }else if(role==3){
+                roleStr="超级管理员";
+            }
+        }
+        return roleStr;
+    }
+
+    public void setRoleStr(String roleStr) {
+        this.roleStr = roleStr;
     }
 
     public Date getLastlogintime() {

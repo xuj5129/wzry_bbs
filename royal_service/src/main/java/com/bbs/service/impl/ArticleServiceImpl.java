@@ -26,6 +26,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ReplyDao replyDao;
 
 
+    //今日总帖子数
     @Override
     public int getNumOfTodayArticle() {
         Date date = new Date();
@@ -34,6 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.getNumOfTodayArticle(format);
     }
 
+    //改变帖子置顶状态
     @Override
     public void changeStatus(int id, Integer isTop) {
         if(isTop == 1){
@@ -46,6 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+    //改变帖子屏蔽状态
     @Override
     public void deleteArticle(int id, Integer isReport) {
         if(isReport == 1){
@@ -58,45 +61,53 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
+    //保存帖子
     @Override
     public void saveArticle(Article article) {
         article.setSendTime(new Date());
         articleDao.saveArticle(article);
     }
 
+    //保存评论
     @Override
     public void saveComment(Comment comment) {
         comment.setCommentTime(new Date());
         commentDao.saveComment(comment);
     }
 
+    ///保存回复
     @Override
     public void saveReply(Reply reply) {
         reply.setReplyTime(new Date());
         replyDao.saveReply(reply);
     }
 
+    //查询帖子回复id
     @Override
     public int findArticleIdByCommentId(int commentId) {
         return commentDao.findArticleIdByCommentId(commentId);
     }
 
+    //查询所有帖子
     @Override
     public List<Article> findAll(int page,int pageSize) {
         PageHelper.startPage(page,pageSize);
         return articleDao.findAll();
     }
 
+    //查询没有被举报的帖子
     @Override
     public List<Article> findAllWhereNotReport() {
         return articleDao.findAllWhereNotReport();
     }
 
+    //查询总帖子数
     @Override
     public int getTotalArticleNum() {
         return articleDao.getTotalArticleNum();
     }
 
+    ///通过帖子id查询帖子
     @Override
     public Article findById(Integer id) {
         return articleDao.findById(id);
