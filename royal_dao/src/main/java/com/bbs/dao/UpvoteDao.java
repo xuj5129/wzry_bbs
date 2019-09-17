@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UpvoteDao {
 
-    @Select("select count(*) from bbs_upvote_table where upvoteArticleId=#{articleId}")
+    @Select("select count(*) from bbs_upvote_table where upvoteArticleId=#{articleId} and isUpvote=1")
     int getUpvoteCountByArticleId(int articleId);
 
     @Select("select * from bbs_upvote_table where upvoteArticleId=#{articleId} and upvoteUserName=#{userName}")

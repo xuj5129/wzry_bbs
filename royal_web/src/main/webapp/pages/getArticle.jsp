@@ -35,7 +35,7 @@
                     <h2 class="l">${article.title}</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
-					         <a href="#"><i></i>${article.upvoteCount}</a>
+					         <a href="javascript:(0)"><i></i>${article.upvoteCount}</a>
 					     </span>
                         <span class="icon-talk">
 						     <i></i>${article.replyCount}
@@ -54,7 +54,7 @@
 
         <!--导航，回首页，帖子标题，排序-->
         <div class="detail-page-box clearfix">
-            <a href="index.do">
+            <a href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do">
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
@@ -293,7 +293,9 @@
             $.ajax({
                 url:"/upvote/changeIsUpvote.do",
                 data:{
-                    "upvoteUserName":<c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                    "upvoteUserName":
+                        <c:if test="${empty existUser}">'游客'</c:if>
+                        <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
                     "upvoteArticleId":${article.articleId},
                     "isUpvote":1},
                 dataType:"json",

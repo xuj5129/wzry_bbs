@@ -90,6 +90,22 @@ public interface ArticleDao {
     List<Article> findByTicle(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
 
     @Select("select * from bbs_article_table where isReport=0 order by isTop DESC")
+    @Results({
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "title",property = "title"),
+            @Result(column = "content",property = "content"),
+            @Result(column = "sendTime",property = "sendTime"),
+            @Result(column = "senderName",property = "senderName"),
+            @Result(column = "isTop",property = "isTop"),
+            @Result(column = "replyCount",property = "replyCount"),
+            @Result(column = "upvoteCount",property = "upvoteCount"),
+            @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "zoneId",property = "zoneId"),
+            @Result(column = "articleId",property = "upvoteCount",one =
+            @One(select = "com.bbs.dao.UpvoteDao.getUpvoteCountByArticleId")),
+            @Result(column = "articleId",property = "replyCount",one =
+            @One(select = "com.bbs.dao.CommentDao.getCommentCountByArticleId"))
+    })
     List<Article> findAllWhereNotReport();
 
     @Select("SELECT * FROM bbs_article_table WHERE title LIKE #{word} OR content LIKE #{word} order by isTop DESC")
