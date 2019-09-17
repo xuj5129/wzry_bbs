@@ -3,6 +3,7 @@ package com.bbs.dao;
 import com.bbs.domain.Article;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -54,4 +55,8 @@ public interface ArticleDao {
     //查询今日贴数
     @Select("select count(*) from bbs_article_table where sendTime like 'format%'")
     int getNumOfTodayArticle(String format);
+
+
+    @Update("update bbs_article_table set isTop = #{isTop} where articleId =#{id}")
+    void changeStatus(@Param("id") int id,@Param("isTop") Integer isTop);
 }

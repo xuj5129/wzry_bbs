@@ -99,16 +99,16 @@
                                 <td width="5%" class="line-limit-length">${articles.senderName}</td>
                                 <td width="5%" class="line-limit-length">${articles.isTop}</td>
                                 <td width="5%">${articles.replyCount}</td>
-                                <td width="5%">${upvoteCount}</td>
+                                <td width="5%">${articles.upvoteCount}</td>
                                 <td width="5%">${articles.browseCount}</td>
                                 <td width="15%">${articles.zoneId}</td>
                                 <td width="15%">
-                                    <a href="/article/deleteArticle.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-primary">屏蔽</a>
-                                    <c:if test="${article.istop==0}">
-                                        <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-danger" >置顶</a>
+                                    <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">屏蔽</a>
+                                    <c:if test="${articles.isTop==0}">
+                                        <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-danger" >置顶</a>
                                     </c:if>
-                                    <c:if test="${article.istop==1}">
-                                        <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-info" >取消</a>
+                                    <c:if test="${articles.isTop==1}">
+                                        <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-info" >取消</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -132,7 +132,7 @@
                             <!--首页-->
                             <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >首页</a></li>
                             <!--上一页-->
-
+                            <li>
                                         <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}"  aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>

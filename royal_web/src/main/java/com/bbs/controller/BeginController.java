@@ -24,7 +24,7 @@ public class BeginController {
     public ModelAndView getTotalArticle() {
         ModelAndView mv = new ModelAndView();
         //查询总帖数
-        int num1 = articleService.getTotalArticle();
+        int num1 = articleService.getTotalArticleNum();
         //查询今日帖数
         int num2 = articleService.getNumOfTodayArticle();
         //查询在线用户信息

@@ -25,7 +25,6 @@ public class ArticleController {
         ModelAndView mv=new ModelAndView();
         Article article=articleService.findById(id);
         mv.addObject("article",article);
-
         mv.setViewName("getArticle");
         return mv;
     }

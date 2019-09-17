@@ -15,4 +15,7 @@ public interface ArticleService {
     Article findById(Integer id);
 
     int getNumOfTodayArticle();
+
+
+    void changeStatus(int id, Integer isTop);
 }

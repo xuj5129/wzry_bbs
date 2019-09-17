@@ -26,6 +26,20 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.getNumOfTodayArticle(format);
     }
 
+    @Override
+    public void changeStatus(int id, Integer isTop) {
+        if(isTop == 1){
+            isTop = 0;
+            articleDao.changeStatus(id,isTop);
+        }else{
+            isTop = 1;
+            articleDao.changeStatus(id,isTop);
+        }
+
+    }
+
+
+
     public void saveArticle(Article article) {
         article.setSendTime(new Date());
         articleDao.saveArticle(article);
