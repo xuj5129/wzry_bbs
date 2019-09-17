@@ -59,6 +59,12 @@ public class UserServiceImpl implements UserService {
         return userDao.numOfUserOnline();
     }
 
+    @Override
+    public void register(UserInfo userInfo) {
+        userDao.save(userInfo);
+
+    }
+
     //查询所有用户信息
     @Override
     public List <UserInfo> findAll(Integer page, Integer pageSize) {

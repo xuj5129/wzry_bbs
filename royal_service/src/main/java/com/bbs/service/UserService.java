@@ -18,5 +18,7 @@ public interface UserService {
 
     int numOfUserOnline();
 
+    void register(UserInfo userInfo);
+
     List<UserInfo> findAll(Integer page, Integer pageSize);
 }
