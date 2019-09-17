@@ -26,13 +26,13 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
-    <%@ include file="../../jsp/commom/head.jsp"%>
+    <%@ include file="commom/head.jsp"%>
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
     <div class="hrms_dept_body">
         <!-- 左侧栏 -->
-        <%@ include file="../../jsp/commom/leftsidebar.jsp"%>
+        <%@ include file="commom/leftsidebar.jsp"%>
 
         <!-- 表格内容 -->
         <div class="dept_info col-sm-10">
@@ -92,28 +92,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                        
+                    <c:forEach items="${pageInfo.list}" var="articles">
                             <tr>
-                                <td width="15%">标题</td>
-                                <td width="30%" class="line-limit-length">
-                                   
-                                </td>
-                                <td width="5%" class="line-limit-length">${article.sendername}</td>
-                                <td width="5%" class="line-limit-length">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="15%">
-                                    
-                                </td>
+                                <td width="15%">${articles.title}</td>
+                                <td width="30%" class="line-limit-length">${articles.content}</td>
+                                <td width="5%" class="line-limit-length">${articles.senderName}</td>
+                                <td width="5%" class="line-limit-length">${articles.isTop}</td>
+                                <td width="5%">${articles.replyCount}</td>
+                                <td width="5%">${upvoteCount}</td>
+                                <td width="5%">${articles.browseCount}</td>
+                                <td width="15%">${articles.zoneId}</td>
                                 <td width="15%">
                                     <a href="/article/deleteArticle.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-primary">屏蔽</a>
                                     <c:if test="${article.istop==0}">
@@ -134,7 +122,7 @@
             <div class="row">
                 <!--文字信息-->
                 <div class="col-md-6">
-                    当前第 ${articleMsgs.pageNum} 页.总共 ${articleMsgs.pages} 页.一共 ${articleMsgs.total} 条记录
+                    当前第 ${pageInfo.pageNum} 页.总共 ${pageInfo.pages} 页.一共 ${pageInfo.total} 条记录
                 </div>
 
                 <!--点击分页-->
@@ -142,42 +130,33 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="#" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >首页</a></li>
                             <!--上一页-->
-                            <li>
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                        <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')" aria-label="Previous">
+
+                                        <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}"  aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
-                                </c:if>
                             </li>
 
-                            <c:forEach items="${articleMsgs.navigatepageNums}" var="page_num">
-                                <c:if test="${page_num == articleMsgs.pageNum}">
-                                    <li class="active"><a href="#">${page_num}</a></li>
-                                </c:if>
-                                <c:if test="${page_num != articleMsgs.pageNum}">
-                                    <li><a href="#" onclick="searchArticle('${page_num}')">${page_num}</a></li>
-                                </c:if>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageNum}&pageSize=${pageInfo.pageSize}">${pageNum}</a></li>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasNextPage}">
-                                    <a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pageNum+1}')"
+                                    <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
-                                </c:if>
                             </li>
-                            <li><a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" >尾页</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
-        <%@ include file="../../jsp/commom/foot.jsp"%>
+        <%@ include file="commom/foot.jsp"%>
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->

@@ -16,11 +16,11 @@
     </ul>
     <ul class="nav nav-pills nav-stacked dept_sidebar">
         <li role="presentation" class="active">
-            <a href="${pageContext.request.contextPath}/articleController"  data-toggle="collapse" data-target="#collapse_dept">
+            <a href="${pageContext.request.contextPath}/articleController/findAll.do?page=1&pageSize=${pageInfo.pageSize}"  data-toggle="collapse" data-target="#collapse_dept">
                 <span class="glyphicon glyphicon-cloud" aria-hidden="true">用户帖管理</span>
             </a>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/article/findByPage.do" >帖子信息</a></li>
+                <li role="presentation"><a href="/article/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >帖子信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation"><a href="/word/findByPage.do" >敏感词汇管理</a></li>
