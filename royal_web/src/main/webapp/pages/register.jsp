@@ -10,6 +10,19 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/search.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
+    <script>
+        $(function () {
+
+            //用户注册
+            $("#registerBtn").click(function () {
+
+
+
+
+
+            });
+        })
+    </script>
 </head>
 <body>
 
@@ -45,7 +58,7 @@
         <div class="reg-box">
             <h2>用户注册<span>（红色型号代表必填）</span></h2>
             <div class="reg-info">
-                <form action="" method="post">
+                <form action="#" method="post" >
                     <ul>
                         <li>
                             <div class="reg-l">
@@ -74,7 +87,7 @@
                         <li>
                             <div class="reg-l"></div>
                             <div class="reg-c">
-                                <input type="submit" class="submit-btn" value="注册"/><br/>
+                                <input type="button" id="registerBtn" class="submit-btn" value="注册"/><br/>
                             </div>
                         </li>
                     </ul>
