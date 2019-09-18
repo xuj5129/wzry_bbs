@@ -25,4 +25,7 @@ public interface UserService {
     void upRole(int userId);
 
     void changeTalk(int userId, int talkStatus);
+
+
+    List<UserInfo> searchUser(UserInfo userInfo);
 }

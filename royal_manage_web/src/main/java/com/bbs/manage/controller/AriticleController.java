@@ -58,7 +58,7 @@ public class AriticleController  {
     }
 
     @RequestMapping("/findByTitle.do")
-    public ModelAndView findByTitleName( @RequestParam(name = "title",required = true, defaultValue = "") String title ,@RequestParam(name="sendername",required = true,defaultValue = "") String sendername) throws Exception {
+    public ModelAndView findByTitleName( @RequestParam(name = "title", defaultValue = "") String title ,@RequestParam(name="sendername",defaultValue = "") String sendername) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
 //        System.out.println("hello controller");

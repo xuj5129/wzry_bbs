@@ -15,6 +15,26 @@ public interface UserDao {
     @Select("select * from bbs_user_table where username=#{username}")
     UserInfo findByUsername(String username);
 
+    /**
+     * 根据 权限查询用户列表
+     * @param role
+     * @return
+     */
+    @Select("select * from bbs_user_table")
+    List<UserInfo> findByUserRole(int role);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+
+
+    @Select("select * from bbs_user_table where username like #{username}")
+    List<UserInfo> findLikeUsername(String username);
+
+    @Select("select * from bbs_user_table where username like #{username} and role= #{role} ")
+    List<UserInfo> findLikeUsernameWithRole(String username , int role);
+
 
     @Select("SELECT * FROM bbs_user_table WHERE loginStatus = 1 ")
     List<UserInfo> findUserOnline();
@@ -27,6 +47,7 @@ public interface UserDao {
 
     @Select("select * from bbs_user_table order by isupdating desc")
     List<UserInfo> findAll();
+
 
     @Insert("insert into bbs_user_table(username,userpass,email)values(#{username},#{userpass},#{email})")
     void save(UserInfo userInfo);
