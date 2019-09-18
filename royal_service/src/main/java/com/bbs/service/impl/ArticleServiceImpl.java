@@ -12,6 +12,7 @@ import com.bbs.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -102,7 +103,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     //查询没有被举报的帖子
     @Override
-    public List<Article> findArticleNotReport(int zoneId) {
+    public List<Article> findArticleNotReport(int page, int zoneId) {
+        PageHelper.startPage(page,10);
         return articleDao.findAllWhereNotReport(zoneId);
     }
 

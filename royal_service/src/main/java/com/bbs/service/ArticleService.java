@@ -33,7 +33,7 @@ public interface ArticleService {
 
     int getNumOfTodayArticle();
 
-    List<Article> findArticleNotReport(int zoneId);
+    List<Article> findArticleNotReport(int page,int zoneId);
 
     List<Article> findArticleByWord(String keyWord);
 

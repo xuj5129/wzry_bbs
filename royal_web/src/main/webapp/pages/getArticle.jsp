@@ -44,9 +44,9 @@
                 </div>
             </div>
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
+                <form action="${pageContext.request.contextPath}/article/findArticleByWord.do" method="post">
+                    <input type="text" class="txt l" name="keyWord"  value="${keyWord}" placeholder="请输入关键字">
+                    <input type="submit" value="搜索" class="btn l"/>
                 </form>
             </div>
         </div>
@@ -261,9 +261,8 @@
                 url:"/article/saveReply.do",
                 data:$("#replyForm").serialize(),
                 type:"post",
-                dataType:"text",
-                success:function(){
-                    alert("发表成功")
+                success:function(data){
+                    alert(data)
                     location.reload();
                 },
                 error:function () {
@@ -317,8 +316,17 @@
         if($('#content').val().trim()=="") {
             alert("请先输入内容，再提交");
         }else{
-            $('#commentForm').submit();
-            location.reload();
+            $.ajax({
+                url:"/article/saveComment.do",
+                data:$('#commentForm').serialize(),
+                type:"post",
+                success:function(){
+                    location.reload();
+                },
+                error:function () {
+                    alter("评论失败")
+                }
+            })
         }
     }
 

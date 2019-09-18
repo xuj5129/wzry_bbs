@@ -6,9 +6,11 @@ import com.bbs.domain.Zone;
 import com.bbs.service.ArticleService;
 import com.bbs.service.UserService;
 import com.bbs.service.ZoneService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class BeginController {
     private ZoneService zoneService;
 
     @RequestMapping("/getTotalArticleAndUserOnline.do")
-    public ModelAndView getTotalArticle(int zoneId) {
+    public ModelAndView getTotalArticle(@RequestParam(name = "page",defaultValue = "1") Integer page,int zoneId) {
         ModelAndView mv = new ModelAndView();
         //查询总帖数
         int num1 = articleService.getTotalArticleNum();
@@ -40,10 +42,11 @@ public class BeginController {
         //查询所有板块
         List<Zone> zones= zoneService.findAllByDefASCAndZoneIdASC();
         //查询所有没被举报帖子
-        List<Article> articleList = articleService.findArticleNotReport(zoneId);
+        List<Article> articleList = articleService.findArticleNotReport(page,zoneId);
+        PageInfo pageInfo=new PageInfo(articleList);
         mv.addObject("zones",zones);
         mv.addObject("showzoneId",zoneId);
-        mv.addObject("articleList",articleList);
+        mv.addObject("pageInfo",pageInfo);
         mv.addObject("userOnlineList",userOnlineList);
         mv.addObject("num1", num1);
         mv.addObject("num2", num2);

@@ -1,11 +1,11 @@
 package com.bbs.controller;
 
 import com.bbs.dao.CommentDao;
-import com.bbs.domain.Article;
-import com.bbs.domain.Comment;
-import com.bbs.domain.Reply;
-import com.bbs.domain.Report;
+import com.bbs.domain.*;
 import com.bbs.service.ArticleService;
+import com.bbs.service.UserService;
+import com.bbs.service.ZoneService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,10 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ZoneService zoneService;
 
     @RequestMapping("/saveArticle.do")
     @ResponseBody
@@ -53,6 +57,23 @@ public class ArticleController {
     public ModelAndView findArticleByWord(String keyWord){
         ModelAndView mv = new ModelAndView();
         List<Article> articleList = articleService.findArticleByWord(keyWord);
+        //查询总帖数
+        int num1 = articleService.getTotalArticleNum();
+        //查询今日帖数
+        int num2 = articleService.getNumOfTodayArticle();
+        //查询在线用户信息
+        List<UserInfo> userOnlineList = userService.findUserOnline();
+        //查询在线用户数
+        int num3 = userService.numOfUserOnline();
+        //查询所有板块
+        List<Zone> zones= zoneService.findAllByDefASCAndZoneIdASC();
+        PageInfo pageInfo=new PageInfo(articleList);
+        mv.addObject("zones",zones);
+        mv.addObject("showzoneId",0);
+        mv.addObject("userOnlineList",userOnlineList);
+        mv.addObject("num1", num1);
+        mv.addObject("num2", num2);
+        mv.addObject("num3", num3);
         mv.addObject("articleList",articleList);
         mv.addObject("keyWord",keyWord);
         mv.setViewName("index");

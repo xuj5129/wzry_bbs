@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index-new.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -27,7 +28,7 @@
         <!--头部，帖子统计，搜索-->
         <div class="hm-bbs-info">
             <div class="hm-bbs-icon l" style="width:130px;">
-                <span><img src="images/bbs-icon.png" height="80"/></span>
+                <span><img src="${pageContext.request.contextPath}/images/bbs-icon.png" height="80"/></span>
             </div>
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
@@ -38,7 +39,7 @@
             </div>
             <div class="search-box l">
                 <form action="${pageContext.request.contextPath}/article/findArticleByWord.do" method="post">
-                    <input type="text" class="txt l" name="keyWord"  value="${keyWord}" placeholder="请输入关键字">
+                    <input type="text" class="txt l" name="keyWord" value="${keyWord}" placeholder="请输入关键字">
                     <input type="submit" value="搜索" class="btn l"/>
                 </form>
             </div>
@@ -51,7 +52,7 @@
             </li>--%>
             <c:forEach items="${zones}" var="zone">
                 <li <c:if test="${showzoneId==zone.zoneId}">class="current"</c:if></li>
-                    <a href="/begin/getTotalArticleAndUserOnline.do?zoneId=${zone.zoneId}"><em></em>${zone.zoneName}</a>
+                <a href="/begin/getTotalArticleAndUserOnline.do?zoneId=${zone.zoneId}"><em></em>${zone.zoneName}</a>
                 </li>
             </c:forEach>
         </ul>
@@ -62,25 +63,29 @@
             <div class="list-view l">
 
                 <ul>
-                    <c:if test="${empty articleList}"><div style="text-align: center;font-size: 30px;color: #7a8080;margin-top: 50px;">该板块目前还没有帖子，赶紧来一发！</div></c:if>
-                    <c:forEach items="${articleList}" var="article">
-
-                            <li class="clearfix <c:if test='${article.isTop ==1}'> ding</c:if>">
-
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a
-                                href="/article/getArticle.do?articleId=${article.articleId}">${article.title}</a>
+                    <c:if test="${empty pageInfo}">
+                        <div style="text-align: center;font-size: 30px;color: #7a8080;margin-top: 50px;">
+                            该板块目前还没有帖子，赶紧来一发！
                         </div>
+                    </c:if>
+                    <c:forEach items="${pageInfo.list}" var="article">
 
-                        <div class="hm-index-con">${article.content}</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">${article.senderName}</span><span
-                                class="post-time">${article.sendTime}</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>${article.upvoteCount}</span>
-                            <span class="icon-talk"><i></i>${article.replyCount}</span>
-                        </div>
+                        <li class="clearfix <c:if test='${article.isTop ==1}'> ding</c:if>">
+
+                            <div class="hm-index-title">
+                                <i class="set-to-top">顶</i> <a
+                                    href="/article/getArticle.do?articleId=${article.articleId}">${article.title}</a>
+                            </div>
+
+                            <div class="hm-index-con">${article.content}</div>
+                            <div class="hm-index-info l">
+                                <span class="article-username">${article.senderName}</span><span
+                                    class="post-time">${article.sendTime}</span>
+                            </div>
+                            <div class="hm-index-fun r">
+                                <span class="icon-like"><i></i>${article.upvoteCount}</span>
+                                <span class="icon-talk"><i></i>${article.replyCount}</span>
+                            </div>
                         </li>
 
                     </c:forEach>
@@ -108,10 +113,51 @@
 
 
         </div>
-    </div>
+
+        <c:if test="${not empty pageInfo}">
+            <!--显示分页信息-->
+            <div>
+                <!--文字信息-->
+                <div style="margin-top: 5px;margin-left: 10px;font-size: 16px">
+                    共 ${pageInfo.pages} 页， ${pageInfo.total} 条记录
+                </div>
+
+
+                <!--点击分页-->
+                <div style="margin-left: 200px;font-size: 16px;margin-top: 20px">
+                    <!--首页-->
+                    <span style="border: 1px solid silver;padding: 5px;border-radius: 5px"><a
+                            href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?page=1&zoneId=${showzoneId}">首页</a></span>
+                    <!--上一页-->
+                    <span style="margin-right:5px;border: 1px solid silver;padding: 5px 5px 5px 10px;border-radius: 5px">
+                    <a href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?page=${pageInfo.pageNum-1}&zoneId=${showzoneId}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                </span>
+
+                    <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                    <span style="border: 1px solid silver;padding: 5px 10px 5px 10px;border-radius: 5px"><a
+                            href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?page=${pageNum}&zoneId=${showzoneId}">${pageNum}</a></span>
+                    </c:forEach>
+
+                    <!--下一页-->
+                    <span style="margin-right:5px;border: 1px solid silver;padding: 5px 5px 5px 10px;border-radius: 5px">
+                    <a href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?page=${pageInfo.pageNum+1}&zoneId=${showzoneId}"
+                       aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                    </a>
+                </span>
+                    <span style="border: 1px solid silver;padding: 5px;border-radius: 5px"><a
+                            href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?page=${pageInfo.pages}&zoneId=${showzoneId}">尾页</a></span>
+                </div>
+            </div>
+        </c:if>
+    </div><!-- /.dept_info -->
+</div>
 </div>
 
-
+</div><!-- /.panel panel-success -->
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
@@ -142,7 +188,7 @@
                 <div class="win_ft_in">
                     <input type="button" class="btn" onclick="saveArticle()" value="发表"/>
                     <input type="hidden" id="senderName" name="senderName" value="${existUser.username}">
-                    <input type="hidden" id="zoneId" name="zoneId" value="${showzoneId}" >
+                    <input type="hidden" id="zoneId" name="zoneId" value="${showzoneId}">
                 </div>
             </div>
         </div>
@@ -154,22 +200,23 @@
         var existUser = "${existUser}";
         if (!existUser) {
             alert("请登录");
-            return;
-        }else if ($("#content").val().length>0){
+        }else if(${showzoneId==0}) {
+            alert("请先选择你所有发帖的板块！")
+        }else if ($("#content").val().length > 0) {
             $.ajax({
-                url:"/article/saveArticle.do",
-                data:$("#articleForm").serialize(),
-                type:"post",
-                dataType:"text",
-                success:function(){
+                url: "/article/saveArticle.do",
+                data: $("#articleForm").serialize(),
+                type: "post",
+                dataType: "text",
+                success: function () {
                     alert("发帖成功");
                     location.reload();
                 },
-                error:function () {
+                error: function () {
                     alter("发帖失败")
                 }
             })
-        }else{
+        } else {
             alert("请填写内容");
         }
     }
