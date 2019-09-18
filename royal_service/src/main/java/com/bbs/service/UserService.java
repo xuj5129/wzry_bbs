@@ -21,4 +21,8 @@ public interface UserService {
     void register(UserInfo userInfo);
 
     List<UserInfo> findAll(Integer page, Integer pageSize);
+
+    void upRole(int userId);
+
+    void changeTalk(int userId, int talkStatus);
 }

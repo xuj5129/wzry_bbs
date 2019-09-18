@@ -28,4 +28,19 @@ public class UserController {
         mv.addObject("pageInfo", pageInfo);
         return mv;
     }
+
+
+    //对申请升等级的用户进行升级
+    @RequestMapping("/upRole.do")
+    public String upRole(@RequestParam(name = "userId") int userId,int page){
+       userService.upRole(userId);
+        return "redirect:findAll.do?page="+page;
+    }
+    //更改用户禁言状态
+    @RequestMapping("/changeTalk.do")
+    public String changeTalk(@RequestParam(name = "userId") int userId,@RequestParam(name = "talkStatus") int talkStatus,int page){
+
+        userService.changeTalk(userId,talkStatus);
+        return "redirect:findAll.do?page="+page;
+    }
 }

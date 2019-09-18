@@ -62,6 +62,7 @@
                                     </th>
                                     <th>
                                         <select id="article_sendername" class="form-control" name="sendername">
+                                            <option>请选择用户组</option>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
@@ -117,21 +118,18 @@
                                 </td>
                                 <td width="35%">${users.lastlogintime}</td>
                                 <td width="20%">
-                                    <c:if test="${users.role == 1}">
-                                        <a href="/user/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">升级</a>
+                                    <c:if test="${users.isupdating == 1}">
+                                        <a href="/user/upRole.do?userId=${users.userid}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary">升级</a>
                                     </c:if>
-                                    <c:if test="${users.role == 2}">
-                                        <a href="/user/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-info" >降级</a>
-                                    </c:if>
-                                    <c:if test="${users.role == 3}">
-                                        <a href="#" role="button" class="btn btn-default" disabled="true" >降级</a>
+                                    <c:if test="${users.isupdating == 0}">
+                                        <a href="#" role="button" class="btn btn-default" disabled="true" >升级</a>
                                     </c:if>
 
                                     <c:if test="${users.talkstatus == 0}">
-                                        <a href="/user/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-danger" >禁言</a>
+                                        <a href="/user/changeTalk.do?userId=${users.userid}&talkStatus=${users.talkstatus}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >禁言</a>
                                     </c:if>
                                     <c:if test="${users.talkstatus == 1}">
-                                        <a href="/user/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-info" >恢复</a>
+                                        <a href="/user/changeTalk.do?userId=${users.userid}&talkStatus=${users.talkstatus}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >恢复</a>
                                     </c:if>
                                 </td>
                             </tr>

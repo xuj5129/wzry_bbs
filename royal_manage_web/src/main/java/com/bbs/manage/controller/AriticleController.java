@@ -34,19 +34,19 @@ public class AriticleController  {
 
     //改变帖子置顶状态
     @RequestMapping("/changeStatus.do")
-    public String changeStatus(int id){
+    public String changeStatus(int id,int page){
         Article article = articleService.findById(id);
         Integer isTop = article.getIsTop();
         articleService.changeStatus(id,isTop);
-        return "redirect:findAll.do";
+        return "redirect:findAll.do?page="+page;
     }
     //帖子屏蔽功能
     @RequestMapping("/deleteArticle.do")
-    public String deleteArticle(int id){
+    public String deleteArticle(int id,int page){
         Article article = articleService.findById(id);
         Integer isReport = article.getIsReport();
         articleService.deleteArticle(id,isReport);
-        return "redirect:findAll.do";
+        return "redirect:findAll.do?page="+page;
     }
 
 

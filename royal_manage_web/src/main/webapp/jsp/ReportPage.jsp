@@ -69,8 +69,8 @@
 
                                     <button  class="btn btn-primary" data-toggle="modal" data-target="#article_detail" onclick="findArticle('${reports.articleId}')">相关帖子</button>
                                        <%-- <a href="/article/findById.do?id=${reports.articleId}" role="button" class="btn btn-primary"></a>--%>
-                                    <a href="/report/shield.do?reportId=${reports.reportId}&articleId=${reports.articleId}" role="button" class="btn btn-danger" >屏蔽</a>
-                                    <a href="/report/changeStatus.do?reportId=${reports.reportId}" role="button" class="btn btn-info" >驳回</a>
+                                    <a href="/report/shield.do?reportId=${reports.reportId}&articleId=${reports.articleId}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >屏蔽</a>
+                                    <a href="/report/changeStatus.do?reportId=${reports.reportId}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >驳回</a>
                                 </td>
                             </tr>
                         </c:forEach>

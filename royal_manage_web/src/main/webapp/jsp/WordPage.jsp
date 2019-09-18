@@ -74,10 +74,10 @@
                                 </td>
                                 <td width="10%">
                                     <c:if test="${words.status==1}">
-                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}" role="button" class="btn btn-primary">启用</a>
+                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary">启用</a>
                                     </c:if>
                                     <c:if test="${words.status==0}">
-                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}" role="button" class="btn btn-danger" >停用</a>
+                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >停用</a>
                                     </c:if>
 
                                 </td>

@@ -34,9 +34,9 @@ public class WordController {
 
     //更改敏感词汇使用状态
     @RequestMapping("/changeStatus.do")
-    public String changeStatus(@RequestParam(name = "wordId") Integer wordId,@RequestParam(name = "status") Integer status){
+    public String changeStatus(@RequestParam(name = "wordId") Integer wordId,@RequestParam(name = "status") Integer status,int page){
        wordService.changeStatus(wordId,status);
-       return "redirect:findAll.do";
+       return "redirect:findAll.do?page="+page;
     }
 
     @RequestMapping("/addWord.do")

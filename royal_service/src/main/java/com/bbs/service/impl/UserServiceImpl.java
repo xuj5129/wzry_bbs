@@ -71,4 +71,25 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(page,pageSize);
         return userDao.findAll();
     }
+
+    //对申请升等级的用户进行升级
+    @Override
+    public void upRole(int userId) {
+        userDao.upRole(userId);
+
+
+    }
+
+    //更改用户禁言状态
+    @Override
+    public void changeTalk(int userId, int talkStatus) {
+        if(talkStatus == 1){
+            talkStatus=0;
+            userDao.changeTalk(userId,talkStatus);
+        }else {
+            talkStatus = 1;
+            userDao.changeTalk(userId,talkStatus);
+        }
+
+    }
 }

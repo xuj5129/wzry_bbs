@@ -39,17 +39,17 @@ public class ReportController {
 
     //实现屏蔽帖子功能
     @RequestMapping("shield.do")
-    public String shield(@RequestParam(name = "reportId" ) int reportId,@RequestParam(name = "articleId") int articleId){
+    public String shield(@RequestParam(name = "reportId" ) int reportId,@RequestParam(name = "articleId") int articleId,int page){
        reportService.updateStatus(reportId);
         Integer isReport = 0;
         articleService.deleteArticle(articleId, isReport);
-       return "redirect:findAll.do";
+       return "redirect:findAll.do?page="+page;
     }
 
     //更改帖子举报状态
     @RequestMapping("changeStatus.do")
-    public String changeStatus(@RequestParam(name = "reportId" ) int reportId){
+    public String changeStatus(@RequestParam(name = "reportId" ) int reportId,int page){
        reportService.updateStatus(reportId);
-       return "redirect:findAll.do";
+       return "redirect:findAll.do?page="+page;
     }
 }

@@ -102,17 +102,17 @@
                                 <td width="15%">${articles.zoneName}</td>
                                 <td width="15%">
                                     <c:if test="${articles.isReport==0}">
-                                        <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">屏蔽</a>
+                                        <a href="/article/deleteArticle.do?id=${articles.articleId}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary">屏蔽</a>
                                     </c:if>
                                     <c:if test="${articles.isReport==1}">
-                                        <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-default" >解除</a>
+                                        <a href="/article/deleteArticle.do?id=${articles.articleId}&page=${pageInfo.pageNum}" role="button" class="btn btn-default" >解除</a>
                                     </c:if>
 
                                     <c:if test="${articles.isTop==0}">
-                                        <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-danger" >置顶</a>
+                                        <a href="/article/changeStatus.do?id=${articles.articleId}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >置顶</a>
                                     </c:if>
                                     <c:if test="${articles.isTop==1}">
-                                        <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-info" >取消</a>
+                                        <a href="/article/changeStatus.do?id=${articles.articleId}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >取消</a>
                                     </c:if>
                                 </td>
                             </tr>
