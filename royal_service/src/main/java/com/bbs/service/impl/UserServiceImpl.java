@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -106,10 +105,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public String changeEmailAndPicUrl(UserInfo existUser) {
         //修改图片路径
-        userDao.changePicUrl(existUser.getPicurl());
+        userDao.changePicUrl(existUser.getPicurl(),existUser.getUsername());
         //修改邮箱
-        userDao.changeEmail(existUser.getEmail());
-
+        userDao.changeEmail(existUser.getEmail(),existUser.getUsername());
         return "修改成功";
     }
 

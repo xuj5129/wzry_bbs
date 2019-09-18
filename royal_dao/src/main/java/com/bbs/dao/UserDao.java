@@ -55,11 +55,11 @@ public interface UserDao {
 
     //修改邮箱
     @Update("update bbs_user_table set email = #{email} where username = #{username}")
-    int changeEmail( String email);
+    int changeEmail(@Param("email") String email,@Param("username") String username);
 
     //修改图片
-    @Insert("update bbs_user_table set picUrl = #{picUrl} where username = #{username}")
-    int changePicUrl(String picUrl);
+    @Update("update bbs_user_table set picUrl = #{picUrl} where username = #{username}")
+    int changePicUrl(@Param("picUrl") String picUrl,@Param("username") String username);
 
     //根据密码查找用户
     @Select("select * from bbs_user_table where userpass = #{oldPassword}")

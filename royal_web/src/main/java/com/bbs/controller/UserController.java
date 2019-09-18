@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes("existUser")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -35,7 +34,6 @@ public class UserController {
 
         }
         return resultInfo;
-
 
     }
 
@@ -134,7 +132,10 @@ public class UserController {
 
         //修改图片路径和邮箱
         existUser.setEmail(email);
-        existUser.setPicurl(filename);
+        if (upload.getSize() != 0){
+            existUser.setPicurl(filename);
+        }
+
 
         String changeMsg = userService.changeEmailAndPicUrl(existUser);
 

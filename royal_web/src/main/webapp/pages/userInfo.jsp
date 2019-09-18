@@ -83,6 +83,7 @@
                 </ul>
 
                 <form action="${pageContext.request.contextPath}/user/changeEmailAndFileUpload.do" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="picUrl" value="${pageContext.request.contextPath}/images/${existUser.picurl}">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
