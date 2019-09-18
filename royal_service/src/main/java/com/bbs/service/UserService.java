@@ -17,5 +17,6 @@ public interface UserService {
 
     int numOfUserOnline();
 
+
     List<UserInfo> searchUser(UserInfo userInfo);
 }

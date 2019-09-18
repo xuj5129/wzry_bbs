@@ -113,12 +113,17 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findById(id);
     }
 
+
+    /**
+     * 根据 帖子标题查询 帖子
+     * @param title
+     * @param sendername
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Article> findByTitle(String title, String sendername) throws Exception {
         PageHelper.startPage(1,7);
-
-
-
        List<Article> articleList = articleDao.findByTicle("%"+title+"%","%"+sendername+"%");
 
         return articleList;
