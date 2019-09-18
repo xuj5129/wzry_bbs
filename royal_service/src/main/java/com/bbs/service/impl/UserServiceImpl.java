@@ -3,8 +3,6 @@ package com.bbs.service.impl;
 import com.bbs.dao.UserDao;
 import com.bbs.domain.ResultInfo;
 import com.bbs.domain.UserInfo;
-import com.bbs.dao.UserDao;
-import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +54,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int numOfUserOnline() {
         return userDao.numOfUserOnline();
+    }
+
+    @Override
+    public List<UserInfo> searchUser(String userName, Integer roleStr) {
+
+       List<UserInfo> userInfoList = userDao.(userInfo.getUsername(),userInfo.getRole());
+
+        return null;
     }
 }

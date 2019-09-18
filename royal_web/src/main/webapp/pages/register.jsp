@@ -11,32 +11,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
-        $(function () {
-
-            //用户名输入框离焦，发送Ajax请求，校验用户名是否可用
-            $("#username").blur(function () {
-                var username = $("#username").val();
-                if (username) {
-                    $.ajax({
-                        url:"${pageContext.request.contextPath}/user/checkUsernameByAjax.do",
-                        data:{username: username},
-                        //contentType:"application/json",
-                        type:"post",
-                        dataType:"json",
-                        success:function (data) {
-                            if(data.success){
-                                $("#userTips").html("用户名可用");
-                            }else {
-                                $("#userTips").html("该用户名已被注册过");
-                            }
-
-                        }
-                    });
-
-
-                }
-
-            })
 
             //用户注册
 
@@ -47,31 +21,23 @@
                 /^[a-z0-9]+@([a-z0-9]+\.)+[a-z]{2,4}$/
                用户名检验，保证用户名的唯一性。
             * */
-            $("#registerBtn").click(function () {
-                if($("#username").val() && $("#userpass").val()&& $("email").val()) {
-                    $.ajax({
-                        url:"${pageContext.request.contextPath}/user/register.do",
-                        // data:$("#logForm").serialize(),
+        $(function () {
 
-                        data:{username:$("#username").val(),userpass:$("#userpass").val(),email:$("email").val()},
-                        //contentType:"application/json",
-                        type:"post",
-                        dataType:"json",
-                        success:function (data) {
-                            if(data.success){
-                                location.href="${pageContext.request.contextPath}/pages/success.jsp";
-                            }
-                            else {
+        $("input[name='username']").blur(function () {
 
-                            }
-
-                        }
-                    });
+            alert("离焦事件 测试")
+            $.ajax({
+                url:"",
+                data:{},
+                success:function (date) {
+                    alert("ajax回流-测试")
                 }
 
 
-            });
+            })
         })
+        })
+
     </script>
 </head>
 <body>
@@ -108,7 +74,7 @@
         <div class="reg-box">
             <h2>用户注册<span>（红色型号代表必填）</span></h2>
             <div class="reg-info">
-                <form action="#" method="post" id="registerForm">
+                <form action="${pageContext.request.contextPath}/user/register.do" method="post" id="registerForm">
                     <ul>
                         <li>
                             <div class="reg-l">
@@ -138,7 +104,7 @@
                         <li>
                             <div class="reg-l"></div>
                             <div class="reg-c">
-                                <input type="button" id="registerBtn" class="submit-btn" value="注册"/><br/>
+                                <input type="submit" id="registerBtn" class="submit-btn" value="注册"/><br/>
                             </div>
                         </li>
                     </ul>
@@ -154,6 +120,8 @@
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
+<script src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
+<script src="${pageContext.request.contextPath}/js/messages_zh.js"></script>
 
 </body>
 </html>

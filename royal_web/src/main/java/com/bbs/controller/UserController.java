@@ -57,6 +57,7 @@ public class UserController {
     //新用户注册
     @RequestMapping("/register.do")
     public ModelAndView register(@RequestBody UserInfo userInfo){
+
         System.out.println(userInfo);
 
 
