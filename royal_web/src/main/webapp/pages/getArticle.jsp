@@ -261,8 +261,7 @@
                 url:"/article/saveReply.do",
                 data:$("#replyForm").serialize(),
                 type:"post",
-                success:function(data){
-                    alert(data)
+                success:function(){
                     location.reload();
                 },
                 error:function () {
