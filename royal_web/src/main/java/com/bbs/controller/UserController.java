@@ -56,7 +56,7 @@ public class UserController {
     }
     //新用户注册
     @RequestMapping("/register.do")
-    public ModelAndView register(String username,String userpass,String email){
+    public ModelAndView register(String username,String userpass,String email,HttpSession session){
         ModelAndView mv = new ModelAndView();
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);
@@ -67,6 +67,7 @@ public class UserController {
             //用户名可用
             if(resultInfo.isSuccess()){
                 userService.register(userInfo);
+                session.setAttribute("existUser",userInfo);
                 mv.setViewName("success");
 
             }else {

@@ -62,8 +62,8 @@
                             <tr>
                                 <td width="15%">${zones.userName}</td>
                                 <td width="15%" class="line-limit-length">${zones.zoneName}</td>
-                                <td width="50%" class="line-limit-length">${zones.reason}</td>
-                                <td width="20%">
+                                <td width="55%" class="line-limit-length">${zones.reason}</td>
+                                <td width="15%">
                                     <a href="/zone/addZone.do?zoneName=${zones.zoneName}&applyZoneId=${zones.applyZoneId}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >同意</a>
                                     <a href="/zone/changeStatus.do?applyZoneId=${zones.applyZoneId}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >驳回</a>
                                 </td>

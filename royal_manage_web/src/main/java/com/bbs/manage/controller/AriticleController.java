@@ -22,7 +22,7 @@ public class AriticleController  {
 
     //查询所有帖子
     @RequestMapping("/findAll.do")
-    public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page, @RequestParam(name = "pageSize", required = true, defaultValue = "4") Integer pageSize){
+    public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page, @RequestParam(name = "pageSize", required = true, defaultValue = "7") Integer pageSize){
         ModelAndView mv = new ModelAndView();
         List <Article> articles = articleService.findAll(page, pageSize);
         PageInfo pageInfo = new PageInfo(articles);

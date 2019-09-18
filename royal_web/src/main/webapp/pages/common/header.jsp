@@ -38,7 +38,9 @@
                         <ul class="editInfos">
                             <li>用户名：<input type="text" id="username" name="username" class="ipt"/></li>
                             <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userpass" name="userpass" class="ipt"/></li>
-                            <li><input type="button" id="loginBtn" value="登录" class="submitBtn"/><span id="pwdLoginInfo" style="color: red"></span></li>
+                            <li style="height: 20px"><span id="pwdLoginInfo" style="color: red"></span></li>
+                            <li><input type="button" id="loginBtn" value="登录" class="submitBtn"/></li>
+
 
 
 
