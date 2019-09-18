@@ -21,4 +21,7 @@ public interface UserService {
     void register(UserInfo userInfo);
 
     List<UserInfo> findAll(Integer page, Integer pageSize);
+
+
+    List<UserInfo> searchUser(UserInfo userInfo);
 }
