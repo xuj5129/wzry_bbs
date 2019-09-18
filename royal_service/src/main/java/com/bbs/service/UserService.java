@@ -4,10 +4,11 @@ import com.bbs.domain.ResultInfo;
 import com.bbs.domain.UserInfo;
 
 import com.bbs.domain.UserInfo;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
     void update(UserInfo userInfo);
 
     ResultInfo login(UserInfo userInfo);

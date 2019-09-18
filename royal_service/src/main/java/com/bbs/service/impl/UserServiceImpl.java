@@ -8,12 +8,19 @@ import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
@@ -110,5 +117,37 @@ public class UserServiceImpl implements UserService {
             userDao.changeTalk(userId,talkStatus);
         }
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+
+        UserInfo userInfo= null;
+        try {
+            userInfo = userDao.findByUsername(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        User user = new User(userInfo.getUsername(),"{noop}"+userInfo.getUserpass(),
+                true,true,true,true,getAuthority(userInfo.getRole()));
+        return user;
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthority(Integer role) {
+        String roleStr="USER";
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        if(role==1){
+            roleStr="USER";
+        }
+        if (role==2){
+            roleStr="SUPERUSER";
+        }
+        if(role==3){
+            roleStr="ADMIN";
+        }
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+roleStr);
+        list.add(authority);
+        return list;
     }
 }

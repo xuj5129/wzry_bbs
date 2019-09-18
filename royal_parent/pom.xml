@@ -26,7 +26,7 @@
         <mysql.version>5.1.32</mysql.version>
         <mybatis.version>3.4.5</mybatis.version>
         <spring.security.version>5.0.1.RELEASE</spring.security.version>
-    </properties>
+      </properties>
 
     <dependencies>
         <!-- spring -->
@@ -167,6 +167,32 @@
             <artifactId>pagehelper</artifactId>
             <version>5.1.2</version>
         </dependency>
+        <!--security-->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+
+
+
 
     </dependencies>
 
@@ -183,5 +209,5 @@
     </build>
 
 
-    
+
 </project>
