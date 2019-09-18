@@ -61,13 +61,10 @@ public interface UserDao {
     @Update("update bbs_user_table set picUrl = #{picUrl} where username = #{username}")
     int changePicUrl(@Param("picUrl") String picUrl,@Param("username") String username);
 
-    //根据密码查找用户
-    @Select("select * from bbs_user_table where userpass = #{oldPassword}")
-    UserInfo findPwd(String oldPassword);
 
     //修改密码
     @Update("update bbs_user_table set userpass = #{newPassword} where username = #{username}")
-    void updatePwd(@Param("username") String username, @Param("newPassword") String newPassword);
+    void updatePwd( @Param("newPassword") String newPassword,@Param("username") String username);
 
     @Update("UPDATE bbs_user_table SET isupdating = 1  WHERE userName = #{username} ")
     int requestHigherUser(String username);

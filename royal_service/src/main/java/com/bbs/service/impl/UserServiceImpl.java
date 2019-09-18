@@ -114,11 +114,11 @@ public class UserServiceImpl implements UserService {
     //修改密码
     @Override
     public ResultInfo checkExistPwd(String oldPassword, String newPassword, String username) {
-        UserInfo user = userDao.findPwd(oldPassword);
+        UserInfo user = userDao.findUserByUserName(username);
         if (user == null) {
             return new ResultInfo("旧密码不正确！");
         } else {
-            userDao.updatePwd(username, newPassword);
+            userDao.updatePwd(newPassword,username);
             return new ResultInfo("修改成功！");
         }
 
