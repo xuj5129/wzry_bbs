@@ -141,7 +141,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.getTotalArticleNum();
     }
 
-    ///通过帖子id查询帖子,并增加浏览数
+    ///通过帖子id查询帖子,并增加浏览数，且屏蔽已启用的敏感词
     @Override
     public Article findById(Integer id) {
         articleDao.updateArticleBrowseCount(id);

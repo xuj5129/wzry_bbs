@@ -49,16 +49,16 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="${pageContext.request.contextPath}/images/${existUser.picurl}"/>
-                    <div class="username">${existUser.username}</div>
+                    <img src="${pageContext.request.contextPath}/images/${showUser.picurl}"/>
+                    <div class="username">${showUser.username}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
-                    <c:if test="${existUser.role == 2}">
+                    <c:if test="${showUser.role == 2}">
                     <li><i class="safe-icon"></i>开辟新板块</li>
                     </c:if>
-                    <c:if test="${existUser.role == 1}">
+                    <c:if test="${showUser.role == 1}">
                         <li ><i class="safe-icon"></i>申请高级用户</li>
                     </c:if>
                 </ul>
@@ -70,28 +70,27 @@
                 <ul class="clearfix hd">
 
                     <li class="cur"><a href="">个人信息</a></li>
-                    <li><a href="${pageContext.request.contextPath}/pages/userPwd.jsp">修改密码</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=2&username=${existUser.username}">修改密码</a></li>
                     <%--高级用户--%>
-                    <c:if test="${existUser.role == 2}">
-                    <li><a href="${pageContext.request.contextPath}/pages/addzone.jsp">开辟新板块</a></li>
+                    <c:if test="${showUser.role == 2}">
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=4&username=${existUser.username}">开辟新板块</a></li>
                     </c:if>
                     <%--普通用户--%>
-                    <c:if test="${existUser.role == 1}">
-                    <li><a href="${pageContext.request.contextPath}/pages/higherUser.jsp">申请高级用户</a></li>
+                    <c:if test="${showUser.role == 1}">
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=3&username=${existUser.username}">申请高级用户</a></li>
                     </c:if>
 
                 </ul>
 
                 <form action="${pageContext.request.contextPath}/user/changeEmailAndFileUpload.do" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="picUrl" value="${pageContext.request.contextPath}/images/${existUser.picurl}">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" class="txt" name="username" value="${existUser.username}" readonly="readonly"/></div>
+                            <div class="info-r"><input type="text" class="txt" name="username" value="${showUser.username}" readonly="readonly"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" value="${existUser.email}"/></div>
+                            <div class="info-r"><input type="text" name="email" class="txt" value="${showUser.email}"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">上传头像：</div>
@@ -124,4 +123,12 @@
 
 
 </body>
+<script>
+    $(function () {
+        if(${empty showUser}){
+            alert("发生错误，请重新进入");
+            location.href="${pageContext.request.contextPath}/index.jsp";
+        }
+    })
+</script>
 </html>

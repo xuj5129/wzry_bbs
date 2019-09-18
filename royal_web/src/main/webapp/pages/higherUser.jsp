@@ -62,13 +62,16 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="${pageContext.request.contextPath}/pages/userInfo.jsp">个人信息</a></li>
-                    <li><a href="${pageContext.request.contextPath}/pages/userPwd.jsp">修改密码</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=1&username=${existUser.username}">个人信息</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=2&username=${existUser.username}">修改密码</a></li>
                     <li class="cur">申请高级用户</li>
                 </ul>
 
+
+
+
                 <form id="requestHigherUser" action="${pageContext.request.contextPath}/user/requestHigherUser.do" method="post" >
-                    <input type="hidden" name="username" value="${existUser.username}">
+                    <input type="hidden" name="username" value="${showUser.username}">
                     <ul class="bd" style="margin-left:80px">
                         <li class="clearfix" >
                             <div><i class="red" style="font-size: 15px">高级特权：</i>开辟新板块</div>
@@ -82,8 +85,13 @@
                         <li class="clearfix" style="margin-left: -80px">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="button" class="btn" onclick="javascript:checkNumOfArticle()" id="request" value="申请"/>
-                                <span style="color:red;">${responseMsg}</span>
+                                <c:if test="${showUser.isupdating==1}">
+                                    <div style="color: green;">申请已提交，审核中..</div>
+                                </c:if>
+                                <c:if test="${showUser.isupdating==0}">
+                                    <input type="button" class="btn" onclick="javascript:checkNumOfArticle()" id="request" value="申请"/>
+                                    <span style="color:red;">${responseMsg}</span>
+                                </c:if>
                             </div>
                         </li>
                     </ul>
@@ -101,6 +109,14 @@
 <script type="text/javascript">
     <%--页面加载完成显示当前用户发帖数--%>
     $(function () {
+        if(${empty showUser}){
+            alert("发生错误，请重新进入");
+            location.href="${pageContext.request.contextPath}/index.jsp";
+        }
+        if(${showUser.role>1}){
+            alert("权限已更新，重新跳转!");
+            location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=4&username=${existUser.username}";
+        }
         $.ajax({
             url:"${pageContext.request.contextPath}/article/findArticleNumWithUsername.do",
             data:{"name":'${existUser.username}'},

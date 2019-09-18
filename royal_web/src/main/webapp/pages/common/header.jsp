@@ -20,7 +20,7 @@
                 <c:if test="${not empty existUser}">
                     <!-- 登录状态 -->
                         <span>欢迎 ${existUser.roleStr}:${existUser.username}</span>
-                        <a href="${pageContext.request.contextPath}/pages/userInfo.jsp" id="myFavorite">个人中心</a>
+                        <a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=1&username=${existUser.username}" id="myFavorite">个人中心</a>
                         <a href="javascript:logout()">注销</a>
                 </c:if>
 

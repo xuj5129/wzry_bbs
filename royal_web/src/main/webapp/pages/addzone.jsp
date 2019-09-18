@@ -63,8 +63,8 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="${pageContext.request.contextPath}/pages/userInfo.jsp">个人信息</a></li>
-                    <li><a href="${pageContext.request.contextPath}/pages/userPwd.jsp">修改密码</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=1&username=${existUser.username}">个人信息</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=2&username=${existUser.username}">修改密码</a></li>
                     <li class="cur">开辟新板块</li>
 
                 </ul>
@@ -102,4 +102,16 @@
 
 
 </body>
+<script>
+    $(function () {
+        if(${empty showUser}){
+            alert("发生错误，请重新进入");
+            location.href="${pageContext.request.contextPath}/index.jsp";
+        }
+        if(${showUser.role<2}){
+            alert("权限不足!");
+            location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=3&username=${existUser.username}";
+        }
+    })
+</script>
 </html>

@@ -188,4 +188,8 @@ public class UserServiceImpl implements UserService {
         list.add(authority);
         return list;
     }
+
+    public UserInfo findUserObjectByUsername(String username){
+        return userDao.findByUsername(username);
+    }
 }

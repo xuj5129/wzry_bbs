@@ -37,4 +37,6 @@ public interface UserService extends UserDetailsService {
     List<UserInfo> searchUser(UserInfo userInfo);
 
     int findTalkStatusByuserName(String username);
+
+    UserInfo findUserObjectByUsername(String username);
 }

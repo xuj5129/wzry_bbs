@@ -47,7 +47,7 @@
             <div class="user-info-t" style="height:20px;"></div>
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="${pageContext.request.contextPath}/images/${existUser.picurl}" alt=""/>
+                    <img src="${pageContext.request.contextPath}/images/${showUser.picurl}" alt=""/>
                     <div class="username">${existUser.username}</div>
                 </div>
                 <ul class="user-info-l-b">
@@ -65,18 +65,18 @@
 
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="${pageContext.request.contextPath}/pages/userInfo.jsp">个人信息</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=1&username=${existUser.username}">个人信息</a></li>
                     <li class="cur">修改密码</li>
-                    <c:if test="${existUser.role == 2}">
-                        <li ><a href="${pageContext.request.contextPath}/pages/addzone.jsp">开辟新板块</a></li>
+                    <c:if test="${showUser.role == 2}">
+                        <li ><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=4&username=${existUser.username}">开辟新板块</a></li>
                     </c:if>
                     <%--普通用户--%>
-                    <c:if test="${existUser.role == 1}">
-                        <li><a href="${pageContext.request.contextPath}/pages/higherUser.jsp">申请高级用户</a></li>
+                    <c:if test="${showUser.role == 1}">
+                        <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=3&username=${existUser.username}">申请高级用户</a></li>
                     </c:if>
                 </ul>
                 <form action="${pageContext.request.contextPath}/user/checkExistPwd.do" method="get">
-                    <input type="hidden" name="username" value="${existUser.username}">
+                    <input type="hidden" name="username" value="${showUser.username}">
                   <ul class="bd">
                     <li class="clearfix">
                         <div class="info-l"><i class="red">*</i>旧密码：</div>
@@ -103,6 +103,12 @@
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 <script>
+    $(function () {
+        if(${empty showUser}){
+            alert("发生错误，请重新进入");
+            location.href="${pageContext.request.contextPath}/index.jsp";
+        }
+    })
     function checkPwd() {
         if ($("#oldPassword").val()==""){
             alert("请输入旧密码");

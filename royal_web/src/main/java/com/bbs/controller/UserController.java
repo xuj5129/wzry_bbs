@@ -176,4 +176,23 @@ public class UserController {
         mv.setViewName("higherUser");
         return mv;
     }
+
+    //个人中心的查询用户
+    @RequestMapping("/showUserCenter.do")
+    public ModelAndView showUserCenter(int pageCode,String username){
+        UserInfo user = userService.findUserObjectByUsername(username);
+        ModelAndView mv=new ModelAndView();
+        mv.addObject("showUser",user);
+        if(pageCode==1){
+            mv.setViewName("userInfo");
+        }else if(pageCode==2){
+            mv.setViewName("userPwd");
+        }else if(pageCode==3){
+            mv.setViewName("higherUser");
+        }else if(pageCode==4){
+            mv.setViewName("addzone");
+        }
+        return mv;
+    }
+
 }
