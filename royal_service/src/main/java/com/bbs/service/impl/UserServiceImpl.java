@@ -3,7 +3,10 @@ package com.bbs.service.impl;
 import com.bbs.dao.UserDao;
 import com.bbs.domain.ResultInfo;
 import com.bbs.domain.UserInfo;
+import com.bbs.dao.UserDao;
+import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,6 @@ public class UserServiceImpl implements UserService {
         userDao.update(userInfo);
 
     }
-
     //用户登录
     @Override
     public ResultInfo login(UserInfo userInfo) {
@@ -48,7 +50,6 @@ public class UserServiceImpl implements UserService {
         }
         return resultInfo;
     }
-
     @Override
     public List<UserInfo> findUserOnline() {
         return userDao.findUserOnline();
@@ -75,5 +76,18 @@ public class UserServiceImpl implements UserService {
         }
 
         return userInfoList;
+    }
+
+    @Override
+    public void register(UserInfo userInfo) {
+        userDao.save(userInfo);
+
+    }
+
+    //查询所有用户信息
+    @Override
+    public List <UserInfo> findAll(Integer page, Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return userDao.findAll();
     }
 }

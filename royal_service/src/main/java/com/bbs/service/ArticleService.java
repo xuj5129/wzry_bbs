@@ -14,26 +14,26 @@ public interface ArticleService {
 
     void saveReply(Reply reply);
 
+    void changeStatus(int id, Integer isTop);
+
+    void deleteArticle(int id, Integer isReport);
+
     int findArticleIdByCommentId(int commentId);
 
     List<Article> findAll(int page,int pageSize);
 
-    List<Article> findAllWhereNotReport();
 
     int getTotalArticleNum();
 
     Article findById(Integer id);
-
+    
 
     List<Article> findByTitle(String title , String sendername) throws Exception;
 
     int getNumOfTodayArticle();
 
+    List<Article> findArticleNotReport();
 
-    void changeStatus(int id, Integer isTop);
-
-    void deleteArticle(int id, Integer isReport);
-
-
+    List<Article> findArticleByWord(String keyWord);
 }
 

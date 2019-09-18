@@ -66,7 +66,7 @@ public class Article {
     }
 
     public String getSendTime() {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(sendTime);
     }
 
@@ -145,4 +145,6 @@ public class Article {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.UserInfo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import java.util.List;
@@ -44,4 +45,7 @@ public interface UserDao {
     @Select("select * from bbs_user_table where username=#{username}")
     UserInfo findUserByUserName(String username);
 
+
+    @Insert("insert into bbs_user_table(username,userpass,email)values(#{username},#{userpass},#{email})")
+    void save(UserInfo userInfo);
 }

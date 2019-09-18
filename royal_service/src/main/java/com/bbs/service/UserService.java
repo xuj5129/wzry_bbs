@@ -3,8 +3,9 @@ package com.bbs.service;
 import com.bbs.domain.ResultInfo;
 import com.bbs.domain.UserInfo;
 
-import java.util.List;
+import com.bbs.domain.UserInfo;
 
+import java.util.List;
 
 public interface UserService {
     void update(UserInfo userInfo);
@@ -16,6 +17,10 @@ public interface UserService {
     List<UserInfo> findUserOnline();
 
     int numOfUserOnline();
+
+    void register(UserInfo userInfo);
+
+    List<UserInfo> findAll(Integer page, Integer pageSize);
 
 
     List<UserInfo> searchUser(UserInfo userInfo);

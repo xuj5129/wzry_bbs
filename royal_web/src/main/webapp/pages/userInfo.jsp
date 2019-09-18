@@ -69,9 +69,10 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li class="cur"><a href="#">个人信息</a></li>
+                    <li class="cur"><a href="getUser.do?method=userInfo">个人信息</a></li>
                     <li><a href="${pageContext.request.contextPath}/pages/userPwd.jsp">修改密码</a></li>
-                    <li><a href="${pageContext.request.contextPath}/pages/addzone.jsp">开辟新板块</a></li>
+                    <li><a href="${pageContext.request.contextPath}/pages/addZone.jsp">开辟新板块</a></li>
+
 
                 </ul>
 

@@ -52,16 +52,34 @@ public class UserController {
     @RequestMapping("/logout.do")
     public  String logout(HttpSession session){
         session.invalidate();
-        return "redirect:/pages/index.jsp";
+        return "redirect:/index.jsp";
     }
     //新用户注册
     @RequestMapping("/register.do")
-    public ModelAndView register(@RequestBody UserInfo userInfo){
+    public ModelAndView register(String username,String userpass,String email){
+        ModelAndView mv = new ModelAndView();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(username);
+        userInfo.setUserpass(userpass);
+        userInfo.setEmail(email);
+        if(username!=null&&userpass!=null&&email!=null){
+            ResultInfo resultInfo = userService.findByUsername(username);
+            //用户名可用
+            if(resultInfo.isSuccess()){
+                userService.register(userInfo);
+                mv.setViewName("success");
 
-        System.out.println(userInfo);
+            }else {
+                //用户名已被注册
+                resultInfo.setMsg("用户名已被注册过");
+                mv.addObject(resultInfo);
+                mv.setViewName("register");
+            }
+            mv.addObject("userInfo",userInfo);
 
+        }
 
-       return null;
+        return mv;
     }
     //修改用户邮箱地址和头像
     @RequestMapping("/update.do")

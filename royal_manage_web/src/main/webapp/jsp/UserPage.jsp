@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>帖信息管理页面</title>
+    <title>用户信息管理页面</title>
 
 </head>
 <style type="text/css">
@@ -38,8 +38,8 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=1&pageSize=${pageInfo.pageSize}">用户帖管理</a></li>
-                        <li class="active">帖子信息</li>
+                        <li><a href="/user/findAll.do?page=1&pageSize=${pageInfo.pageSize}">用户管理</a></li>
+                        <li class="active">用户信息</li>
                     </ol>
                 </div>
                 <hr>
@@ -50,7 +50,7 @@
                             <table>
                                 <tr>
                                     <th>
-                                        <label for="title" class="control-label">标题:</label>
+                                        <label for="title" class="control-label">用户名:</label>
                                     </th>
                                     <th>
                                         <input type="text" id="title" class="form-control"
@@ -58,11 +58,14 @@
                                         <input type="hidden" id="pageNum" name="pn" value="">
                                     </th>
                                     <th>
-                                        <label for="article_sendername" class="control-label">创帖人:</label>
+                                        <label for="article_sendername" class="control-label">用户组:</label>
                                     </th>
                                     <th>
-                                        <input type="text" id="article_sendername" class="form-control"
-                                               name="sendername" value="">
+                                        <select id="article_sendername" class="form-control" name="sendername">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
                                     </th>
                                     <th colspan="2">
                                         <input type="submit" value="查询" class="form-control btn-primary" >
@@ -78,41 +81,57 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>标题</th>
-                        <th>内容</th>
-                        <th>创帖人</th>
-                        <th>是否置顶</th>
-                        <th>回复数</th>
-                        <th>点赞数</th>
-                        <th>浏览数</th>
-                        <th>所在交流区</th>
+                        <th>用户名</th>
+                        <th>用户组</th>
+                        <th>邮箱</th>
+                        <th>是否禁言</th>
+                        <th>最近登录时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pageInfo.list}" var="articles">
+                    <c:forEach items="${pageInfo.list}" var="users">
                             <tr>
-                                <td width="15%">${articles.title}</td>
-                                <td width="30%" class="line-limit-length">${articles.content}</td>
-                                <td width="5%" class="line-limit-length">${articles.senderName}</td>
-                                <td width="5%" class="line-limit-length">${articles.isTop}</td>
-                                <td width="5%">${articles.replyCount}</td>
-                                <td width="5%">${articles.upvoteCount}</td>
-                                <td width="5%">${articles.browseCount}</td>
-                                <td width="15%">${articles.zoneName}</td>
-                                <td width="15%">
-                                    <c:if test="${articles.isReport==0}">
-                                        <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">屏蔽</a>
+                                <td width="15%">${users.username}</td>
+                                <td width="15%" class="line-limit-length">
+                                   <c:if test="${users.role == 1 }">
+                                       普通用户
+                                   </c:if>
+                                    <c:if test="${users.role == 2 }">
+                                        高级用户
                                     </c:if>
-                                    <c:if test="${articles.isReport==1}">
-                                        <a href="/article/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-default" >解除</a>
+                                    <c:if test="${users.role == 3 }">
+                                        超级管理员
                                     </c:if>
 
-                                    <c:if test="${articles.isTop==0}">
-                                        <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-danger" >置顶</a>
+                                </td>
+                                <td width="15%" class="line-limit-length">${users.email}</td>
+                                <td width="10%" class="line-limit-length">
+                                    <c:if test="${users.talkstatus == 0}">
+                                        否
                                     </c:if>
-                                    <c:if test="${articles.isTop==1}">
-                                        <a href="/article/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-info" >取消</a>
+                                    <c:if test="${users.talkstatus == 1}">
+                                        是
+                                    </c:if>
+
+                                </td>
+                                <td width="35%">${users.lastlogintime}</td>
+                                <td width="20%">
+                                    <c:if test="${users.role == 1}">
+                                        <a href="/user/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-primary">升级</a>
+                                    </c:if>
+                                    <c:if test="${users.role == 2}">
+                                        <a href="/user/deleteArticle.do?id=${articles.articleId}" role="button" class="btn btn-info" >降级</a>
+                                    </c:if>
+                                    <c:if test="${users.role == 3}">
+                                        <a href="#" role="button" class="btn btn-default" disabled="true" >降级</a>
+                                    </c:if>
+
+                                    <c:if test="${users.talkstatus == 0}">
+                                        <a href="/user/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-danger" >禁言</a>
+                                    </c:if>
+                                    <c:if test="${users.talkstatus == 1}">
+                                        <a href="/user/changeStatus.do?id=${articles.articleId}" role="button" class="btn btn-info" >恢复</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -136,26 +155,26 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >首页</a></li>
                             <!--上一页-->
                             <li>
-                                        <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}"  aria-label="Previous">
+                                        <a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}"  aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
                             </li>
 
                             <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                                <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageNum}&pageSize=${pageInfo.pageSize}">${pageNum}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageNum}&pageSize=${pageInfo.pageSize}">${pageNum}</a></li>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
-                                    <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}"
+                                    <a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" >尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" >尾页</a></li>
                         </ul>
                     </nav>
                 </div>

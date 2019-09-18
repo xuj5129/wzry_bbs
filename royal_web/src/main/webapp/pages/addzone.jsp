@@ -39,7 +39,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>开辟新板块
+            <a href="index.do">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
@@ -74,20 +74,22 @@
 
                 </ul>
 
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/zone/addZone.do" method="post" >
+                    <input type="hidden" name="userName" value="${获取用户名}">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l">板块名称：</div>
-                            <div class="info-r"><input type="text" name="zoneName" class="txt" value=""/></div>
+                            <div class="info-r"><input type="text" value="${zoneApply.zoneName}" name="zoneName" class="txt" /></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">申请理由：</div>
-                            <div class="info-r"><input type="textarea" name="reason" class="txt" value="" style="height:80px;width:200px " /></div>
+                            <div class="info-r"><textarea id="SendTextArea" name="reason"  class="txt"  style="height:80px;width:200px">${zoneApply.reason}</textarea></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit" class="btn" value="保存"/>
+                                <span style="color:red;">${msg}</span>
                             </div>
                         </li>
                     </ul>

@@ -31,7 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
     public int getNumOfTodayArticle() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String format = sdf.format(date);
+        String format = sdf.format(date)+"%";
         return articleDao.getNumOfTodayArticle(format);
     }
 
@@ -97,8 +97,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     //查询没有被举报的帖子
     @Override
-    public List<Article> findAllWhereNotReport() {
+    public List<Article> findArticleNotReport() {
         return articleDao.findAllWhereNotReport();
+    }
+
+    @Override
+    public List<Article> findArticleByWord(String keyWord) {
+        String word = "%"+keyWord + "%";
+        return articleDao.findArticleByWord(word);
+
     }
 
     //查询总帖子数
@@ -124,8 +131,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findByTitle(String title, String sendername) throws Exception {
         PageHelper.startPage(1,7);
-       List<Article> articleList = articleDao.findByTicle("%"+title+"%","%"+sendername+"%");
-
+        List<Article> articleList = articleDao.findByTicle("%"+title+"%","%"+sendername+"%");
         return articleList;
     }
 }

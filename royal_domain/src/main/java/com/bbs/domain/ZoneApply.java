@@ -1,6 +1,7 @@
 package com.bbs.domain;
 
-public class Zoneapply {
+
+public class ZoneApply {
     private Integer applyZoneId;
 
     private String zoneName;

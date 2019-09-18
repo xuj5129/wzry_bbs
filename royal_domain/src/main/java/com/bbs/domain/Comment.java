@@ -48,7 +48,7 @@ public class Comment {
     }
 
     public String getCommentTime() {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(commentTime);
     }
 

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>帖信息管理页面</title>
+    <title>用户举报管理页面</title>
 
 </head>
 <style type="text/css">
@@ -40,7 +40,7 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="#">用户帖管理</a></li>
+                        <li><a href="${pageContext.request.contextPath}/report/findAll.do?page=1&pageSize=${pageInfo.pageSize}">用户帖管理</a></li>
                         <li class="active">审批举报</li>
                     </ol>
                 </div>
@@ -67,7 +67,7 @@
                                 <td width="20%" class="line-limit-length">${reports.reportTime}</td>
                                 <td width="20%">
 
-                                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#article_detail" onclick="findArticle('${reports.articleId}')">相关帖子</button>
+                                    <button  class="btn btn-primary" data-toggle="modal" data-target="#article_detail" onclick="findArticle('${reports.articleId}')">相关帖子</button>
                                        <%-- <a href="/article/findById.do?id=${reports.articleId}" role="button" class="btn btn-primary"></a>--%>
                                     <a href="/report/shield.do?reportId=${reports.reportId}&articleId=${reports.articleId}" role="button" class="btn btn-danger" >屏蔽</a>
                                     <a href="/report/changeStatus.do?reportId=${reports.reportId}" role="button" class="btn btn-info" >驳回</a>

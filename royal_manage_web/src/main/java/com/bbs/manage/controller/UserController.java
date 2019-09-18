@@ -22,12 +22,23 @@ public class UserController {
     public ModelAndView searchUser(@RequestBody UserInfo userInfo) {
         ModelAndView modelAndView = new ModelAndView();
 
-       List<UserInfo> userInfoList = userService.searchUser(userInfo);
+        List<UserInfo> userInfoList = userService.searchUser(userInfo);
 
         PageInfo pageInfo = new PageInfo(userInfoList);
-        modelAndView.addObject("userPageInfo",pageInfo);
+        modelAndView.addObject("userPageInfo", pageInfo);
 
         modelAndView.setViewName("");
-      return modelAndView;
+        return modelAndView;
+    }
+    @RequestMapping("/findAll.do")
+    public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
+                                @RequestParam(name = "pageSize", required = true, defaultValue = "4") Integer pageSize){
+
+        List<UserInfo> users =  userService.findAll(page,pageSize);
+        PageInfo pageInfo = new PageInfo(users);
+        ModelAndView mv =new ModelAndView();
+        mv.setViewName("UserPage");
+        mv.addObject("pageInfo", pageInfo);
+        return mv;
     }
 }
