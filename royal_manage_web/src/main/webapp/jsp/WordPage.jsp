@@ -171,7 +171,10 @@
             data : {"word":addWord},
             // 成功后开启模态框
             success : function(){
-                location.reload()
+                location.href="http://localhost:8082/word/findAll.do?page= ${pageInfo.pages}&pageSize=8"
+            },
+            error:function () {
+                location.href="http://localhost:8082/word/findAll.do?page= ${pageInfo.pages}&pageSize=8"
             }
         });
     }

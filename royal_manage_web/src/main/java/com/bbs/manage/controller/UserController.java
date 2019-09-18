@@ -32,7 +32,7 @@ public class UserController {
     }
     @RequestMapping("/findAll.do")
     public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
-                                @RequestParam(name = "pageSize", required = true, defaultValue = "4") Integer pageSize){
+                                @RequestParam(name = "pageSize", required = true, defaultValue = "7") Integer pageSize){
 
         List<UserInfo> users =  userService.findAll(page,pageSize);
         PageInfo pageInfo = new PageInfo(users);

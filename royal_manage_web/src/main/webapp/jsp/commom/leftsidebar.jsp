@@ -10,7 +10,7 @@
                 <li role="presentation"><a href="/user/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >用户信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/zoneApply/findByPage.do" >版块审核</a></li>
+                <li role="presentation"><a href="/zone/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >版块审核</a></li>
             </ul>
         </li>
     </ul>

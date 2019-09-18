@@ -1,9 +1,15 @@
 package com.bbs.dao;
 
+import com.bbs.domain.Zone;
 import com.bbs.domain.ZoneApply;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface ZoneDao {
 
     @Select("select zoneName from bbs_zone_table where zoneId=#{zoneId} ")
@@ -14,4 +20,13 @@ public interface ZoneDao {
 
     @Select("select * from bbs_zoneApply_table where zoneName = #{zoneName}")
     ZoneApply findZoneName(String zoneName);
+
+    @Select("select * from bbs_zoneApply_table where status = 0")
+    List<ZoneApply> findAll();
+
+    @Insert("insert into bbs_zone_table(zoneName,isDef)values(#{zoneName},2) ")
+    void addZoneName(String zoneName);
+
+    @Update("update bbs_zoneapply_table set status = 1 where applyZoneId=#{applyZoneId}")
+    void changeStatus(int applyZoneId);
 }

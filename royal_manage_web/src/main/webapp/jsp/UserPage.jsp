@@ -116,8 +116,8 @@
                                     </c:if>
 
                                 </td>
-                                <td width="35%">${users.lastlogintime}</td>
-                                <td width="20%">
+                                <td width="30%">${users.lastlogintime}</td>
+                                <td width="25%">
                                     <c:if test="${users.isupdating == 1}">
                                         <a href="/user/upRole.do?userId=${users.userid}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary">升级</a>
                                     </c:if>

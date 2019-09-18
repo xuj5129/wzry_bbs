@@ -87,6 +87,21 @@ public interface ArticleDao {
      * @return 帖子 的 查询结果集
      */
     @Select("select * from bbs_article_table  where title like #{title} or sendername like #{senderName}")
+    @Results({
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "title",property = "title"),
+            @Result(column = "content",property = "content"),
+            @Result(column = "sendTime",property = "sendTime"),
+            @Result(column = "senderName",property = "senderName"),
+            @Result(column = "isTop",property = "isTop"),
+            @Result(column = "replyCount",property = "replyCount"),
+            @Result(column = "upvoteCount",property = "upvoteCount"),
+            @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "zoneId",property = "zoneId"),
+            @Result(column = "zoneId",property = "zoneName",one = @One(
+                    select = "com.bbs.dao.ZoneDao.findNameById"
+            ))
+    })
     List<Article> findByTicle(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
 
     @Select("select * from bbs_article_table where isReport=0 order by isTop DESC")
