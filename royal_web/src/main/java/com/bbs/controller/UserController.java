@@ -124,6 +124,15 @@ public class UserController {
         }
         // 获取到上传文件的名称
         String filename = upload.getOriginalFilename();
+
+        //判断是否是图片
+        String substring = filename.substring(filename.lastIndexOf(".") + 1);
+        if((!"jpg".equals(substring.toLowerCase())) && (!"png".equals(substring.toLowerCase()))){
+            request.getSession().setAttribute("changeMsg","图片格式非法");
+            mv.setViewName("userInfo");
+            return mv;
+        }
+
         String uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
         // 把文件的名称唯一化
         filename = uuid+"_"+filename;
