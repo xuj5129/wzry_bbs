@@ -5,18 +5,18 @@ import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import java.io.File;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("existUser")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -105,5 +105,60 @@ public class UserController {
         return mv;
     }
 
+    //修改邮箱地址,上传图片
+    @RequestMapping("/changeEmailAndFileUpload.do")
+    public ModelAndView changeEmailAndFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile upload,String email)throws Exception{
 
+        UserInfo existUser = (UserInfo) request.getSession().getAttribute("existUser");
+        ModelAndView mv = new ModelAndView();
+        // 先获取到要上传的文件目录
+        String path = request.getSession().getServletContext().getRealPath("/images");
+        // 创建File对象，一会向该路径下上传文件
+        File file = new File(path);
+        // 判断路径是否存在，如果不存在，创建该路径
+        if(!file.exists()) {
+            file.mkdirs();
+        }
+        // 获取到上传文件的名称
+        String filename = upload.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+        // 把文件的名称唯一化
+        filename = uuid+"_"+filename;
+        // 上传文件
+        upload.transferTo(new File(file,filename));
+
+        //修改图片路径和邮箱
+        existUser.setEmail(email);
+        existUser.setPicurl(filename);
+
+        String changeMsg = userService.changeEmailAndPicUrl(existUser);
+
+        //再将修改后的用户信息存入session域中
+        request.getSession().setAttribute("existUser",existUser);
+        mv.addObject("changeMsg",changeMsg);
+        mv.setViewName("userInfo");
+        return mv;
+    }
+
+    //修改密码
+    @RequestMapping("/checkExistPwd.do")
+    public ModelAndView checkExistPwd(String username,String oldPassword ,String newPassword){
+        ModelAndView mv = new ModelAndView();
+        ResultInfo resultInfo = userService.checkExistPwd(oldPassword,newPassword,username);
+        mv.addObject("pwdMsg",resultInfo);
+        mv.addObject("oldPassword",oldPassword);
+        mv.addObject("newPassword",newPassword);
+        mv.setViewName("userPwd");
+        return mv;
+    }
+
+    //普通用户发起高级用户申请
+    @RequestMapping("/requestHigherUser.do")
+    public ModelAndView requestHigherUser(String username){
+        ModelAndView mv = new ModelAndView();
+        String responseMsg = userService.requestHigherUser(username);
+        mv.addObject("responseMsg",responseMsg);
+        mv.setViewName("higherUser");
+        return mv;
+    }
 }

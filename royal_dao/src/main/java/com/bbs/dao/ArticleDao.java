@@ -128,4 +128,8 @@ public interface ArticleDao {
 
     @Update("UPDATE bbs_article_table SET browseCount=(browseCount+1) WHERE articleId=#{articleId}")
     void updateArticleBrowseCount(int articleId);
+
+    //查询一个用户的发帖数
+    @Select("SELECT COUNT(*) FROM bbs_article_table WHERE senderName = #{username}")
+    int findArticleNumWithUsername(String username);
 }

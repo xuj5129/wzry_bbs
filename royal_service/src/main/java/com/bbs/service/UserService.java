@@ -23,6 +23,12 @@ public interface UserService extends UserDetailsService {
 
     List<UserInfo> findAll(Integer page, Integer pageSize);
 
+    String changeEmailAndPicUrl(UserInfo existUser);
+
+    ResultInfo checkExistPwd(String oldPassword, String newPassword,String username);
+
+    String requestHigherUser(String username);
+
     void upRole(int userId);
 
     void changeTalk(int userId, int talkStatus);

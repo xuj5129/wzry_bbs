@@ -38,5 +38,7 @@ public interface ArticleService {
     List<Article> findArticleByWord(String keyWord);
 
     void saveReport(Report report);
+
+    int findArticleNumWithUsername(String username);
 }
 

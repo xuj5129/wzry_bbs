@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
 import java.util.List;
 public interface UserDao {
     @Update("update bbs_user_table set email=#{email},picUrl=#{picurl} where userid=#{userid}")
@@ -51,6 +52,25 @@ public interface UserDao {
 
     @Insert("insert into bbs_user_table(username,userpass,email)values(#{username},#{userpass},#{email})")
     void save(UserInfo userInfo);
+
+    //修改邮箱
+    @Update("update bbs_user_table set email = #{email} where username = #{username}")
+    int changeEmail( String email);
+
+    //修改图片
+    @Insert("update bbs_user_table set picUrl = #{picUrl} where username = #{username}")
+    int changePicUrl(String picUrl);
+
+    //根据密码查找用户
+    @Select("select * from bbs_user_table where userpass = #{oldPassword}")
+    UserInfo findPwd(String oldPassword);
+
+    //修改密码
+    @Update("update bbs_user_table set userpass = #{newPassword} where username = #{username}")
+    void updatePwd(@Param("username") String username, @Param("newPassword") String newPassword);
+
+    @Update("UPDATE bbs_user_table SET isupdating = 1  WHERE userName = #{username} ")
+    int requestHigherUser(String username);
 
     @Update("update bbs_user_table set role=2,isupdating=0,updateStatus=1 where userId=#{userId}")
     void upRole(int userId);

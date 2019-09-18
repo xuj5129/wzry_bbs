@@ -5,6 +5,13 @@ public class ResultInfo {
     private String msg;
     private Object object;
 
+    public ResultInfo(String msg) {
+        this.msg = msg;
+    }
+
+    public ResultInfo() {
+    }
+
     public boolean isSuccess() {
         return success;
     }

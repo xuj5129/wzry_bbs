@@ -1,5 +1,8 @@
 package com.bbs.controller;
 
+import com.bbs.domain.Article;
+import com.bbs.domain.Comment;
+import com.bbs.domain.Reply;
 import com.bbs.dao.CommentDao;
 import com.bbs.domain.*;
 import com.bbs.service.ArticleService;
@@ -79,6 +82,14 @@ public class ArticleController {
         mv.setViewName("index");
         return mv;
     }
+
+    //查询当前用户发帖数
+    @RequestMapping("/findArticleNumWithUsername.do")
+    public @ResponseBody int findArticleNumWithUsername(String name){
+        int articleNum = articleService.findArticleNumWithUsername(name);
+        return articleNum;
+    }
+
 
     @RequestMapping("/saveReport.do")
     @ResponseBody

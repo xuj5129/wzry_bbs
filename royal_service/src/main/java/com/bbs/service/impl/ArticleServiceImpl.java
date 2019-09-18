@@ -121,6 +121,11 @@ public class ArticleServiceImpl implements ArticleService {
         reportDao.saveReport(report);
     }
 
+    @Override
+    public int findArticleNumWithUsername(String username) {
+        return articleDao.findArticleNumWithUsername(username);
+    }
+
     //查询总帖子数
     @Override
     public int getTotalArticleNum() {

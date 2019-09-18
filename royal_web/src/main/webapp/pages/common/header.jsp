@@ -25,7 +25,6 @@
                 </c:if>
 
 
-
                 <%--<a href="javascript:;" id="login" class="to-login">游客登录</a>
                 <a href="${pageContext.request.contextPath}/pages/register.jsp">【新用户注册】</a>--%>
                 <div id="dialogBg"></div>
@@ -40,8 +39,6 @@
                             <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userpass" name="userpass" class="ipt"/></li>
                             <li style="height: 20px"><span id="pwdLoginInfo" style="color: red"></span></li>
                             <li><input type="button" id="loginBtn" value="登录" class="submitBtn"/></li>
-
-
 
 
                         </ul>

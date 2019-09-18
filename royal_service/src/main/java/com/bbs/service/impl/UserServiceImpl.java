@@ -3,8 +3,6 @@ package com.bbs.service.impl;
 import com.bbs.dao.UserDao;
 import com.bbs.domain.ResultInfo;
 import com.bbs.domain.UserInfo;
-import com.bbs.dao.UserDao;
-import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,7 @@ public class UserServiceImpl implements UserService {
         userDao.update(userInfo);
 
     }
+
     //用户登录
     @Override
     public ResultInfo login(UserInfo userInfo) {
@@ -57,6 +56,7 @@ public class UserServiceImpl implements UserService {
         }
         return resultInfo;
     }
+
     @Override
     public List<UserInfo> findUserOnline() {
         return userDao.findUserOnline();
@@ -93,10 +93,45 @@ public class UserServiceImpl implements UserService {
 
     //查询所有用户信息
     @Override
-    public List <UserInfo> findAll(Integer page, Integer pageSize) {
-        PageHelper.startPage(page,pageSize);
+    public List<UserInfo> findAll(Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
         return userDao.findAll();
     }
+
+    @Override
+    public String changeEmailAndPicUrl(UserInfo existUser) {
+        //修改图片路径
+        userDao.changePicUrl(existUser.getPicurl());
+        //修改邮箱
+        userDao.changeEmail(existUser.getEmail());
+
+        return "修改成功";
+    }
+
+    //修改密码
+    @Override
+    public ResultInfo checkExistPwd(String oldPassword, String newPassword, String username) {
+        UserInfo user = userDao.findPwd(oldPassword);
+        if (user == null) {
+            return new ResultInfo("旧密码不正确！");
+        } else {
+            userDao.updatePwd(username, newPassword);
+            return new ResultInfo("修改成功！");
+        }
+
+    }
+
+    //发起高级用户授权申请
+    @Override
+    public String requestHigherUser(String username) {
+        int num = userDao.requestHigherUser(username);
+        if (num == 1) {
+            return "申请成功，待审核!";
+        } else {
+            return "申请失败，请重新申请!";
+        }
+    }
+
 
     //对申请升等级的用户进行升级
     @Override

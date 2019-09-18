@@ -30,12 +30,7 @@
             <h1 class="logo l">
                 <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
-            <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
-                </form>
-            </div>
+
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
@@ -54,7 +49,7 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="images/default.png"/>
+                    <img src="${pageContext.request.contextPath}/images/${existUser.picurl}"/>
                     <div class="username">${existUser.username}</div>
                 </div>
                 <ul class="user-info-l-b">
@@ -70,7 +65,7 @@
                 <ul class="clearfix hd">
                     <li><a href="${pageContext.request.contextPath}/pages/userInfo.jsp">个人信息</a></li>
                     <li><a href="${pageContext.request.contextPath}/pages/userPwd.jsp">修改密码</a></li>
-                    <li class="cur"><a href="#">开辟新板块</a></li>
+                    <li class="cur">开辟新板块</li>
 
                 </ul>
 
@@ -94,12 +89,7 @@
                         </li>
                     </ul>
                 </form>
-
-
-
-
             </div>
-
 
         </div>
     </div>
