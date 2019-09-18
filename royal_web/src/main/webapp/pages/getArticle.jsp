@@ -134,10 +134,12 @@
         </div>
 
         <!--发表评论-->
-        <div class="detail-to-comment">
+        <div id="talkBox" class="detail-to-comment">
             <div class="tit"><a name="comment">发表评论</a></div>
             <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
-            <c:if test="${empty existUser}"><div class="con">您没有登录论坛，请登录后再进行回复</div></c:if>
+            <c:if test="${empty existUser}">
+                <div class="con">您没有登录论坛，请登录后再进行回复</div>
+            </c:if>
 
             <c:if test="${not empty existUser}">
             <!-- 登录后显示评论输入框-->
@@ -174,13 +176,13 @@
                 <span class="close r">&times;</span>
             </div>
             <div class="win_bd">
-                <div class="win_bd_b">
+                <div id="replyContentBox" class="win_bd_b">
                     <textarea id="replyContent" name="replyContent" placeholder="回复内容限于40字以内"></textarea>
                 </div>
             </div>
             <div class="win_ft">
                 <div class="win_ft_in">
-                    <input type="button" class="btn" onclick="saveReply()" value="回复"/>
+                    <input id="replyButton" type="button" class="btn" onclick="saveReply()" value="回复"/>
                     <input type="hidden" id="commentId" name="commentId"/>
                     <input type="hidden" id="replyUserName" name="replyUserName">
                 </div>
@@ -216,7 +218,7 @@
 
 
 <div class="fixedBar" id="j_fixedBar">
-    <a href="#comment" class="newTopic"><span></span>回复</a>
+    <a href="#comment" class="newTopic"><span></span>评论</a>
     <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
 </div>
 
@@ -224,6 +226,8 @@
 </body>
 
 <script type="text/javascript">
+
+
     $(function () {
         $.ajax({
             url:"/upvote/findIsUpvote.do",
@@ -236,6 +240,25 @@
             success:function (isUpvote) {
                 if(isUpvote==1){
                     $('#thisUpvote').attr("class","icon-feedback1");
+                }
+            }
+        })
+
+        $.ajax({
+            url:"/user/findTalkStatusByUserName.do",
+            data:{"userName":<c:if test="${empty existUser}">'游客'</c:if>
+                <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                "articleId":${article.articleId}
+            },
+            dataType:"json",
+            type:"post",
+            success:function (talkStatus) {
+                if(talkStatus==1){
+                    $('#commentForm').css("display","none");
+                    $('#talkBox').append("<div class='con'>您已被禁言，无法评论</div>")
+                    $('#replyContent').css("display","none");
+                    $('#replyContentBox').append("<dic style='height: 300px;line-height: 300px;padding-left: 300px;font-size: 20px'>您已被禁言，无法回复消息</div>")
+                    $('#replyButton').css("display","none");
                 }
             }
         })
@@ -348,6 +371,7 @@
                 type:"POST",
                 success: function () {
                     $('#thisUpvote').attr("class","icon-feedback1");
+                    location.reload();
                 },
                 error:function () {
                     alert("点赞失败！")
@@ -367,6 +391,7 @@
                 type:"POST",
                 success: function () {
                     $('#thisUpvote').attr("class","icon-feedback");
+                    location.reload();
                 },
                 error:function () {
                     alert("取消点赞失败！")

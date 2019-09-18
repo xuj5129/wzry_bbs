@@ -105,9 +105,14 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping("/findTalkStatusByUserName.do")
+    public @ResponseBody int findTalkStatusByUserName(String userName){
+        return userService.findTalkStatusByuserName(userName);
+    }
+
     //修改邮箱地址,上传图片
     @RequestMapping("/changeEmailAndFileUpload.do")
-    public ModelAndView changeEmailAndFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile upload,String email)throws Exception{
+    public ModelAndView changeEmailAndFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile upload, String email)throws Exception{
 
         UserInfo existUser = (UserInfo) request.getSession().getAttribute("existUser");
         ModelAndView mv = new ModelAndView();

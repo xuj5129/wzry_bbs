@@ -63,7 +63,7 @@
             <div class="list-view l">
 
                 <ul>
-                    <c:if test="${empty pageInfo}">
+                    <c:if test="${empty pageInfo.list}">
                         <div style="text-align: center;font-size: 30px;color: #7a8080;margin-top: 50px;">
                             该板块目前还没有帖子，赶紧来一发！
                         </div>

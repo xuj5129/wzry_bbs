@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int findTalkStatusByuserName(String username) {
+        return userDao.findTalkStatusByuserName(username);
+    }
+
+    @Override
     public void register(UserInfo userInfo) {
         userDao.save(userInfo);
 

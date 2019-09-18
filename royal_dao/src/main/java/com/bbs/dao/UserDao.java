@@ -77,4 +77,7 @@ public interface UserDao {
 
     @Update("update bbs_user_table set talkStatus=#{talkStatus} where userId=#{userId}")
     void changeTalk(@Param("userId") int userId,@Param("talkStatus") int talkStatus);
+
+    @Select("select talkStatus from bbs_user_table where username=#{username}")
+    int findTalkStatusByuserName(String username);
 }

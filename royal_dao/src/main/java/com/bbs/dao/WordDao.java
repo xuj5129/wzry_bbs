@@ -20,4 +20,7 @@ public interface WordDao {
 
     @Insert("insert into bbs_word_table (word) values(#{word})")
     void addWord(String word);
+
+    @Select("select * from bbs_word_table where status=0")
+    List<Word> findAllByStatus0();
 }
