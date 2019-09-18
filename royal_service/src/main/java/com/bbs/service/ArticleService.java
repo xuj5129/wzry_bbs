@@ -3,6 +3,7 @@ package com.bbs.service;
 import com.bbs.domain.Article;
 import com.bbs.domain.Comment;
 import com.bbs.domain.Reply;
+import com.bbs.domain.Report;
 
 import java.util.List;
 
@@ -32,8 +33,10 @@ public interface ArticleService {
 
     int getNumOfTodayArticle();
 
-    List<Article> findArticleNotReport();
+    List<Article> findArticleNotReport(int zoneId);
 
     List<Article> findArticleByWord(String keyWord);
+
+    void saveReport(Report report);
 }
 

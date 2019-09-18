@@ -3,9 +3,11 @@ package com.bbs.service.impl;
 import com.bbs.dao.ArticleDao;
 import com.bbs.dao.CommentDao;
 import com.bbs.dao.ReplyDao;
+import com.bbs.dao.ReportDao;
 import com.bbs.domain.Article;
 import com.bbs.domain.Comment;
 import com.bbs.domain.Reply;
+import com.bbs.domain.Report;
 import com.bbs.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class ArticleServiceImpl implements ArticleService {
     private CommentDao commentDao;
     @Autowired
     private ReplyDao replyDao;
+    @Autowired
+    private ReportDao reportDao;
 
 
     //今日总帖子数
@@ -66,6 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
     public void saveArticle(Article article) {
         article.setSendTime(new Date());
         articleDao.saveArticle(article);
+        System.out.println(article);
     }
 
     //保存评论
@@ -97,8 +102,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     //查询没有被举报的帖子
     @Override
-    public List<Article> findArticleNotReport() {
-        return articleDao.findAllWhereNotReport();
+    public List<Article> findArticleNotReport(int zoneId) {
+        return articleDao.findAllWhereNotReport(zoneId);
     }
 
     @Override
@@ -108,15 +113,22 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+    @Override
+    public void saveReport(Report report) {
+        report.setReportTime(new Date());
+        reportDao.saveReport(report);
+    }
+
     //查询总帖子数
     @Override
     public int getTotalArticleNum() {
         return articleDao.getTotalArticleNum();
     }
 
-    ///通过帖子id查询帖子
+    ///通过帖子id查询帖子,并增加浏览数
     @Override
     public Article findById(Integer id) {
+        articleDao.updateArticleBrowseCount(id);
         return articleDao.findById(id);
     }
 

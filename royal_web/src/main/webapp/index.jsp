@@ -5,7 +5,7 @@
     <script src="js/jquery-1.7.2.min.js"></script>
     <script>
         $(function () {
-            location.href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do";
+            location.href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?zoneId=1";
         })
     </script>
 </head>

@@ -104,7 +104,7 @@ public interface ArticleDao {
     })
     List<Article> findByTicle(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
 
-    @Select("select * from bbs_article_table where isReport=0 order by isTop DESC")
+    @Select("select * from (SELECT * FROM bbs_article_table WHERE zoneId=#{zoneId} ORDER BY sendTime DESC) articleTable where isReport=0 order by isTop DESC")
     @Results({
             @Result(column = "articleId",property = "articleId"),
             @Result(column = "title",property = "title"),
@@ -121,9 +121,11 @@ public interface ArticleDao {
             @Result(column = "articleId",property = "replyCount",one =
             @One(select = "com.bbs.dao.CommentDao.getCommentCountByArticleId"))
     })
-    List<Article> findAllWhereNotReport();
+    List<Article> findAllWhereNotReport(int zoneId);
 
-    @Select("SELECT * FROM bbs_article_table WHERE title LIKE #{word} OR content LIKE #{word} order by isTop DESC")
+    @Select("SELECT * FROM (SELECT * FROM bbs_article_table ORDER BY sendTime DESC) articleTable WHERE title LIKE #{word} OR content LIKE #{word} order by isTop DESC")
     List<Article> findArticleByWord(String word);
 
+    @Update("UPDATE bbs_article_table SET browseCount=(browseCount+1) WHERE articleId=#{articleId}")
+    void updateArticleBrowseCount(int articleId);
 }

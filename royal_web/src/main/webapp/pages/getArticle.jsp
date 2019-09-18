@@ -35,9 +35,9 @@
                     <h2 class="l">${article.title}</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
-					         <a href="javascript:(0)"><i></i>${article.upvoteCount}</a>
+					         <a id="upvoteCount" href="javascript:(0)"><i></i>${article.upvoteCount}</a>
 					     </span>
-                        <span class="icon-talk">
+                        <span id="replyCount" class="icon-talk">
 						     <i></i>${article.replyCount}
 						</span>
                     </div>
@@ -54,7 +54,7 @@
 
         <!--导航，回首页，帖子标题，排序-->
         <div class="detail-page-box clearfix">
-            <a href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do">
+            <a href="${pageContext.request.contextPath}/index.jsp">
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
@@ -87,7 +87,7 @@
                         </div>
                         <span id="thisUpvote" class="icon-feedback" style="right: 150px"><a href="javascript:changeUpvote()"> <i></i> 点赞</a></span>
                         <span class="icon-comment" style="right: 80px"><a href="#comment"> <i></i> 评论</a></span>
-                        <span class="icon-report" ><a href="javascript:(0)"> <i></i> 举报</a></span>
+                        <span class="icon-report" ><a href="javascript:showReportDialog()"> <i></i> 举报</a></span>
                     </div>
                 </li>
 
@@ -166,7 +166,7 @@
 
 <!-- 回复弹出框 -->
 <form id="replyForm" action="" method="post">
-    <div class="pop-box ft-box">
+    <div id="replyBox" class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
             <div class="win_hd">
@@ -183,6 +183,31 @@
                     <input type="button" class="btn" onclick="saveReply()" value="回复"/>
                     <input type="hidden" id="commentId" name="commentId"/>
                     <input type="hidden" id="replyUserName" name="replyUserName">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- 举报弹出框 -->
+<form id="reportForm" action="" method="post">
+    <div id="reportBox" class="pop-box ft-box">
+        <div class="mask"></div>
+        <div class="win">
+            <div class="win_hd">
+                <h4 class="l">举报本帖</h4>
+                <span class="close r">&times;</span>
+            </div>
+            <div class="win_bd">
+                <div class="win_bd_b">
+                    <textarea id="reportContent" name="reportContent" placeholder="举报内容限于400字以内"></textarea>
+                </div>
+            </div>
+            <div class="win_ft">
+                <div class="win_ft_in">
+                    <input type="button" class="btn" onclick="saveReport()" value="举报"/>
+                    <input type="hidden" id="articleId" name="articleId"/>
+                    <input type="hidden" id="reportUserName" name="reportUserName">
                 </div>
             </div>
         </div>
@@ -223,9 +248,9 @@
             alert("请登录");
             return;
         }
-        $("#replyUserName").val("admin");
+        $("#replyUserName").val("${existUser.username}");
         $("#commentId").val(commentId);
-        $('.pop-box').css('display', 'block');
+        $('#replyBox').css('display', 'block');
         $("#floorSpan").html(num);
     }
 
@@ -239,7 +264,7 @@
                 dataType:"text",
                 success:function(){
                     alert("发表成功")
-                    location.href="/article/getArticle.do?articleId="+${article.articleId};
+                    location.reload();
                 },
                 error:function () {
                     alter("发表失败")
@@ -251,8 +276,40 @@
     }
 
     //弹出举报框
-    function showReport() {
-        
+    function showReportDialog() {
+        var existUser = "${existUser}";
+        if (!existUser) {
+            alert("请登录");
+            return;
+        }
+        if("${article.senderName}"=="${existUser.username}"){
+            alert("不能举报自己帖子");
+            return;
+        }
+        $("#reportUserName").val("${existUser.username}");
+        $("#articleId").val(${article.articleId});
+        $('#reportBox').css('display', 'block');
+    }
+
+    //举报验证
+    function saveReport() {
+        if ($("#reportContent").val().length>0){
+            $.ajax({
+                url:"/article/saveReport.do",
+                data:$("#reportForm").serialize(),
+                type:"post",
+                dataType:"text",
+                success:function(){
+                    alert("举报申请已提交");
+                    location.reload();
+                },
+                error:function () {
+                    alter("举报失败")
+                }
+            })
+        }else{
+            alert("请填写内容");
+        }
     }
 
     //评论验证
@@ -261,6 +318,7 @@
             alert("请先输入内容，再提交");
         }else{
             $('#commentForm').submit();
+            location.reload();
         }
     }
 
@@ -308,6 +366,7 @@
                 }
             })
         }
+
     }
 </script>
 </html>

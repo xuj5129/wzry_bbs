@@ -2,8 +2,10 @@ package com.bbs.controller;
 
 import com.bbs.domain.Article;
 import com.bbs.domain.UserInfo;
+import com.bbs.domain.Zone;
 import com.bbs.service.ArticleService;
 import com.bbs.service.UserService;
+import com.bbs.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,11 @@ public class BeginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ZoneService zoneService;
+
     @RequestMapping("/getTotalArticleAndUserOnline.do")
-    public ModelAndView getTotalArticle() {
+    public ModelAndView getTotalArticle(int zoneId) {
         ModelAndView mv = new ModelAndView();
         //查询总帖数
         int num1 = articleService.getTotalArticleNum();
@@ -32,9 +37,12 @@ public class BeginController {
         List<UserInfo> userOnlineList = userService.findUserOnline();
         //查询在线用户数
         int num3 = userService.numOfUserOnline();
-
+        //查询所有板块
+        List<Zone> zones= zoneService.findAllByDefASCAndZoneIdASC();
         //查询所有没被举报帖子
-        List<Article> articleList = articleService.findArticleNotReport();
+        List<Article> articleList = articleService.findArticleNotReport(zoneId);
+        mv.addObject("zones",zones);
+        mv.addObject("showzoneId",zoneId);
         mv.addObject("articleList",articleList);
         mv.addObject("userOnlineList",userOnlineList);
         mv.addObject("num1", num1);

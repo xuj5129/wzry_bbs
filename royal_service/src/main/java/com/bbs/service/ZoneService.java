@@ -6,10 +6,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface ZoneService {
 
 
     String findZoneName(ZoneApply zoneApply);
+
+    List<Zone> findAllByDefASCAndZoneIdASC();
 
     List<ZoneApply> findAll(Integer page, int pageSize);
 

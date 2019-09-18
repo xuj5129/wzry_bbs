@@ -30,7 +30,7 @@
                 <a href="${pageContext.request.contextPath}/pages/register.jsp">【新用户注册】</a>--%>
                 <div id="dialogBg"></div>
                 <div id="dialog" class="animated">
-                    <img class="dialogIco" width="50" height="40" src="images/ico.png"/>
+                    <img class="dialogIco" width="50" height="40" src="${pageContext.request.contextPath}/images/ico.png"/>
                     <div class="dialogTop" style="height:25px;">
                         <a href="javascript:;" class="closeDialogBtn">关闭</a>
                     </div>

@@ -46,25 +46,23 @@
 
         <!-- 导航 -->
         <ul class="hm-bbs-nav border-lrb clearfix">
-            <li class="current">
+            <%--<li class="current">
                 <a href="#"><em></em>综合交流区</a>
-            </li>
-            <li>
-                <a href="#"><em></em>BUG反馈区</a>
-            </li>
-            <li>
-                <a href="#"><em></em>新闻公告区</a>
-            </li>
-            <li>
-                <a href="#"><em></em>活动专区</a>
-            </li>
+            </li>--%>
+            <c:forEach items="${zones}" var="zone">
+                <li <c:if test="${showzoneId==zone.zoneId}">class="current"</c:if></li>
+                    <a href="/begin/getTotalArticleAndUserOnline.do?zoneId=${zone.zoneId}"><em></em>${zone.zoneName}</a>
+                </li>
+            </c:forEach>
         </ul>
 
         <!-- 主体部分 -->
         <div class="hm-bbs-main border-lrb clearfix">
             <!-- 左侧列表 -->
             <div class="list-view l">
+
                 <ul>
+                    <c:if test="${empty articleList}"><div style="text-align: center;font-size: 30px;color: #7a8080;margin-top: 50px;">该板块目前还没有帖子，赶紧来一发！</div></c:if>
                     <c:forEach items="${articleList}" var="article">
 
                             <li class="clearfix <c:if test='${article.isTop ==1}'> ding</c:if>">
@@ -125,7 +123,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="" method="post">
+<form id="articleForm" action="" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
@@ -142,13 +140,38 @@
             </div>
             <div class="win_ft">
                 <div class="win_ft_in">
-                    <input type="submit" class="btn" value="发表"/>
+                    <input type="button" class="btn" onclick="saveArticle()" value="发表"/>
+                    <input type="hidden" id="senderName" name="senderName" value="${existUser.username}">
+                    <input type="hidden" id="zoneId" name="zoneId" value="${showzoneId}" >
                 </div>
             </div>
         </div>
     </div>
 </form>
-
-
 </body>
+<script>
+    function saveArticle() {
+        var existUser = "${existUser}";
+        if (!existUser) {
+            alert("请登录");
+            return;
+        }else if ($("#content").val().length>0){
+            $.ajax({
+                url:"/article/saveArticle.do",
+                data:$("#articleForm").serialize(),
+                type:"post",
+                dataType:"text",
+                success:function(){
+                    alert("发帖成功");
+                    location.reload();
+                },
+                error:function () {
+                    alter("发帖失败")
+                }
+            })
+        }else{
+            alert("请填写内容");
+        }
+    }
+</script>
 </html>

@@ -32,6 +32,15 @@ public class ZoneServiceImpl implements ZoneService {
 
     }
 
+    /**
+     * 先根据默认属性升序排序，再根据id属性排序，显示所有板块
+     * @return
+     */
+    @Override
+    public List<Zone> findAllByDefASCAndZoneIdASC() {
+        return zoneDao.findAllByDefASCAndZoneIdASC();
+    }
+
     //查询所有申请的版块
     @Override
     public List<ZoneApply> findAll(Integer page, int pageSize) {

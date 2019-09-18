@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import java.util.List;
+
 @Repository
 public interface ZoneDao {
 
@@ -20,6 +22,9 @@ public interface ZoneDao {
 
     @Select("select * from bbs_zoneApply_table where zoneName = #{zoneName}")
     ZoneApply findZoneName(String zoneName);
+
+    @Select("SELECT * FROM (SELECT * FROM bbs_zone_table ORDER BY isDef ASC) def_first ORDER BY zoneId ASC")
+    List<Zone> findAllByDefASCAndZoneIdASC();
 
     @Select("select * from bbs_zoneApply_table where status = 0")
     List<ZoneApply> findAll();
