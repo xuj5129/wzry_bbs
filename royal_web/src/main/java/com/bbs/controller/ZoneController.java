@@ -24,7 +24,7 @@ public class ZoneController {
         String msg = zoneService.findZoneName(zoneApply);
         mv.addObject("msg",msg);
         mv.addObject("zoneApply",zoneApply);
-        mv.setViewName("addZone");
+        mv.setViewName("addzone");
         return mv;
     }
 

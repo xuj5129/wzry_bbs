@@ -75,7 +75,7 @@
                         <li><a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=3&username=${existUser.username}">申请高级用户</a></li>
                     </c:if>
                 </ul>
-                <form action="${pageContext.request.contextPath}/user/checkExistPwd.do" method="get">
+                <form action="${pageContext.request.contextPath}/user/checkExistPwd.do" method="post">
                     <input type="hidden" name="username" value="${showUser.username}">
                   <ul class="bd">
                     <li class="clearfix">
@@ -105,8 +105,10 @@
 <script>
     $(function () {
         if(${empty showUser}){
-            alert("发生错误，请重新进入");
-            location.href="${pageContext.request.contextPath}/index.jsp";
+            if(${empty existUser}){
+                alert("请先登录！")
+                location.href="${pageContext.request.contextPath}/index.jsp"
+            }
         }
     })
     function checkPwd() {

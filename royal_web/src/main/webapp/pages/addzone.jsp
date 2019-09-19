@@ -70,7 +70,7 @@
                 </ul>
 
                 <form action="${pageContext.request.contextPath}/zone/addZone.do" method="post" >
-                    <input type="hidden" name="userName" value="${获取用户名}">
+                    <input type="hidden" name="userName"  value="${existUser.username}">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l">板块名称：</div>

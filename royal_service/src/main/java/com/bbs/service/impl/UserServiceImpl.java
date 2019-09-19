@@ -141,13 +141,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultInfo checkExistPwd(String oldPassword, String newPassword, String username) {
         UserInfo user = userDao.findUserByUserName(username);
-        if (user == null) {
+        if (!user.getUserpass().equals(oldPassword)) {
             return new ResultInfo("旧密码不正确！");
-        } else {
+        } else if (user.getUserpass().equals(newPassword)){
+            return new ResultInfo("新旧密码不能相同！");
+        }else  {
             userDao.updatePwd(newPassword,username);
             return new ResultInfo("修改成功！");
         }
-
     }
 
     //发起高级用户授权申请
