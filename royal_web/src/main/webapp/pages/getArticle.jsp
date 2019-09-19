@@ -82,7 +82,7 @@
                             </a>
                         </div>
                         <a href="javaScript:showUserInfoDialog('${article.userInfo.picurl}','${article.userInfo.username}','${article.userInfo.roleStr}','${article.userInfo.email}','${article.userInfo.lastlogintime}')">
-                            <div class="floorer-name" style="
+                            <div class="floorer-name" style="text-align: center;
                             <c:if test='${article.userInfo.role==3}'>color: red;</c:if>
                             <c:if test='${article.userInfo.role==2}'>color: #66afe9;</c:if>">
                                 ${article.userInfo.username}
@@ -116,8 +116,8 @@
                                     <img src="${pageContext.request.contextPath}/images/${comment.userInfo.picurl}"/>
                                 </a>
                             </div>
-                            <a href="javaScript:showUserInfoDialog('${comment.userInfo.username}','${comment.userInfo.roleStr}','${comment.userInfo.email}','${comment.userInfo.lastlogintime}')">
-                                <div class="floorer-name" style="
+                            <a href="javaScript:showUserInfoDialog('${comment.userInfo.picurl}','${comment.userInfo.username}','${comment.userInfo.roleStr}','${comment.userInfo.email}','${comment.userInfo.lastlogintime}')">
+                                <div class="floorer-name" style="text-align: center;
                                 <c:if test='${comment.userInfo.role==3}'>color: red;</c:if>
                                     <c:if test='${comment.userInfo.role==2}'>color: #66afe9;</c:if>">${comment.commentUserName}</div>
                             </a>
