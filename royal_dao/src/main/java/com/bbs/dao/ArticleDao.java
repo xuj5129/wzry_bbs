@@ -196,4 +196,7 @@ public interface ArticleDao {
             @Many(select = "com.bbs.dao.CommentDao.findCommentByArticleIdAndNewTime"))
     })
     Article findByIdAndNewTime(Integer id);
+
+    @Select("SELECT * FROM bbs_article_table where senderName=#{username} AND isReport=0")
+    List<Article> findMyArticle(String username);
 }

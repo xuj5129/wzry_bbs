@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -123,5 +124,15 @@ public class ArticleController {
         mv.addObject("timeStatus","old");
         mv.setViewName("getArticle");
         return mv;
+    }
+
+    @RequestMapping("/findMyArticle.do")
+    public @ResponseBody List<Article> findMyArticle(String userName){
+        //查询当前用户的所有帖子
+        if(userName.trim()!=""){
+            return  articleService.findMyArticle(userName);
+        }else{
+            return new ArrayList<Article>();
+        }
     }
 }

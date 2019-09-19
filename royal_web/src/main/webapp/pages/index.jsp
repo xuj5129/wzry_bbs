@@ -110,6 +110,11 @@
                 </div>
             </div>
 
+            <div class="aside l" style="background-color: white;">
+                <ul id="myArticle" style="line-height: 20px;margin-left: 10px;padding-top: 20px;font-size: 16px">
+                    <li style="text-align: center;color: coral;margin-bottom: 30px;font-size: 30px">我的帖子</li>
+                </ul>
+            </div>
 
         </div>
 
@@ -195,6 +200,30 @@
 </form>
 </body>
 <script>
+    $(function () {
+        if(${not empty existUser}){
+            $.ajax({
+                url:"${pageContext.request.contextPath}/article/findMyArticle.do",
+                data:{"userName":'${existUser.username}'},
+                dataType:"json",
+                type:"post",
+                success:function (data) {
+                    for (var i=0;i<=data.length-1;i++){
+                        $('#myArticle').append("" +
+                            "<li>" +
+                            "<a href='${pageContext.request.contextPath}/article/getArticle.do?articleId="+data[i].articleId+"'>" +
+                            ""+data[i].title+"</a><div class='hm-index-fun r' style='line-height:16px;height:0px;padding-top:0px'>\n" +
+                            "                                <span class=\"icon-like\" style='margin-right:0px'><i></i>"+data[i].upvoteCount+"</span>\n" +
+                            "                                <span class=\"icon-talk\"><i></i>"+data[i].replyCount+"</span>\n" +
+                            "                            </div></li>")
+                    }
+                },
+                error:function () {
+                    alert("获取失败！")
+                }
+            })
+        }
+    })
     function saveArticle() {
         var existUser = "${existUser}";
         if (!existUser) {

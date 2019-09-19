@@ -250,6 +250,11 @@ public class ArticleServiceImpl implements ArticleService {
         return replaceArticleWord(article);
     }
 
+    @Override
+    public List<Article> findMyArticle(String username) {
+        return replaceWord(articleDao.findMyArticle(username));
+    }
+
     /**
      * 过滤详情页的敏感词
      * @param article

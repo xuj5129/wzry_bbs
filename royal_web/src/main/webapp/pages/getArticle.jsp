@@ -81,7 +81,7 @@
                                 <img src="${pageContext.request.contextPath}/images/${article.userInfo.picurl}"/>
                             </a>
                         </div>
-                        <a href="javaScript:showUserInfoDialog('${article.userInfo.username}','${article.userInfo.roleStr}','${article.userInfo.email}','${article.userInfo.lastlogintime}')">
+                        <a href="javaScript:showUserInfoDialog('${article.userInfo.picurl}','${article.userInfo.username}','${article.userInfo.roleStr}','${article.userInfo.email}','${article.userInfo.lastlogintime}')">
                             <div class="floorer-name" style="
                             <c:if test='${article.userInfo.role==3}'>color: red;</c:if>
                             <c:if test='${article.userInfo.role==2}'>color: #66afe9;</c:if>">

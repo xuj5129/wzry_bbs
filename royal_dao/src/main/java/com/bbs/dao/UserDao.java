@@ -40,7 +40,7 @@ public interface UserDao {
     @Select("select * from bbs_user_table where username=#{username}")
     UserInfo findUserByUserName(String username);
 
-    @Insert("insert into bbs_user_table(username,userpass,email,loginStatus)values(#{username},#{userpass},#{email},#{loginstatus})")
+    @Insert("insert into bbs_user_table(username,userpass,picUrl,email,loginStatus)values(#{username},#{userpass},'default.png',#{email},#{loginstatus})")
     void save(UserInfo userInfo);
     //修改邮箱
     @Update("update bbs_user_table set email = #{email} where username = #{username}")

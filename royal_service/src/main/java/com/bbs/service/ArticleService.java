@@ -52,5 +52,7 @@ public interface ArticleService {
     Article replaceArticleWord(Article article);
 
     Article findByOldTime(Integer id);
+
+    List<Article> findMyArticle(String username);
 }
 
