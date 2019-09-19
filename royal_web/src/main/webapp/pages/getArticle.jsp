@@ -131,11 +131,16 @@
                                         <!-- 回复部分,楼中楼 -->
                                         <c:forEach items="${comment.replys}" var="reply">
                                             <li class="clearfix">
-                                                <div class="floor-ans-pho l"><img
-                                                        src="${pageContext.request.contextPath}/images/${reply.userInfo.picurl}"/>
+                                                <div class="floor-ans-pho l">
+                                                    <a href="javaScript:showUserInfoDialog('${reply.userInfo.picurl}','${reply.userInfo.username}','${reply.userInfo.roleStr}','${reply.userInfo.email}','${reply.userInfo.lastlogintime}')">
+                                                        <img src="${pageContext.request.contextPath}/images/${reply.userInfo.picurl}"/>
+                                                    </a>
                                                 </div>
                                                 <div class="floor-ans-con l">
-                                                    <span class="name">${reply.userInfo.username}</span>：${reply.replyContent}
+                                                    <a href="javaScript:showUserInfoDialog('${reply.userInfo.picurl}','${reply.userInfo.username}','${reply.userInfo.roleStr}','${reply.userInfo.email}','${reply.userInfo.lastlogintime}')">
+                                                        <span class="name">${reply.userInfo.username}</span>
+                                                    </a>
+                                                    ：${reply.replyContent}
                                                     <span class="ans-time">${reply.replyTime}</span>
                                                 </div>
                                             </li>
