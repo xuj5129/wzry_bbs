@@ -63,10 +63,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     //保存帖子
     @Override
-    public void saveArticle(Article article) {
-        article.setSendTime(new Date());
+    public int saveArticle(Article article) {
+        Date time=new Date();
+        article.setSendTime(time);
         articleDao.saveArticle(article);
-        System.out.println(article);
+        Article newarticle = articleDao.findArticleByTitle(article.getTitle(),time,article.getSenderName());
+        return newarticle.getArticleId();
     }
 
     //保存评论

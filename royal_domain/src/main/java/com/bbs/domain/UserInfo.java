@@ -1,6 +1,7 @@
 package com.bbs.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UserInfo implements Serializable {
@@ -93,8 +94,15 @@ public class UserInfo implements Serializable {
         this.roleStr = roleStr;
     }
 
-    public Date getLastlogintime() {
-        return lastlogintime;
+    public String getLastlogintime() {
+        String lastTime;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            lastTime = sdf.format(lastlogintime);
+        }catch (Exception e){
+            lastTime="暂无最近登录信息";
+        }
+        return lastTime;
     }
 
     public void setLastlogintime(Date lastlogintime) {

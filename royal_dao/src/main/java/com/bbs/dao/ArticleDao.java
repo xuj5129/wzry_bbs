@@ -3,6 +3,9 @@ package com.bbs.dao;
 import com.bbs.domain.Article;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -163,4 +166,6 @@ public interface ArticleDao {
     @Select("select * from bbs_article_table  where sendername = #{senderName} ")
     List<Article> findBySenderNameLikeName(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
 
+    @Select("select * from bbs_article_table where title=#{title} AND sendTime=#{sendTime} AND senderName=#{senderName}")
+    Article findArticleByTitle(@Param("title") String title, @Param("sendTime") Date sendTime, @Param("senderName")String senderName);
 }

@@ -76,9 +76,14 @@
                 <!--原帖楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img
-                                src="${pageContext.request.contextPath}/images/${article.userInfo.picurl}"/></div>
-                        <div class="floorer-name">${article.userInfo.username}</div>
+                        <div class="floorer-photo">
+                            <a href="javaScript:showUserInfoDialog('${article.userInfo.picurl}','${article.userInfo.username}','${article.userInfo.roleStr}','${article.userInfo.email}','${article.userInfo.lastlogintime}')">
+                                <img src="${pageContext.request.contextPath}/images/${article.userInfo.picurl}"/>
+                            </a>
+                        </div>
+                        <a href="javaScript:showUserInfoDialog('${article.userInfo.username}','${article.userInfo.roleStr}','${article.userInfo.email}','${article.userInfo.lastlogintime}')">
+                            <div class="floorer-name">${article.userInfo.username}</div>
+                        </a>
                     </div>
                     <div class="floor-con l">
                         <div class="floor-info clearfix">
@@ -102,9 +107,14 @@
                 <c:forEach items="${article.comments}" var="comment" varStatus="i">
                     <li class="floor clearfix">
                         <div class="floorer-info l">
-                            <div class="floorer-photo"><img
-                                    src="${pageContext.request.contextPath}/images/${comment.userInfo.picurl}"/></div>
-                            <div class="floorer-name">${comment.commentUserName}</div>
+                            <div class="floorer-photo">
+                                <a href="javaScript:showUserInfoDialog('${comment.userInfo.picurl}','${comment.userInfo.username}','${comment.userInfo.roleStr}','${comment.userInfo.email}','${comment.userInfo.lastlogintime}')">
+                                    <img src="${pageContext.request.contextPath}/images/${comment.userInfo.picurl}"/>
+                                </a>
+                            </div>
+                            <a href="javaScript:showUserInfoDialog('${comment.userInfo.username}','${comment.userInfo.roleStr}','${comment.userInfo.email}','${comment.userInfo.lastlogintime}')">
+                                <div class="floorer-name">${comment.commentUserName}</div>
+                            </a>
                         </div>
                         <div class="floor-con l">
                             <div class="floor-info clearfix">
@@ -227,6 +237,52 @@
     </div>
 </form>
 
+<!-- 用户信息弹出框 -->
+<form id="showUserInfo" action="" method="post">
+    <div id="userInfoBox" class="pop-box ft-box">
+        <div class="mask"></div>
+        <div class="" style="width: 300px;position: fixed;top: 20%;left: 40%;">
+            <div class="win_hd">
+                <h4 class="l">用户信息</h4>
+            </div>
+            <div class="win_bd">
+                <div class="win_bd_b" style="background-color:white;height:250px;width: 100%">
+                    <div id="userInfoBoxPicUrl" class="floorer-photo" style="padding-top: 10px;border: 0px">
+                    </div>
+                    <table style="text-align: center;width: 100%;">
+                        <tr>
+                            <td style="width: 50%;text-align: right">用户名：</td>
+                            <td style="width: 50%;text-align: left" id="userInfoBoxUserName">dd</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;text-align: right">用户等级：</td>
+                            <td style="width: 50%;text-align: left" id="userInfoBoxRoleStr">dd</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;text-align: right">邮箱：</td>
+                            <td style="width: 50%;text-align: left" id="userInfoBoxEmail">dd</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;text-align: right">发帖数：</td>
+                            <td style="width: 50%;text-align: left" id="userInfoBoxArticleCount">dd</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;text-align: right">最近登录时间：</td>
+                            <td style="width: 50%;text-align: left" id="userInfoBoxlastTime">dd</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="win_ft">
+                <div class="win_ft_in">
+                    <input type="button" class="btn" onclick="closeUserInfoDialong()" value="关闭"/>
+                    <input type="hidden"  name="articleId"/>
+                    <input type="hidden"  name="reportUserName">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div class="fixedBar" id="j_fixedBar">
     <a href="#comment" class="newTopic"><span></span>评论</a>
@@ -299,6 +355,31 @@
         $("#commentId").val(commentId);
         $('#replyBox').css('display', 'block');
         $("#floorSpan").html(num);
+    }
+
+    //弹出用户信息框
+    function showUserInfoDialog(picUrl,username,roleStr,email,lastTime) {
+        $("#commentId").val(commentId);
+        $('#userInfoBox').css('display', 'block');
+        $("#userInfoBoxPicUrl").html("<img src='${pageContext.request.contextPath}/images/"+picUrl+"'/>");
+        $("#userInfoBoxUserName").html(username);
+        $("#userInfoBoxRoleStr").html(roleStr);
+        $("#userInfoBoxEmail").html(email);
+        $("#userInfoBoxlastTime").html(lastTime);
+        $.ajax({
+            url:"${pageContext.request.contextPath}/article/findArticleNumWithUsername.do",
+            data:{"name":username},
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                $("#userInfoBoxArticleCount").html(data);
+            }
+        })
+    }
+
+    //关闭用户框
+    function closeUserInfoDialong() {
+        $('#userInfoBox').css('display', 'none');
     }
 
     //回复验证

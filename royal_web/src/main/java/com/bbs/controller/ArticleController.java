@@ -29,9 +29,10 @@ public class ArticleController {
     private ZoneService zoneService;
 
     @RequestMapping("/saveArticle.do")
-    @ResponseBody
-    public void saveArticle(Article article){
-        articleService.saveArticle(article);
+    public ModelAndView saveArticle(Article article){
+        int articleId = articleService.saveArticle(article);
+        ModelAndView mv = findById(articleId);
+        return mv;
     }
 
     @RequestMapping("/getArticle.do")

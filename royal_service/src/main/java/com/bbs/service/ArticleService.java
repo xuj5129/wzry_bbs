@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    void saveArticle(Article article);
+    int saveArticle(Article article);
 
     void saveComment(Comment comment);
 

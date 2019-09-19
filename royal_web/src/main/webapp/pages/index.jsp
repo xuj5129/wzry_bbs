@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index-new.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -169,7 +168,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form id="articleForm" action="" method="post">
+<form id="articleForm" action="${pageContext.request.contextPath}/article/saveArticle.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
@@ -202,22 +201,10 @@
             alert("请登录");
         }else if(${showzoneId==0}) {
             alert("请先选择你所有发帖的板块！")
-        }else if ($("#content").val().length > 0) {
-            $.ajax({
-                url: "/article/saveArticle.do",
-                data: $("#articleForm").serialize(),
-                type: "post",
-                dataType: "text",
-                success: function () {
-                    alert("发帖成功");
-                    location.reload();
-                },
-                error: function () {
-                    alter("发帖失败")
-                }
-            })
+        }else if ($("#content").val().length > 0 && $("#title").val().length > 0) {
+            $("#articleForm").submit();
         } else {
-            alert("请填写内容");
+            alert("请填写标题与内容！");
         }
     }
 </script>
