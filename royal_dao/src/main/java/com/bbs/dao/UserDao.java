@@ -30,10 +30,6 @@ public interface UserDao {
      */
 
 
-
-
-
-
     @Select("SELECT * FROM bbs_user_table WHERE loginStatus = 1 ")
     List<UserInfo> findUserOnline();
 
@@ -42,9 +38,6 @@ public interface UserDao {
 
     @Select("select * from bbs_user_table where username=#{username}")
     UserInfo findUserByUserName(String username);
-
-
-
 
     @Insert("insert into bbs_user_table(username,userpass,email)values(#{username},#{userpass},#{email})")
     void save(UserInfo userInfo);

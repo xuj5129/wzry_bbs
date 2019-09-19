@@ -146,11 +146,11 @@ public class UserController {
             existUser.setPicurl(filename);
         }
 
-
         String changeMsg = userService.changeEmailAndPicUrl(existUser);
 
         //再将修改后的用户信息存入session域中
         request.getSession().setAttribute("existUser",existUser);
+        request.getSession().removeAttribute("changeMsg");
         mv.addObject("changeMsg",changeMsg);
         mv.setViewName("userInfo");
         return mv;
