@@ -529,6 +529,14 @@ a:visited {
     background-position: -128px -32px;
 }
 
+.floor-con .icon-PingBiIcon i{
+  background-position: -160px -16px;
+}
+
+.floor-con .icon-delete i{
+  background-position: -96px -16px;
+}
+
 .floor-con .icon-report i{
     background-position: -64px -16px;
 }
@@ -537,7 +545,7 @@ a:visited {
     background-position: -112px -32px;
 }
 
-.floor-con .icon-comment,.floor-con .icon-feedback ,.floor-con .icon-report ,.floor-con .icon-feedback1{
+.floor-con .icon-comment, .floor-con .icon-PingBiIcon, .floor-con .icon-feedback ,.floor-con .icon-delete,.floor-con .icon-report ,.floor-con .icon-feedback1{
   position: absolute;
   right: 10px;
   bottom: 10px;

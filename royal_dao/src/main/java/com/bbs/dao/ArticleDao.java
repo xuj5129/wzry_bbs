@@ -168,4 +168,32 @@ public interface ArticleDao {
 
     @Select("select * from bbs_article_table where title=#{title} AND sendTime=#{sendTime} AND senderName=#{senderName}")
     Article findArticleByTitle(@Param("title") String title, @Param("sendTime") Date sendTime, @Param("senderName")String senderName);
+
+    /**
+     * 从新到旧显示帖子详情
+     * @param id
+     * @return
+     */
+
+    @Select("select * from bbs_article_table where articleId=#{id}")
+    @Results({
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "title",property = "title"),
+            @Result(column = "content",property = "content"),
+            @Result(column = "sendTime",property = "sendTime"),
+            @Result(column = "senderName",property = "senderName"),
+            @Result(column = "isTop",property = "isTop"),
+            @Result(column = "replyCount",property = "replyCount"),
+            @Result(column = "upvoteCount",property = "upvoteCount"),
+            @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "articleId",property = "upvoteCount",one =
+            @One(select = "com.bbs.dao.UpvoteDao.getUpvoteCountByArticleId")),
+            @Result(column = "articleId",property = "replyCount",one =
+            @One(select = "com.bbs.dao.CommentDao.getCommentCountByArticleId")),
+            @Result(column = "senderName",property = "userInfo",one =
+            @One(select = "com.bbs.dao.UserDao.findUserByUserName")),
+            @Result(column = "articleId", property = "comments", javaType = List.class, many =
+            @Many(select = "com.bbs.dao.CommentDao.findCommentByArticleIdAndNewTime"))
+    })
+    Article findByIdAndNewTime(Integer id);
 }

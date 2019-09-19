@@ -83,7 +83,7 @@
                   dataType:"json",
                   success:function (data) {
                       if(data.success){
-                          location.href="${pageContext.request.contextPath}/index.jsp";
+                          location.reload();
                       }
                       else {
                           $("#pwdLoginInfo").html(data.msg);

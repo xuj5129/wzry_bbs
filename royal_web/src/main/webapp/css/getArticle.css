@@ -32,6 +32,10 @@ body {
 .new-to-old {
 	margin:0;
 }
+
+.new-to-up {
+	margin:0;
+}
 .fixedBar {
 	bottom:173px
 }
@@ -45,6 +49,11 @@ body {
 .detail-page-box .new-to-old{
 	border: 1px solid #d9d9d9;
 }
+
+.detail-page-box .new-to-up{
+	border: 1px solid #d9d9d9;
+}
+
 .detail-page-box {
 	border:none;
 	padding: 9px 15px 9px 20px;

@@ -166,18 +166,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article findById(Integer id) {
         articleDao.updateArticleBrowseCount(id);
         Article article = articleDao.findById(id);
-        List<Word> words = wordDao.findAllByStatus0();
-        for (Word word : words) {
-            article.setTitle(article.getTitle().replace(word.getWord(), "**"));
-            article.setContent(article.getContent().replace(word.getWord(), "**"));
-            for (Comment comment : article.getComments()) {
-                comment.setCommentContent(comment.getCommentContent().replace(word.getWord(), "**"));
-                for (Reply reply : comment.getReplys()) {
-                    reply.setReplyContent(reply.getReplyContent().replace(word.getWord(), "**"));
-                }
-            }
-        }
-        return article;
+        return replaceArticleWord(article);
     }
 
 
@@ -228,6 +217,58 @@ public class ArticleServiceImpl implements ArticleService {
             }
 
         }
+    }
+
+    /**
+     * 屏蔽评论
+     * @param commentId
+     */
+    @Override
+    public void changeCommentStatus(int commentId) {
+        commentDao.changeCommentStatus(commentId);
+    }
+
+    /**
+     * 从新到旧查看回复
+     * @param id
+     * @return
+     */
+    @Override
+    public Article findByIdAndNewTime(Integer id) {
+        Article article = articleDao.findByIdAndNewTime(id);
+        return replaceArticleWord(article);
+    }
+
+    /**
+     * 从旧到新查看回复
+     * @param id
+     * @return
+     */
+    @Override
+    public Article findByOldTime(Integer id) {
+        Article article = articleDao.findById(id);
+        return replaceArticleWord(article);
+    }
+
+    /**
+     * 过滤详情页的敏感词
+     * @param article
+     * @return
+     */
+    @Override
+    public Article replaceArticleWord(Article article) {
+        List<Word> words = wordDao.findAllByStatus0();
+        for (Word word : words) {
+            article.setTitle(article.getTitle().replace(word.getWord(), "**"));
+            article.setContent(article.getContent().replace(word.getWord(), "**"));
+            for (Comment comment : article.getComments()) {
+                comment.setCommentContent(comment.getCommentContent().replace(word.getWord(), "**"));
+                for (Reply reply : comment.getReplys()) {
+                    reply.setReplyContent(reply.getReplyContent().replace(word.getWord(), "**"));
+                }
+            }
+        }
+        return article;
     }
 
 }

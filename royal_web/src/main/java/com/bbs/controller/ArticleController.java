@@ -40,6 +40,7 @@ public class ArticleController {
         ModelAndView mv=new ModelAndView();
         Article article=articleService.findById(articleId);
         mv.addObject("article",article);
+        mv.addObject("timeStatus","old");
         mv.setViewName("getArticle");
         return mv;
     }
@@ -98,4 +99,29 @@ public class ArticleController {
         articleService.saveReport(report);
     }
 
+    @RequestMapping("/changeCommentStatus.do")
+    public void changeCommentStatus(int commentId){
+        articleService.changeCommentStatus(commentId);
+    }
+
+
+    @RequestMapping("/getArticleByNewTime.do")
+    public ModelAndView getArticleByNewTime(int articleId){
+        ModelAndView mv=new ModelAndView();
+        Article article=articleService.findByIdAndNewTime(articleId);
+        mv.addObject("article",article);
+        mv.addObject("timeStatus","new");
+        mv.setViewName("getArticle");
+        return mv;
+    }
+
+    @RequestMapping("/getArticleByOldTime.do")
+    public ModelAndView getArticleByOldTime(int articleId){
+        ModelAndView mv=new ModelAndView();
+        Article article=articleService.findByOldTime(articleId);
+        mv.addObject("article",article);
+        mv.addObject("timeStatus","old");
+        mv.setViewName("getArticle");
+        return mv;
+    }
 }

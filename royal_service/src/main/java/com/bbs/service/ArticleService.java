@@ -44,5 +44,13 @@ public interface ArticleService {
     List<Article> replaceWord(List<Article> articles);
 
     List<Article> searchArticle(String title, String sendername) throws Exception;
+
+    void changeCommentStatus(int commentId);
+
+    Article findByIdAndNewTime(Integer id);
+
+    Article replaceArticleWord(Article article);
+
+    Article findByOldTime(Integer id);
 }
 

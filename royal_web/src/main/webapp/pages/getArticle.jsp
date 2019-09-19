@@ -64,7 +64,7 @@
             </thiszone>
 
             <a href="#">${article.title}</a>
-            <a class="new-to-old r" href="" style="font-size:12px;float: right;">
+            <a id="orderButton" class="new-to-old r" href="javascript:orderByTime()" style="font-size:12px;float: right;">
                 <i></i>从新到旧查看
             </a>
         </div>
@@ -82,7 +82,11 @@
                             </a>
                         </div>
                         <a href="javaScript:showUserInfoDialog('${article.userInfo.username}','${article.userInfo.roleStr}','${article.userInfo.email}','${article.userInfo.lastlogintime}')">
-                            <div class="floorer-name">${article.userInfo.username}</div>
+                            <div class="floorer-name" style="
+                            <c:if test='${article.userInfo.role==3}'>color: red;</c:if>
+                            <c:if test='${article.userInfo.role==2}'>color: #66afe9;</c:if>">
+                                ${article.userInfo.username}
+                            </div>
                         </a>
                     </div>
                     <div class="floor-con l">
@@ -113,7 +117,9 @@
                                 </a>
                             </div>
                             <a href="javaScript:showUserInfoDialog('${comment.userInfo.username}','${comment.userInfo.roleStr}','${comment.userInfo.email}','${comment.userInfo.lastlogintime}')">
-                                <div class="floorer-name">${comment.commentUserName}</div>
+                                <div class="floorer-name" style="
+                                <c:if test='${comment.userInfo.role==3}'>color: red;</c:if>
+                                    <c:if test='${comment.userInfo.role==2}'>color: #66afe9;</c:if>">${comment.commentUserName}</div>
                             </a>
                         </div>
                         <div class="floor-con l">
@@ -138,7 +144,11 @@
                                                 </div>
                                                 <div class="floor-ans-con l">
                                                     <a href="javaScript:showUserInfoDialog('${reply.userInfo.picurl}','${reply.userInfo.username}','${reply.userInfo.roleStr}','${reply.userInfo.email}','${reply.userInfo.lastlogintime}')">
-                                                        <span class="name">${reply.userInfo.username}</span>
+                                                        <span class="name" style="
+                                                        <c:if test='${reply.userInfo.role==3}'>color: red;</c:if>
+                                                            <c:if test='${reply.userInfo.role==2}'>color: #66afe9;</c:if>">${reply.userInfo.username}</span>
+                                                        <c:if test="${reply.userInfo.username==article.userInfo.username}"><span
+                                                                style="font-size: 5px;border-radius: 5px;background-color: #fa8932;color: white;padding: 0px 5px 0px 5px">楼主</span></c:if>
                                                     </a>
                                                     ：${reply.replyContent}
                                                     <span class="ans-time">${reply.replyTime}</span>
@@ -147,10 +157,20 @@
                                         </c:forEach>
                                     </ul>
                                 </div>
+                                <c:if test="${comment.userInfo.userid==existUser.userid}">
+                                    <span class="icon-delete" style="margin-right: 60px;">
+                                        <a href="javascript:gochangeCommentStatus('${comment.commentId}','删除')"> <i></i> 删除</a>
+                                    </span>
+                                </c:if>
+                                <c:if test="${article.userInfo.userid==existUser.userid&&comment.userInfo.userid!=existUser.userid}">
+                                    <span class="icon-PingBiIcon" style="margin-right: 60px;">
+                                        <a href="javascript:gochangeCommentStatus('${comment.commentId}','屏蔽')"> <i></i> 屏蔽</a>
+                                    </span>
+                                </c:if>
                                 <span class="icon-comment">
-                                <a href="javascript:;"
-                                   onclick="showReplyDialog(${i.index+1},${comment.commentId})"> <i></i> 回复</a>
-                            </span>
+                                    <a href="javascript:;"
+                                       onclick="showReplyDialog(${i.index+1},${comment.commentId})"> <i></i> 回复</a>
+                                </span>
                             </div>
                         </div>
                     </li>
@@ -281,8 +301,8 @@
             <div class="win_ft">
                 <div class="win_ft_in">
                     <input type="button" class="btn" onclick="closeUserInfoDialong()" value="关闭"/>
-                    <input type="hidden"  name="articleId"/>
-                    <input type="hidden"  name="reportUserName">
+                    <input type="hidden" name="articleId"/>
+                    <input type="hidden" name="reportUserName">
                 </div>
             </div>
         </div>
@@ -301,13 +321,20 @@
 
 
     $(function () {
+        if(${timeStatus=="old"}){
+            $('#orderButton').html("<i></i>从新到旧查看");
+            $('#orderButton').attr("class","new-to-old r");
+        }else if(${timeStatus=="new"}){
+            $('#orderButton').html("<i></i>从旧到新查看");
+            $('#orderButton').attr("class","new-to-up r");
+        }
         $.ajax({
             url: "${pageContext.request.contextPath}/zone/findThisZoneByZoneId.do",
             data: {"zoneId": "${article.zoneId}"},
             dataType: "json",
             type: "post",
             success: function (data) {
-                $('#thiszone').html("<a href='/begin/getTotalArticleAndUserOnline.do?zoneId="+data.zoneId+"'>"+data.zoneName+"</a><span>></span>");
+                $('#thiszone').html("<a href='/begin/getTotalArticleAndUserOnline.do?zoneId=" + data.zoneId + "'>" + data.zoneName + "</a><span>></span>");
             }
         });
         $.ajax({
@@ -363,20 +390,20 @@
     }
 
     //弹出用户信息框
-    function showUserInfoDialog(picUrl,username,roleStr,email,lastTime) {
+    function showUserInfoDialog(picUrl, username, roleStr, email, lastTime) {
         $("#commentId").val(commentId);
         $('#userInfoBox').css('display', 'block');
-        $("#userInfoBoxPicUrl").html("<img src='${pageContext.request.contextPath}/images/"+picUrl+"'/>");
+        $("#userInfoBoxPicUrl").html("<img src='${pageContext.request.contextPath}/images/" + picUrl + "'/>");
         $("#userInfoBoxUserName").html(username);
         $("#userInfoBoxRoleStr").html(roleStr);
         $("#userInfoBoxEmail").html(email);
         $("#userInfoBoxlastTime").html(lastTime);
         $.ajax({
-            url:"${pageContext.request.contextPath}/article/findArticleNumWithUsername.do",
-            data:{"name":username},
-            type:"post",
-            dataType:"json",
-            success:function (data) {
+            url: "${pageContext.request.contextPath}/article/findArticleNumWithUsername.do",
+            data: {"name": username},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
                 $("#userInfoBoxArticleCount").html(data);
             }
         })
@@ -510,6 +537,33 @@
             })
         }
 
+    };
+
+    function gochangeCommentStatus(commentId, status) {
+        if (confirm("您确定" + status + "该评论吗？")) {
+            $.ajax({
+                url: "/article/changeCommentStatus.do",
+                data: {"commentId": commentId},
+                dataType: "json",
+                type: "post",
+                success: function () {
+                    alert(status + "成功！！");
+                    location.reload();
+                },
+                error: function () {
+                    alert(status + "成功！！");
+                    location.reload();
+                }
+            })
+        }
+    };
+
+    function orderByTime() {
+        if($('#orderButton').hasClass("new-to-up")){
+            location.href="${pageContext.request.contextPath}/article/getArticleByOldTime.do?articleId=${article.articleId}";
+        }else if($('#orderButton').hasClass("new-to-old")){
+            location.href="${pageContext.request.contextPath}/article/getArticleByNewTime.do?articleId=${article.articleId}";
+        }
     }
 </script>
 </html>

@@ -13,7 +13,7 @@ public interface CommentDao {
      * @param id
      * @return
      */
-    @Select("select * from bbs_comment_table where articleId=#{id} and commentStatus!=1")
+    @Select("select * from bbs_comment_table where commentStatus=0 and articleId=#{id} ")
     @Results({
             @Result(column = "commentId",property = "commentId"),
             @Result(column = "commentContent",property = "commentContent"),
@@ -27,6 +27,26 @@ public interface CommentDao {
             @Many(select = "com.bbs.dao.ReplyDao.findReplyByCommentId"))
     })
     List<Comment> findCommentByArticleId(int id);
+
+    /**
+     * 根据帖子id从新到旧查询回复数据
+     * @param id
+     * @return
+     */
+    @Select("select * from bbs_comment_table where commentStatus=0 and articleId=#{id} order by commentTime DESC")
+    @Results({
+            @Result(column = "commentId",property = "commentId"),
+            @Result(column = "commentContent",property = "commentContent"),
+            @Result(column = "commentTime",property = "commentTime"),
+            @Result(column = "commentUserName",property = "commentUserName"),
+            @Result(column = "commentStatus",property = "commentStatus"),
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "commentUserName",property = "userInfo",one =
+            @One(select = "com.bbs.dao.UserDao.findUserByUserName")),
+            @Result(column = "commentId",property = "replys",javaType = List.class,many =
+            @Many(select = "com.bbs.dao.ReplyDao.findReplyByCommentIdAndNewTime"))
+    })
+    List<Comment> findCommentByArticleIdAndNewTime(int id);
 
     /**
      * 回复功能、保存回复
@@ -49,6 +69,9 @@ public interface CommentDao {
      * @param articleId
      * @return
      */
-    @Select("select count(*) from bbs_comment_table where articleId=#{articleId}")
+    @Select("select count(*) from bbs_comment_table where articleId=#{articleId} AND commentStatus=0")
     int getCommentCountByArticleId(int articleId);
+
+    @Update("update bbs_comment_table set commentStatus=1 where commentId=#{commentId}")
+    void changeCommentStatus(int commentId);
 }

@@ -33,4 +33,21 @@ public interface ReplyDao {
     @Insert("insert into bbs_reply_table(replyContent,replyTime,replyUserName,commentId) " +
             "values(#{replyContent},#{replyTime},#{replyUserName},#{commentId})")
     void saveReply(Reply reply);
+
+    /**
+     * 根据回复编号从新到旧查询评论数据
+     * @param id
+     * @return
+     */
+    @Select("select * from bbs_reply_table where commentid=#{commentId} order by replyTime DESC")
+    @Results({
+            @Result(column = "replyId",property = "replyId"),
+            @Result(column = "replyContent",property = "replyContent"),
+            @Result(column = "replyTime",property = "replyTime"),
+            @Result(column = "replyUserName",property = "replyUserName"),
+            @Result(column = "commentId",property = "commentId"),
+            @Result(column = "replyUserName",property = "userInfo",one =
+            @One(select = "com.bbs.dao.UserDao.findUserByUserName"))
+    })
+    List<Reply> findReplyByCommentIdAndNewTime(int id);
 }
