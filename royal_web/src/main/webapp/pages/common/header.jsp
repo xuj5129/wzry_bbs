@@ -19,8 +19,8 @@
                 </c:if>
                 <c:if test="${not empty existUser}">
                     <!-- 登录状态 -->
-                        <span>欢迎 ${existUser.roleStr}:${existUser.username}</span>
-                        <a href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=1&username=${existUser.username}" id="myFavorite">个人中心</a>
+                        <span id="showuser">欢迎 ${existUser.username}</span>
+                        <a style="margin-left: 20px" href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=1&username=${existUser.username}" id="myFavorite">个人中心</a>
                         <a href="javascript:logout()">注销</a>
                 </c:if>
 
@@ -51,6 +51,24 @@
 </body>
 <script type="text/javascript">
   $(function () {
+      if(${not empty existUser}){
+          $.ajax({
+              url:"${pageContext.request.contextPath}/user/findUser.do",
+              data:{"showName":"${existUser.username}"},
+              type:"post",
+              dataType:"json",
+              success:function (data) {
+                  if(data.roleStr=="普通用户"){
+                      $('#showuser').html("欢迎 <span style='color: silver'>"+data.roleStr+"</span>：${existUser.username}")
+                  }else if(data.roleStr=="高级用户"){
+                      $('#showuser').html("欢迎 <span style='color: deepskyblue'>"+data.roleStr+"</span>：${existUser.username}")
+                  }else if(data.roleStr=="超级管理员"){
+                      $('#showuser').html("欢迎 <span style='color: red'>"+data.roleStr+"</span>：${existUser.username}")
+                  }
+
+              }
+          })
+      }
 
       //密码登录
       $("#loginBtn").click(function () {

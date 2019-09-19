@@ -196,4 +196,10 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping("/findUser.do")
+    public @ResponseBody UserInfo findUser(String showName){
+        UserInfo user = userService.findUserObjectByUsername(showName);
+        return user;
+    }
+
 }

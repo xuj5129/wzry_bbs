@@ -3,7 +3,6 @@ package com.bbs.dao;
 import com.bbs.domain.Article;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -132,6 +131,25 @@ public interface ArticleDao {
     //查询一个用户的发帖数
     @Select("SELECT COUNT(*) FROM bbs_article_table WHERE senderName = #{username}")
     int findArticleNumWithUsername(String username);
+
+    @Select("select * from (SELECT * FROM bbs_article_table ORDER BY sendTime DESC) articleTable where isReport=0 order by isTop DESC")
+    @Results({
+            @Result(column = "articleId",property = "articleId"),
+            @Result(column = "title",property = "title"),
+            @Result(column = "content",property = "content"),
+            @Result(column = "sendTime",property = "sendTime"),
+            @Result(column = "senderName",property = "senderName"),
+            @Result(column = "isTop",property = "isTop"),
+            @Result(column = "replyCount",property = "replyCount"),
+            @Result(column = "upvoteCount",property = "upvoteCount"),
+            @Result(column = "browseCount",property = "browseCount"),
+            @Result(column = "zoneId",property = "zoneId"),
+            @Result(column = "articleId",property = "upvoteCount",one =
+            @One(select = "com.bbs.dao.UpvoteDao.getUpvoteCountByArticleId")),
+            @Result(column = "articleId",property = "replyCount",one =
+            @One(select = "com.bbs.dao.CommentDao.getCommentCountByArticleId"))
+    })
+    List<Article> findAllWhereNotReportAndNoZondId();
 
     @Select("select * from bbs_article_table where sendername = #{sendername} and title like #{title}")
     List<Article> findLikeTitleWithSendername( @Param("sendername") String sendername,@Param("title") String title) throws Exception;

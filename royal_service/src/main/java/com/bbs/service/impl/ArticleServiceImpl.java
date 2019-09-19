@@ -6,7 +6,6 @@ import com.bbs.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -101,21 +100,28 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findArticleNotReport(int page, int zoneId) {
         PageHelper.startPage(page, 10);
-        List<Article> articles = articleDao.findAllWhereNotReport(zoneId);
-        List<Word> words = wordDao.findAllByStatus0();
-        for (Article article : articles) {
-            for (Word word : words) {
-                article.setTitle(article.getTitle().replace(word.getWord(), "**"));
-                article.setContent(article.getContent().replace(word.getWord(), "**"));
-            }
+        List<Article> articles;
+        if (zoneId == 0) {
+            articles = articleDao.findAllWhereNotReportAndNoZondId();
+        } else {
+            articles = articleDao.findAllWhereNotReport(zoneId);
         }
+        replaceWord(articles);
         return articles;
     }
 
+
+
     @Override
     public List<Article> findArticleByWord(String keyWord) {
-        String word = "%" + keyWord + "%";
-        return articleDao.findArticleByWord(word);
+        if (keyWord.trim() == null||keyWord.trim()=="") {
+            List<Article> articles = findArticleNotReport(1, 0);
+            return replaceWord(articles);
+        } else {
+            String word = "%" + keyWord + "%";
+            List<Article> articles = articleDao.findArticleByWord(word);
+            return replaceWord(articles);
+        }
 
     }
 
@@ -133,6 +139,18 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int findArticleNumWithUsername(String username) {
         return articleDao.findArticleNumWithUsername(username);
+    }
+
+    @Override
+    public List<Article> replaceWord(List<Article> articles) {
+        List<Word> words = wordDao.findAllByStatus0();
+        for (Article article : articles) {
+            for (Word word : words) {
+                article.setTitle(article.getTitle().replace(word.getWord(), "**"));
+                article.setContent(article.getContent().replace(word.getWord(), "**"));
+            }
+        }
+        return articles;
     }
 
     //查询总帖子数

@@ -77,7 +77,7 @@ public class ArticleController {
         mv.addObject("num1", num1);
         mv.addObject("num2", num2);
         mv.addObject("num3", num3);
-        mv.addObject("articleList",articleList);
+        mv.addObject("pageInfo",pageInfo);
         mv.addObject("keyWord",keyWord);
         mv.setViewName("index");
         return mv;

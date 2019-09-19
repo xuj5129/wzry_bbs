@@ -41,6 +41,8 @@ public interface ArticleService {
 
     int findArticleNumWithUsername(String username);
 
+    List<Article> replaceWord(List<Article> articles);
+
     List<Article> searchArticle(String title, String sendername) throws Exception;
 }
 
