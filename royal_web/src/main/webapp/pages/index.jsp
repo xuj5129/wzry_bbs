@@ -110,10 +110,15 @@
                 </div>
             </div>
 
-            <div class="aside l" style="background-color: white;">
-                <ul id="myArticle" style="line-height: 20px;margin-left: 10px;padding-top: 20px;font-size: 16px">
-                    <li style="text-align: center;color: coral;margin-bottom: 30px;font-size: 30px">我的帖子</li>
+            <div class="aside l" >
+                <div class="aside-box">
+                <h3 class="t">
+                    <a href="javascript:;">我的帖子</a>
+                </h3>
+                <ul id="myArticle" style="line-height: 40px;margin-left: 10px">
+
                 </ul>
+                </div>
             </div>
 
         </div>
@@ -212,10 +217,7 @@
                         $('#myArticle').append("" +
                             "<li style='border-bottom:1px solid silver'>" +
                             "<a href='${pageContext.request.contextPath}/article/getArticle.do?articleId="+data[i].articleId+"'>" +
-                            ""+data[i].title+"</a><div class='hm-index-fun r' style='line-height:16px;height:0px;padding-top:0px'>\n" +
-                            "                                <span class=\"icon-like\" style='margin-right:0px'><i></i>"+data[i].upvoteCount+"</span>\n" +
-                            "                                <span class=\"icon-talk\"><i></i>"+data[i].replyCount+"</span>\n" +
-                            "                            </div></li>")
+                            ""+data[i].title+"</a></li>")
                     }
                 },
                 error:function () {
