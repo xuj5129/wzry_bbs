@@ -76,15 +76,14 @@
           if ($("#username").val() && $("#userpass").val()) {
               $.ajax({
                   url:"${pageContext.request.contextPath}/user/login.do",
-                  // data:$("#logForm").serialize(),
-
-                  data:{username:$("#username").val(),userpass:$("#userpass").val()},
+                  data:$("#logForm").serialize(),
+                  // data:{username:$("#username").val(),userpass:$("#userpass").val()},
                   //contentType:"application/json",
                   type:"post",
                   dataType:"json",
                   success:function (data) {
                       if(data.success){
-                          location.reload();
+                          location.href="${pageContext.request.contextPath}/index.jsp";
                       }
                       else {
                           $("#pwdLoginInfo").html(data.msg);

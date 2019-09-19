@@ -24,7 +24,7 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
+                <a href="javascript:;"><img src="/images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
                 <form action="javascript:;">
@@ -35,7 +35,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>注册页面
+            <a href="${pageContext.request.contextPath}/index.jsp">首页</a><span>></span>注册页面
         </div>
     </div>
 </div>
@@ -53,7 +53,7 @@
                                 <span class="red">*</span> 用户名：
                             </div>
                             <div class="reg-c">
-                                <input type="text" id="userName" name="username" class="txt" onblur="checkUsername()" />
+                                <input type="text" id="userName" name="username" class="txt" onblur="checkUsername()" value="${userInfo.username}" />
                                 <span id="userTips" style="color: red" >${resultInfo.msg}</span>
                             </div>
                             <span class="tips" >用户名必须是由英文、数字、下划线组成</span>
@@ -64,7 +64,7 @@
                                 <span class="red">*</span> 密&nbsp;&nbsp;&nbsp;码：
                             </div>
                             <div class="reg-c">
-                                <input type="password" id="userPass" name="userpass" class="txt" onblur="checkUserpass()" />
+                                <input type="password" id="userPass" name="userpass" class="txt" oninput="checkUserpass()"/>
                                 <span id="pwdTips" style="color: red" ></span>
                             </div>
                             <span class="tips">密码长度必须6~10位的英文或数字</span>
@@ -72,7 +72,7 @@
                         <li class="no-tips">
                             <div class="reg-l">&nbsp;&nbsp;邮&nbsp;&nbsp;&nbsp;箱：</div>
                             <div class="reg-c">
-                                <input type="email" id="email" name="email" class="txt" />
+                                <input type="email" id="email" name="email" class="txt" value="${userInfo.email}" />
                             </div>
                         </li>
                         <li>
@@ -124,6 +124,8 @@
             alert("密码必须为6-10位英文或者数字");
             return false;
         }
+        return checkUsername()&&checkUserpass();
+
 
     }
 
@@ -133,12 +135,12 @@
        var reg=/^\w*$/;
        var uname=$('#userName').val();
        if(!uname){
-           $("#userTips").html("用户名不能为空")
-           return;
+           $("#userTips").html("用户名不能为空");
+           return false;
        }
        else if(!reg.test(uname)){
            $("#userTips").html("用户名格式有误")
-            return;
+           return false;
         }
        else{
            $.ajax({
@@ -151,9 +153,11 @@
                    if(data.success){
                        $("#userTips").html("用户名可用");
                        document.getElementById("userTips").style.color="green";
+                       return true;
 
                    }else {
                        $("#userTips").html("用户名已被占用");
+                       return false;
                    }
                }
            });
@@ -170,14 +174,15 @@
        var pwd=$("#userPass").val();
        if(!pwd){
            $("#pwdTips").html("密码不能为空")
-           return;
+           return false;
        }
        else if(!reg.test(pwd)){
            $("#pwdTips").html("密码格式有误");
-           return;
+           return false;
        }
        $("#pwdTips").html("密码可用");
        document.getElementById("pwdTips").style.color="green";
+       return true;
 
    }
 
