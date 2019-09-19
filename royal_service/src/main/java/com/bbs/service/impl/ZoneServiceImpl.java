@@ -60,4 +60,32 @@ public class ZoneServiceImpl implements ZoneService {
     public void changeStatus(int applyZoneId) {
         zoneDao.changeStatus(applyZoneId);
     }
+
+    @Override
+    public List <Zone> findAllZone(Integer page, int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return zoneDao.findAllZone();
+    }
+
+    @Override
+    public void changeIsDef(int zoneId, int isDef) {
+        if(isDef == 1){
+            isDef=2;
+            zoneDao.changeIsDef(zoneId,isDef);
+        }else {
+            isDef=1;
+            zoneDao.changeIsDef(zoneId,isDef);
+        }
+    }
+
+    @Override
+    public void changeShield(int zoneId, int isDef) {
+        if(isDef == 2){
+            isDef=3;
+            zoneDao.changeIsDef(zoneId,isDef);
+        }else {
+            isDef=2;
+            zoneDao.changeIsDef(zoneId,isDef);
+        }
+    }
 }

@@ -40,8 +40,14 @@ public class WordController {
     }
 
     @RequestMapping("/addWord.do")
-    public void addWord(String word){
-       wordService.addWord(word);
+    @ResponseBody
+    public ModelAndView addWord(String word){
+        ModelAndView mv = new ModelAndView();
+        wordService.addWord(word);
+       String msg = "添加成功";
+       mv.addObject("msg",msg);
+       mv.setViewName("wordPage");
+       return mv;
 
     }
 }

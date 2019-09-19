@@ -168,12 +168,15 @@
         $.ajax({
             url : "${pageContext.request.contextPath}/word/addWord.do",
             type : "POST",
+            dataType:"json",
             data : {"word":addWord},
             // 成功后开启模态框
-            success : function(){
+            success : function(data){
+                alert(data);
                 location.href="http://localhost:8082/word/findAll.do?page= ${pageInfo.pages}&pageSize=8"
             },
             error:function () {
+                alert("添加成功");
                 location.href="http://localhost:8082/word/findAll.do?page= ${pageInfo.pages}&pageSize=8"
             }
         });

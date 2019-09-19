@@ -40,8 +40,8 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="/zone/findAllZone.do?page=1&pageSize=${pageInfo.pageSize}">用户帖管理</a></li>
-                        <li class="active">版块管理</li>
+                        <li><a href="/zone/findAllZone.do?page=1&pageSize=${pageInfo.pageSize}">板块管理</a></li>
+                        <li class="active">版块审核</li>
                     </ol>
                 </div>
                 <hr>
@@ -51,49 +51,21 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>板块Id</th>
-                        <th>板块名字</th>
-                        <th>状态</th>
+                        <th>申请人</th>
+                        <th>新增板块名字</th>
+                        <th>申请原因</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${pageInfo.list}" var="zones">
                             <tr>
-                                <td width="20%">${zones.zoneId}</td>
-                                <td width="35%" class="line-limit-length">${zones.zoneName}</td>
-                                <td width="25%" class="line-limit-length">
-                                    <c:if test="${zones.isDef ==1}">
-                                        默认
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==2}">
-                                        显示
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==3}">
-                                        屏蔽
-                                    </c:if>
-                                    
-
-                                </td>
-                                <td width="20%">
-                                    <c:if test="${zones.isDef ==1}">
-                                        <a href="/zone/changeIsDef.do?zoneId=${zones.zoneId}&isDef=${zones.isDef}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >取消默认</a>
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==2}">
-                                        <a href="/zone/changeIsDef.do?zoneId=${zones.zoneId}&isDef=${zones.isDef}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary" >转为默认</a>
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==3}">
-                                        <a href="#" role="button" class="btn btn-default" disabled="true"  >屏蔽状态</a>
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==1}">
-                                        <a href="#" role="button" class="btn btn-default" disabled="true"  >屏蔽</a>
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==2}">
-                                        <a href="/zone/changeShield.do?zoneId=${zones.zoneId}&isDef=${zones.isDef}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >屏蔽</a>
-                                    </c:if>
-                                    <c:if test="${zones.isDef ==3}">
-                                        <a href="/zone/changeShield.do?zoneId=${zones.zoneId}&isDef=${zones.isDef}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >取消</a>
-                                    </c:if>
+                                <td width="15%">${zones.userName}</td>
+                                <td width="15%" class="line-limit-length">${zones.zoneName}</td>
+                                <td width="55%" class="line-limit-length">${zones.reason}</td>
+                                <td width="15%">
+                                    <a href="/zone/addZone.do?zoneName=${zones.zoneName}&applyZoneId=${zones.applyZoneId}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >同意</a>
+                                    <a href="/zone/changeStatus.do?applyZoneId=${zones.applyZoneId}&page=${pageInfo.pageNum}" role="button" class="btn btn-info" >驳回</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -116,26 +88,26 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="${pageContext.request.contextPath}/zone/findAllZone.do?page=1&pageSize=${pageInfo.pageSize}" >首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/report/findAll.do?page=1&pageSize=${pageInfo.pageSize}" >首页</a></li>
                             <!--上一页-->
                             <li>
-                                        <a href="${pageContext.request.contextPath}/zone/findAllZone.do?page=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}"  aria-label="Previous">
+                                        <a href="${pageContext.request.contextPath}/report/findAll.do?page=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}"  aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
                             </li>
 
                             <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                                <li><a href="${pageContext.request.contextPath}/zone/findAllZone.do?page=${pageNum}&pageSize=${pageInfo.pageSize}">${pageNum}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/report/findAll.do?page=${pageNum}&pageSize=${pageInfo.pageSize}">${pageNum}</a></li>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
-                                    <a href="${pageContext.request.contextPath}/zone/findAllZone.do?page=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}"
+                                    <a href="${pageContext.request.contextPath}/report/findAll.do?page=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/zone/findAllZone.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" >尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/report/findAll.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" >尾页</a></li>
                         </ul>
                     </nav>
                 </div>

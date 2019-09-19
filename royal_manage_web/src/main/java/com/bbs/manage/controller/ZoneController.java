@@ -30,7 +30,7 @@ public class ZoneController {
         List<ZoneApply> zones = zoneService.findAll(page,pageSize);
         PageInfo pageInfo = new PageInfo(zones);
         mv.addObject("pageInfo",pageInfo );
-        mv.setViewName("zonePage");
+        mv.setViewName("zoneApplyPage");
         return mv;
     }
 
@@ -56,4 +56,32 @@ public class ZoneController {
         zoneService.changeStatus(applyZoneId);
         return "redirect:findAll.do?page="+page;
     }
+
+    //查询所有板块
+    @RequestMapping("/findAllZone.do")
+    public ModelAndView findAllZone(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
+                                    @RequestParam(name = "pageSize", required = true, defaultValue = "8") int pageSize){
+
+        ModelAndView mv = new ModelAndView();
+       List<Zone> zones =  zoneService.findAllZone(page,pageSize);
+       PageInfo pageInfo = new PageInfo(zones);
+       mv.addObject("pageInfo", pageInfo);
+        mv.addObject("pageInfo",pageInfo );
+        mv.setViewName("zonePage");
+        return mv;
+    }
+
+
+    @RequestMapping("/changeIsDef.do")
+    public String changeIsDef(int zoneId,int isDef,Integer page){
+        zoneService.changeIsDef(zoneId,isDef);
+        return "redirect:findAllZone.do?page="+page;
+    }
+
+    @RequestMapping("/changeShield.do")
+    public String changeShield(int zoneId,int isDef,Integer page){
+        zoneService.changeShield(zoneId,isDef);
+        return "redirect:findAllZone.do?page="+page;
+    }
+
 }

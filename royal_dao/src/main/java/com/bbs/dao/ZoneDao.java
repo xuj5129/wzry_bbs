@@ -3,6 +3,7 @@ package com.bbs.dao;
 import com.bbs.domain.Zone;
 import com.bbs.domain.ZoneApply;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -34,4 +35,10 @@ public interface ZoneDao {
 
     @Update("update bbs_zoneapply_table set status = 1 where applyZoneId=#{applyZoneId}")
     void changeStatus(int applyZoneId);
+
+    @Select("select * from bbs_zone_table")
+    List<Zone> findAllZone();
+
+    @Update("update bbs_zone_table set isDef = #{isDef} where zoneId=#{zoneId}")
+    void changeIsDef(@Param("zoneId") int zoneId,@Param("isDef") int isDef);
 }

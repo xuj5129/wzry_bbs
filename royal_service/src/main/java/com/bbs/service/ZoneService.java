@@ -20,4 +20,10 @@ public interface ZoneService {
     void addZone(String zoneName);
 
     void changeStatus(int applyZoneId);
+
+    List<Zone> findAllZone(Integer page, int pageSize);
+
+    void changeIsDef(int zoneId, int isDef);
+
+    void changeShield(int zoneId, int isDef);
 }
