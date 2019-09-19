@@ -174,6 +174,8 @@ public class UserController {
     public ModelAndView requestHigherUser(String username){
         ModelAndView mv = new ModelAndView();
         String responseMsg = userService.requestHigherUser(username);
+        UserInfo showUser = userService.findUserObjectByUsername(username);
+        mv.addObject("showUser",showUser);
         mv.addObject("responseMsg",responseMsg);
         mv.setViewName("higherUser");
         return mv;

@@ -109,11 +109,12 @@
 <script type="text/javascript">
     <%--页面加载完成显示当前用户发帖数--%>
     $(function () {
-        if(${empty showUser}){
-            alert("发生错误，请重新进入");
-            location.href="${pageContext.request.contextPath}/index.jsp";
-        }
-        if(${showUser.role>1}){
+        if(${empty existUser}){
+            alert("请先登录！")
+            location.href="${pageContext.request.contextPath}/index.jsp"
+        }else if (${empty showUser}) {
+            location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=4&username=${existUser.username}";
+        }else if(${showUser.role>1}){
             alert("权限已更新，重新跳转!");
             location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=4&username=${existUser.username}";
         }

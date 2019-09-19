@@ -104,11 +104,12 @@
 </body>
 <script>
     $(function () {
-        if(${empty showUser}){
-            alert("发生错误，请重新进入");
-            location.href="${pageContext.request.contextPath}/index.jsp";
-        }
-        if(${showUser.role<2}){
+        if(${empty existUser}){
+            alert("请先登录！")
+            location.href="${pageContext.request.contextPath}/index.jsp"
+        }else if (${empty showUser}) {
+            location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=4&username=${existUser.username}";
+        }else if(${showUser.role<2}){
             alert("权限不足!");
             location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=3&username=${existUser.username}";
         }

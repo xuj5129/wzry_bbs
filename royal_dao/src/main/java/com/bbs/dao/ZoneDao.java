@@ -24,7 +24,7 @@ public interface ZoneDao {
     @Select("select * from bbs_zoneApply_table where zoneName = #{zoneName}")
     ZoneApply findZoneName(String zoneName);
 
-    @Select("SELECT * FROM (SELECT * FROM bbs_zone_table WHERE isDef!=3 ORDER BY isDef ASC) def_first ORDER BY zoneId ASC")
+    @Select("SELECT * FROM (SELECT * FROM bbs_zone_table WHERE isDef!=3 ORDER BY zoneId ASC) def_first ORDER BY isDef ASC")
     List<Zone> findAllByDefASCAndZoneIdASC();
 
     @Select("select * from bbs_zoneApply_table where status = 0")

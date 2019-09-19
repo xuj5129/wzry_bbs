@@ -104,13 +104,11 @@
 <jsp:include page="common/footer.jsp"/>
 <script>
     $(function () {
-        if(${empty showUser}){
-            if(${empty existUser}){
-                alert("请先登录！")
-                location.href="${pageContext.request.contextPath}/index.jsp"
-            }else{
-                location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=2&username=${existUser.username}";
-            }
+        if(${empty existUser}){
+            alert("请先登录！")
+            location.href="${pageContext.request.contextPath}/index.jsp"
+        }else if (${empty showUser}) {
+            location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=2&username=${existUser.username}";
         }
     })
     function checkPwd() {
