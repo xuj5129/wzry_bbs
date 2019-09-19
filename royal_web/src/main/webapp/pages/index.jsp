@@ -108,18 +108,20 @@
                         </c:forEach>
                     </ul>
                 </div>
-            </div>
 
-            <div class="aside l" >
+
                 <div class="aside-box">
-                <h3 class="t">
-                    <a href="javascript:;">我的帖子</a>
-                </h3>
-                <ul id="myArticle" style="line-height: 40px;margin-left: 10px">
+                    <h3 class="t">
+                        <a href="javascript:;">我的帖子</a>
+                    </h3>
+                    <ul id="myArticle" style="line-height: 40px;margin-left: 10px">
 
-                </ul>
+                    </ul>
                 </div>
             </div>
+
+
+
 
         </div>
 
