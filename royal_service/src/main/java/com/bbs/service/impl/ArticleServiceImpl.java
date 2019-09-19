@@ -175,4 +175,39 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articleList = articleDao.findByTicle("%" + title + "%", "%" + sendername + "%");
         return articleList;
     }
+    /**
+     * 根据 帖子标题查询 帖子
+     *
+     * @param title
+     * @param sendername
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Article> searchArticle(String title, String sendername) throws Exception {
+
+        if (sendername != null && sendername.length()>0) {
+
+            if (title!=null&&title.length()>0) {
+                PageHelper.startPage(1,7);
+                return articleDao.findLikeTitleWithSendername(sendername,"%"+title+"%" );
+            }
+            else {
+                PageHelper.startPage(1,7);
+                return articleDao.findBySenderName(sendername);
+            }
+        }else {
+            if (title != null&&title.length()>0) {
+
+                PageHelper.startPage(1,7);
+                return articleDao.findLikeTitle("%"+title+"%");
+            } else {
+
+                PageHelper.startPage(1,7);
+                return articleDao.findAll();
+            }
+
+        }
+    }
+
 }

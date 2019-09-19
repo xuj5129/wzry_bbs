@@ -19,17 +19,24 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/searchUser.do")
-    public ModelAndView searchUser(@RequestBody UserInfo userInfo) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView searchUser(
+            @RequestParam(name = "username",defaultValue = "") String username,
+            @RequestParam(name = "roleStr",defaultValue = "") String roleStr
+    ) {
 
-        List<UserInfo> userInfoList = userService.searchUser(userInfo);
+        ModelAndView modelAndView = new ModelAndView();
+        List<UserInfo> userInfoList = userService.searchUser(username,roleStr);
+
 
         PageInfo pageInfo = new PageInfo(userInfoList);
-        modelAndView.addObject("userPageInfo", pageInfo);
 
-        modelAndView.setViewName("");
+        modelAndView.addObject("pageInfo", pageInfo);
+        modelAndView.addObject("searchName",username);
+        modelAndView.addObject("ro",roleStr);
+        modelAndView.setViewName("UserPage");
         return modelAndView;
     }
+
     @RequestMapping("/findAll.do")
     public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
                                 @RequestParam(name = "pageSize", required = true, defaultValue = "7") Integer pageSize){

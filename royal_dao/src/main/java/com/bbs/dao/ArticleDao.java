@@ -132,4 +132,17 @@ public interface ArticleDao {
     //查询一个用户的发帖数
     @Select("SELECT COUNT(*) FROM bbs_article_table WHERE senderName = #{username}")
     int findArticleNumWithUsername(String username);
+
+    @Select("select * from bbs_article_table where sendername = #{sendername} and title like #{title}")
+    List<Article> findLikeTitleWithSendername( @Param("sendername") String sendername,@Param("title") String title) throws Exception;
+
+    @Select("select * from bbs_article_table where sendername =#{sendername}")
+    List<Article> findBySenderName(@Param("sendername") String sendername) throws Exception;
+
+    @Select("select * from bbs_article_table where title like #{title}")
+    List<Article> findLikeTitle(@Param("title") String title) throws Exception;
+
+    @Select("select * from bbs_article_table  where sendername = #{senderName} ")
+    List<Article> findBySenderNameLikeName(@Param("title") String title, @Param("senderName") String senderName) throws Exception;
+
 }

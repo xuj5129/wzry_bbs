@@ -40,5 +40,7 @@ public interface ArticleService {
     void saveReport(Report report);
 
     int findArticleNumWithUsername(String username);
+
+    List<Article> searchArticle(String title, String sendername) throws Exception;
 }
 

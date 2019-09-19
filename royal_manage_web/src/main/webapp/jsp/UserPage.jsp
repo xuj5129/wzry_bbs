@@ -46,7 +46,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/article/findByTitle.do"?page=1&size=7>
+                        <form method="post" id="articleSearchForm" action="${pageContext.request.contextPath}/user/searchUser.do">
                             <table>
                                 <tr>
                                     <th>
@@ -54,15 +54,15 @@
                                     </th>
                                     <th>
                                         <input type="text" id="title" class="form-control"
-                                               name="title" value="">
+                                               name="username" value="${searchName}">
                                         <input type="hidden" id="pageNum" name="pn" value="">
                                     </th>
                                     <th>
                                         <label for="article_sendername" class="control-label">用户组:</label>
                                     </th>
                                     <th>
-                                        <select id="article_sendername" class="form-control" name="sendername">
-                                            <option>请选择用户组</option>
+                                        <select id="article_sendername" class="form-control" name="roleStr" >
+                                            <option value="">请选择用户组</option>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>

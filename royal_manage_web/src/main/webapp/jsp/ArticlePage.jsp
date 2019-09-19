@@ -46,7 +46,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/article/findByTitle.do"?page=1&size=7>
+                        <form method="post" id="articleSearchForm" action="${pageContext.request.contextPath}/article/findByTitle.do">
                             <table>
                                 <tr>
                                     <th>
@@ -54,7 +54,7 @@
                                     </th>
                                     <th>
                                         <input type="text" id="title" class="form-control"
-                                               name="title" value="">
+                                               name="title" value="${tit}">
                                         <input type="hidden" id="pageNum" name="pn" value="">
                                     </th>
                                     <th>
@@ -62,7 +62,7 @@
                                     </th>
                                     <th>
                                         <input type="text" id="article_sendername" class="form-control"
-                                               name="sendername" value="">
+                                               name="sendername" value="${send}">
                                     </th>
                                     <th colspan="2">
                                         <input type="submit" value="查询" class="form-control btn-primary" >

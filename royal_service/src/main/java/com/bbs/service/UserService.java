@@ -34,7 +34,7 @@ public interface UserService extends UserDetailsService {
     void changeTalk(int userId, int talkStatus);
 
 
-    List<UserInfo> searchUser(UserInfo userInfo);
+    List<UserInfo> searchUser(String username ,String roleStr);
 
     int findTalkStatusByuserName(String username);
 

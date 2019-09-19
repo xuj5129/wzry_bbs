@@ -13,7 +13,8 @@
             <div class="reg-box" style="text-align:center;height:200px;padding-top:100px;">
                 <%--<h2>恭喜您，注册成功！在  之后自动跳转首页</h2>--%>
                 <span style="font-size: large;color: red" >权限不足</span>
-                <span id="numId" style="font-size: large"  >5</span><span style="font-size: large">秒后，跳转到 </span><a href="../index.jsp" style="font-size: large">登陆页面</a>
+                <span id="numId" style="font-size: large"  >5</span><span style="font-size: large">秒后，跳转到 </span>
+                    <a href="/login.jsp" style="font-size: large">登陆页面</a>
             </div>
         </div>
     </div>

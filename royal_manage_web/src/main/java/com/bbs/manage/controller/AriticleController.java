@@ -58,16 +58,29 @@ public class AriticleController  {
     }
 
     @RequestMapping("/findByTitle.do")
-    public ModelAndView findByTitleName( @RequestParam(name = "title", defaultValue = "") String title ,@RequestParam(name="sendername",defaultValue = "") String sendername) throws Exception {
+    public ModelAndView findByTitleName(
+            @RequestParam(name = "title",defaultValue = "") String title ,
+            @RequestParam(name="sendername",defaultValue = "") String sendername)
+    {
+
         ModelAndView modelAndView = new ModelAndView();
 
-//        System.out.println("hello controller");
 
-        List<Article> articleList = articleService.findByTitle(title,sendername);
+        List<Article> articleList = null;
+        try {
+
+            articleList = articleService.searchArticle(title,sendername);
+
+        } catch (Exception e) {
+            System.out.println("search null");
+            articleList=null;
+        }
+
 
         PageInfo pageInfo = new PageInfo(articleList);
-
         modelAndView.addObject("pageInfo",pageInfo);
+        modelAndView.addObject("send",sendername);
+        modelAndView.addObject("tit",title);
         modelAndView.setViewName("ArticlePage");
         return modelAndView;
     }

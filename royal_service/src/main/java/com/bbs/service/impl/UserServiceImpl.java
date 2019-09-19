@@ -68,20 +68,46 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserInfo> searchUser(UserInfo userInfo) {
-        List<UserInfo> userInfoList = new ArrayList<>();
-        userInfo.setUsername("%" + userInfo.getUsername() + "%");
+    public List<UserInfo> searchUser(String username, String roleStr) {
 
-        if (userInfo.getRoleStr() == null || userInfo.getRole() < 1 || userInfo.getRole() > 3) {
-            //等同没有 role条件，   对name 模糊全查询
-            userInfoList = userDao.findLikeUsername(userInfo.getUsername());
-        } else {
-            //name模糊查询，限定 role
+        Integer role;
+        try {
+            role = Integer.parseInt(roleStr);
 
-            userInfoList = userDao.findLikeUsernameWithRole(userInfo.getUsername(), userInfo.getRole());
+            if (username == null) {
+
+                PageHelper.startPage(1, 7);
+                return userDao.findByRole(role);
+            } else {
+
+
+                try {
+                    PageHelper.startPage(1, 7);
+                    return userDao.findLikeUsernameWithRole("%" + username + "%", role);
+                } catch (Exception e) {
+                    return null;
+                }
+
+            }
+
+        } catch (Exception e) {
+
+            if (username == null) {
+
+                PageHelper.startPage(1, 7);
+                return userDao.findAll();
+
+            } else {
+
+                try { PageHelper.startPage(1, 7);
+                    return userDao.findLikeUsername("%" + username + "%");
+                } catch (Exception e1) {
+                    return null;
+                }
+
+
+            }
         }
-
-        return userInfoList;
     }
 
     @Override

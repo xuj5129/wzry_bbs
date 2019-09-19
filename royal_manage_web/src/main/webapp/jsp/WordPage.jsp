@@ -66,18 +66,18 @@
                                 <td width="55%" class="line-limit-length">${words.word}</td>
                                 <td width="20%" class="line-limit-length">
                                      <c:if test="${words.status == 0}">
-                                         使用中
+                                         屏蔽中
                                      </c:if>
                                     <c:if test="${words.status != 0}">
-                                        已停用
+                                        解禁中
                                     </c:if>
                                 </td>
                                 <td width="10%">
-                                    <c:if test="${words.status==1}">
-                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary">启用</a>
-                                    </c:if>
                                     <c:if test="${words.status==0}">
-                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >停用</a>
+                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary">屏蔽</a>
+                                    </c:if>
+                                    <c:if test="${words.status==1}">
+                                        <a href="/word/changeStatus.do?wordId=${words.wordId}&status=${words.status}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger" >解禁</a>
                                     </c:if>
 
                                 </td>

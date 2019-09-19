@@ -30,11 +30,8 @@ public interface UserDao {
      */
 
 
-    @Select("select * from bbs_user_table where username like #{username}")
-    List<UserInfo> findLikeUsername(String username);
 
-    @Select("select * from bbs_user_table where username like #{username} and role= #{role} ")
-    List<UserInfo> findLikeUsernameWithRole(String username , int role);
+
 
 
     @Select("SELECT * FROM bbs_user_table WHERE loginStatus = 1 ")
@@ -46,8 +43,7 @@ public interface UserDao {
     @Select("select * from bbs_user_table where username=#{username}")
     UserInfo findUserByUserName(String username);
 
-    @Select("select * from bbs_user_table order by isupdating desc")
-    List<UserInfo> findAll();
+
 
 
     @Insert("insert into bbs_user_table(username,userpass,email)values(#{username},#{userpass},#{email})")
@@ -77,4 +73,21 @@ public interface UserDao {
 
     @Select("select talkStatus from bbs_user_table where username=#{username}")
     int findTalkStatusByuserName(String username);
+
+    //dao
+    @Select("select * from bbs_user_table where role = #{role}")
+    List<UserInfo> findByRole(@Param("role") Integer role)throws Exception;
+
+
+    @Select("select * from bbs_user_table where username like #{username} and role= #{role} ")
+    List<UserInfo> findLikeUsernameWithRole(@Param("username") String username , @Param("role") Integer role);
+
+
+    @Select("select * from bbs_user_table order by isupdating desc")
+    List<UserInfo> findAll();
+
+
+    @Select("select * from bbs_user_table where username like #{username}")
+    List<UserInfo> findLikeUsername(@Param("username") String username);
+
 }
