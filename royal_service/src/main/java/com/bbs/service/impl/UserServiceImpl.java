@@ -35,12 +35,20 @@ public class UserServiceImpl implements UserService {
         UserInfo existUser = userDao.find4Login(userInfo);
         if (existUser != null) {
             resultInfo.setSuccess(true);
+            userDao.changeLoginStatus(existUser.getUsername(),1);
+            existUser.setLoginstatus(1);
             resultInfo.setObject(existUser);
         } else {
             resultInfo.setSuccess(false);
             resultInfo.setMsg("用户名或密码错误");
         }
         return resultInfo;
+    }
+
+
+    public void changeLoginStatus(String username,Integer loginStatus){
+        userDao.changeLoginStatus(username,loginStatus);
+
     }
 
     @Override
@@ -117,6 +125,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserInfo userInfo) {
+        userInfo.setLoginstatus(1);
         userDao.save(userInfo);
 
     }

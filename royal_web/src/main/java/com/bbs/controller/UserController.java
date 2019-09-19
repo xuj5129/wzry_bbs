@@ -25,9 +25,6 @@ public class UserController {
 //    public @ResponseBody ResultInfo login(String username,String userpass, HttpSession session){
     public @ResponseBody ResultInfo login(UserInfo userInfo, HttpSession session){
 
-       /* UserInfo userInfo = new UserInfo();
-        userInfo.setUsername(username);
-        userInfo.setUserpass(userpass);*/
 
         ResultInfo resultInfo=userService.login(userInfo);
         if(resultInfo.isSuccess()){
@@ -51,14 +48,17 @@ public class UserController {
     //用户退出
     @RequestMapping("/logout.do")
     public  String logout(HttpSession session){
+        UserInfo existUser = (UserInfo) session.getAttribute("existUser");
+        userService.changeLoginStatus(existUser.getUsername(),0);
         session.invalidate();
+
         return "redirect:/index.jsp";
     }
     //新用户注册
     @RequestMapping("/register.do")
     public ModelAndView register(UserInfo userInfo,HttpSession session){
         ModelAndView mv = new ModelAndView();
-        if(userInfo.getUsername()!=null&&userInfo.getUserpass()!=null&&userInfo.getEmail()!=null){
+        if(userInfo.getUsername()!=null&&userInfo.getUserpass()!=null){
             ResultInfo resultInfo = userService.findByUsername(userInfo.getUsername());
             //用户名可用
             if(resultInfo.isSuccess()){

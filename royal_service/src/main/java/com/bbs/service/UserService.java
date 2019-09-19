@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     void update(UserInfo userInfo);
 
+    void changeLoginStatus(String username,Integer loginStatus);
+
     ResultInfo login(UserInfo userInfo);
 
     ResultInfo findByUsername(String username);

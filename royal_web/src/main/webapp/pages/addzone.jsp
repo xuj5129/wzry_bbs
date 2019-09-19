@@ -34,7 +34,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="${pageContext.request.contextPath}/index.jsp">首页</a><span>></span>个人信息
+            <a href="${pageContext.request.contextPath}/index.jsp">首页</a><span>></span>开辟新板块
         </div>
     </div>
 </div>
