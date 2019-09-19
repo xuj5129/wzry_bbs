@@ -97,7 +97,6 @@
 
 
    })
-
     /*
         *   用户名必填，并且填入信息必须由英文、数字、下划线组成。/^[a-zA-Z0-9_]*$/
             密码必填，密码长度保证6-10位英文或者数字组成。/^[a-zA-Z0-9]{6,10}$/
@@ -111,16 +110,13 @@
             alert("用户名必须由英文、数字、下划线组成");
             return false;
         }
-
         var preg=/^[a-zA-Z0-9]{6,10}$/;
         var pwd=$("#userPass").val()
         if(!preg.test(pwd)){
-            alert("密码必须为6-10位英文或者数字");
+            alert("新密码必须为6-10位英文或者数字");
             return false;
         }
         return checkUsername()&&checkUserpass();
-
-
     }
 
    function checkUsername(){

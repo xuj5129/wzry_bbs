@@ -109,9 +109,10 @@ public class UserController {
     //修改邮箱地址,上传图片
     @RequestMapping("/changeEmailAndFileUpload.do")
     public ModelAndView changeEmailAndFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile upload, String email)throws Exception{
-
-        UserInfo existUser = (UserInfo) request.getSession().getAttribute("existUser");
         ModelAndView mv = new ModelAndView();
+        UserInfo existUser = (UserInfo) request.getSession().getAttribute("existUser");
+
+        if (upload.getSize() != 0){
         // 先获取到要上传的文件目录
         String path = request.getSession().getServletContext().getRealPath("/images");
         // 创建File对象，一会向该路径下上传文件
@@ -136,12 +137,11 @@ public class UserController {
         filename = uuid+"_"+filename;
         // 上传文件
         upload.transferTo(new File(file,filename));
-
-        //修改图片路径和邮箱
-        existUser.setEmail(email);
-        if (upload.getSize() != 0){
+            //修改图片路径
             existUser.setPicurl(filename);
         }
+        //修改邮箱
+        existUser.setEmail(email);
 
         String changeMsg = userService.changeEmailAndPicUrl(existUser);
 

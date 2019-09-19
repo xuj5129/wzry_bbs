@@ -80,11 +80,11 @@
                   <ul class="bd">
                     <li class="clearfix">
                         <div class="info-l"><i class="red">*</i>旧密码：</div>
-                        <div class="info-r"><input type="password"  value="${oldPassword}" onblur="checkPwd()" id="oldPassword" name="oldPassword" class="txt"/></div>
+                        <div class="info-r"><input type="password"  value="${oldPassword}" onblur="checkOldPwd()" id="oldPassword" name="oldPassword" class="txt"/></div>
                     </li>
                     <li class="clearfix">
                         <div class="info-l"><i class="red">*</i>新密码：</div>
-                        <div class="info-r"><input type="password" name="newPassword" value="${newPassword}" class="txt"/></div>
+                        <div class="info-r"><input type="password" id="checkNewPwd" onblur="checkPwd()" name="newPassword" value="${newPassword}" class="txt"/></div>
                     </li>
                     <li class="clearfix">
                         <div class="info-l"></div>
@@ -111,9 +111,17 @@
             location.href="${pageContext.request.contextPath}/user/showUserCenter.do?pageCode=2&username=${existUser.username}";
         }
     })
-    function checkPwd() {
+    function checkOldPwd() {
         if ($("#oldPassword").val()==""){
             alert("请输入旧密码");
+            return;
+        }
+    }
+    function checkPwd() {
+        var preg=/^[a-zA-Z0-9]{6,10}$/;
+        var uname=$("#checkNewPwd").val();
+        if (!preg.test(uname)){
+            alert("密码必须为6-10位英文或者数字");
             return;
         }
     }
