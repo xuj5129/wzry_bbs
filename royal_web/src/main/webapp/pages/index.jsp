@@ -152,7 +152,7 @@
                         <span aria-hidden="true">»</span>
                     </a>
                 </span>
-                    <span style="border: 1px solid silver;padding: 5px;border-radius: 5px"><a
+                    <span style="border: 1px solid silver;padding: 5px;border-radius: 5px;"><a
                             href="${pageContext.request.contextPath}/begin/getTotalArticleAndUserOnline.do?page=${pageInfo.pages}&zoneId=${showzoneId}">尾页</a></span>
                 </div>
             </div>
@@ -210,7 +210,7 @@
                 success:function (data) {
                     for (var i=0;i<=data.length-1;i++){
                         $('#myArticle').append("" +
-                            "<li>" +
+                            "<li style='border-bottom:1px solid silver'>" +
                             "<a href='${pageContext.request.contextPath}/article/getArticle.do?articleId="+data[i].articleId+"'>" +
                             ""+data[i].title+"</a><div class='hm-index-fun r' style='line-height:16px;height:0px;padding-top:0px'>\n" +
                             "                                <span class=\"icon-like\" style='margin-right:0px'><i></i>"+data[i].upvoteCount+"</span>\n" +

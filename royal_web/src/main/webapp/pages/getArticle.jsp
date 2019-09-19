@@ -100,7 +100,7 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span id="thisUpvote" class="icon-feedback" style="right: 150px"><a
+                        <span id="thisUpvote" class="icon-feedback" style="right: 150px"><a id="upvoteTxt"
                                 href="javascript:changeUpvote()"> <i></i> 点赞</a></span>
                         <span class="icon-comment" style="right: 80px"><a href="#comment"> <i></i> 评论</a></span>
                         <span class="icon-report"><a href="javascript:showReportDialog()"> <i></i> 举报</a></span>
@@ -349,6 +349,7 @@
             success: function (isUpvote) {
                 if (isUpvote == 1) {
                     $('#thisUpvote').attr("class", "icon-feedback1");
+                    $('#upvoteTxt').html("<i></i> 取消点赞");
                 }
             }
         })
@@ -508,6 +509,7 @@
                 type: "POST",
                 success: function () {
                     $('#thisUpvote').attr("class", "icon-feedback1");
+                    $('#upvoteTxt').html("<i></i> 取消点赞");
                     location.reload();
                 },
                 error: function () {
@@ -529,6 +531,7 @@
                 type: "POST",
                 success: function () {
                     $('#thisUpvote').attr("class", "icon-feedback");
+                    $('#upvoteTxt').html(' <i></i> 点赞');
                     location.reload();
                 },
                 error: function () {

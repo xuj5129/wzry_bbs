@@ -30,10 +30,10 @@ public class ArticleController {
     private ZoneService zoneService;
 
     @RequestMapping("/saveArticle.do")
-    public ModelAndView saveArticle(Article article){
+    public String saveArticle(Article article){
         int articleId = articleService.saveArticle(article);
-        ModelAndView mv = findById(articleId);
-        return mv;
+
+        return "redirect:getArticle.do?articleId="+articleId;
     }
 
     @RequestMapping("/getArticle.do")
