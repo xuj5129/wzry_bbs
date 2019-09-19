@@ -45,7 +45,7 @@
             </div>
             <div class="search-box l">
                 <form action="${pageContext.request.contextPath}/article/findArticleByWord.do" method="post">
-                    <input type="text" class="txt l" name="keyWord"  value="${keyWord}" placeholder="请输入关键字">
+                    <input type="text" class="txt l" name="keyWord" value="${keyWord}" placeholder="请输入关键字">
                     <input type="submit" value="搜索" class="btn l"/>
                 </form>
             </div>
@@ -58,6 +58,11 @@
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
+
+            <thiszone id="thiszone">
+
+            </thiszone>
+
             <a href="#">${article.title}</a>
             <a class="new-to-old r" href="" style="font-size:12px;float: right;">
                 <i></i>从新到旧查看
@@ -71,7 +76,8 @@
                 <!--原帖楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/${article.userInfo.picurl}"/></div>
+                        <div class="floorer-photo"><img
+                                src="${pageContext.request.contextPath}/images/${article.userInfo.picurl}"/></div>
                         <div class="floorer-name">${article.userInfo.username}</div>
                     </div>
                     <div class="floor-con l">
@@ -85,9 +91,10 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span id="thisUpvote" class="icon-feedback" style="right: 150px"><a href="javascript:changeUpvote()"> <i></i> 点赞</a></span>
+                        <span id="thisUpvote" class="icon-feedback" style="right: 150px"><a
+                                href="javascript:changeUpvote()"> <i></i> 点赞</a></span>
                         <span class="icon-comment" style="right: 80px"><a href="#comment"> <i></i> 评论</a></span>
-                        <span class="icon-report" ><a href="javascript:showReportDialog()"> <i></i> 举报</a></span>
+                        <span class="icon-report"><a href="javascript:showReportDialog()"> <i></i> 举报</a></span>
                     </div>
                 </li>
 
@@ -95,7 +102,8 @@
                 <c:forEach items="${article.comments}" var="comment" varStatus="i">
                     <li class="floor clearfix">
                         <div class="floorer-info l">
-                            <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/${comment.userInfo.picurl}"/></div>
+                            <div class="floorer-photo"><img
+                                    src="${pageContext.request.contextPath}/images/${comment.userInfo.picurl}"/></div>
                             <div class="floorer-name">${comment.commentUserName}</div>
                         </div>
                         <div class="floor-con l">
@@ -112,18 +120,21 @@
 
                                         <!-- 回复部分,楼中楼 -->
                                         <c:forEach items="${comment.replys}" var="reply">
-                                        <li class="clearfix">
-                                            <div class="floor-ans-pho l"><img src="${pageContext.request.contextPath}/images/${reply.userInfo.picurl}"/></div>
-                                            <div class="floor-ans-con l">
-                                                <span class="name">${reply.userInfo.username}</span>：${reply.replyContent}
-                                                <span class="ans-time">${reply.replyTime}</span>
-                                            </div>
-                                        </li>
+                                            <li class="clearfix">
+                                                <div class="floor-ans-pho l"><img
+                                                        src="${pageContext.request.contextPath}/images/${reply.userInfo.picurl}"/>
+                                                </div>
+                                                <div class="floor-ans-con l">
+                                                    <span class="name">${reply.userInfo.username}</span>：${reply.replyContent}
+                                                    <span class="ans-time">${reply.replyTime}</span>
+                                                </div>
+                                            </li>
                                         </c:forEach>
                                     </ul>
                                 </div>
                                 <span class="icon-comment">
-                                <a href="javascript:;" onclick="showReplyDialog(${i.index+1},${comment.commentId})"> <i></i> 回复</a>
+                                <a href="javascript:;"
+                                   onclick="showReplyDialog(${i.index+1},${comment.commentId})"> <i></i> 回复</a>
                             </span>
                             </div>
                         </div>
@@ -142,20 +153,20 @@
             </c:if>
 
             <c:if test="${not empty existUser}">
-            <!-- 登录后显示评论输入框-->
-            <form id="commentForm" action="/article/saveComment.do" method="post">
-                <input hidden name="articleId" value="${article.articleId}">
-                <input hidden name="commentUserName" value="${existUser.username}">
-                <div class="con con-loged">
-                    <div class="con-t">
-                        <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
+                <!-- 登录后显示评论输入框-->
+                <form id="commentForm" action="/article/saveComment.do" method="post">
+                    <input hidden name="articleId" value="${article.articleId}">
+                    <input hidden name="commentUserName" value="${existUser.username}">
+                    <div class="con con-loged">
+                        <div class="con-t">
+                            <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
+                        </div>
+                        <div class="con-b">
+                            <input type="button" onclick="commentCode()" value="提交" class="btn"/>
+                            <span class="num">不能超过5000字</span>
+                        </div>
                     </div>
-                    <div class="con-b">
-                        <input type="button" onclick="commentCode()" value="提交" class="btn"/>
-                        <span class="num">不能超过5000字</span>
-                    </div>
-                </div>
-            </form>
+                </form>
             </c:if>
         </div>
     </div>
@@ -230,38 +241,51 @@
 
     $(function () {
         $.ajax({
-            url:"/upvote/findIsUpvote.do",
-            data:{"userName":<c:if test="${empty existUser}">'游客'</c:if>
+            url: "${pageContext.request.contextPath}/zone/findThisZoneByZoneId.do",
+            data: {"zoneId": "${article.zoneId}"},
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                $('#thiszone').html("<a href='/begin/getTotalArticleAndUserOnline.do?zoneId="+data.zoneId+"'>"+data.zoneName+"</a><span>></span>");
+            }
+        });
+        $.ajax({
+            url: "/upvote/findIsUpvote.do",
+            data: {
+                "userName": <c:if test="${empty existUser}">'游客'</c:if>
                 <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
                 "articleId":${article.articleId}
             },
-            dataType:"json",
-            type:"post",
-            success:function (isUpvote) {
-                if(isUpvote==1){
-                    $('#thisUpvote').attr("class","icon-feedback1");
+            dataType: "json",
+            type: "post",
+            success: function (isUpvote) {
+                if (isUpvote == 1) {
+                    $('#thisUpvote').attr("class", "icon-feedback1");
                 }
             }
         })
 
-        $.ajax({
-            url:"/user/findTalkStatusByUserName.do",
-            data:{"userName":<c:if test="${empty existUser}">'游客'</c:if>
-                <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
-                "articleId":${article.articleId}
-            },
-            dataType:"json",
-            type:"post",
-            success:function (talkStatus) {
-                if(talkStatus==1){
-                    $('#commentForm').css("display","none");
-                    $('#talkBox').append("<div class='con'>您已被禁言，无法评论</div>")
-                    $('#replyContent').css("display","none");
-                    $('#replyContentBox').append("<dic style='height: 300px;line-height: 300px;padding-left: 300px;font-size: 20px'>您已被禁言，无法回复消息</div>")
-                    $('#replyButton').css("display","none");
+        if (${not empty existUser}) {
+            $.ajax({
+                url: "/user/findTalkStatusByUserName.do",
+                data: {
+                    "userName": <c:if test="${empty existUser}">'游客'</c:if>
+                    <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                    "articleId":${article.articleId}
+                },
+                dataType: "json",
+                type: "post",
+                success: function (talkStatus) {
+                    if (talkStatus == 1) {
+                        $('#commentForm').css("display", "none");
+                        $('#talkBox').append("<div class='con'>您已被禁言，无法评论</div>")
+                        $('#replyContent').css("display", "none");
+                        $('#replyContentBox').append("<dic style='height: 300px;line-height: 300px;padding-left: 300px;font-size: 20px'>您已被禁言，无法回复消息</div>")
+                        $('#replyButton').css("display", "none");
+                    }
                 }
-            }
-        })
+            })
+        }
     })
 
     //弹出回复框
@@ -279,19 +303,19 @@
 
     //回复验证
     function saveReply() {
-        if ($("#replyContent").val().length>0){
+        if ($("#replyContent").val().length > 0) {
             $.ajax({
-                url:"/article/saveReply.do",
-                data:$("#replyForm").serialize(),
-                type:"post",
-                success:function(){
+                url: "/article/saveReply.do",
+                data: $("#replyForm").serialize(),
+                type: "post",
+                success: function () {
                     location.reload();
                 },
-                error:function () {
+                error: function () {
                     alter("发表失败")
                 }
             })
-        }else{
+        } else {
             alert("请填写内容");
         }
     }
@@ -303,7 +327,7 @@
             alert("请登录");
             return;
         }
-        if("${article.senderName}"=="${existUser.username}"){
+        if ("${article.senderName}" == "${existUser.username}") {
             alert("不能举报自己帖子");
             return;
         }
@@ -314,38 +338,38 @@
 
     //举报验证
     function saveReport() {
-        if ($("#reportContent").val().length>0){
+        if ($("#reportContent").val().length > 0) {
             $.ajax({
-                url:"/article/saveReport.do",
-                data:$("#reportForm").serialize(),
-                type:"post",
-                dataType:"text",
-                success:function(){
+                url: "/article/saveReport.do",
+                data: $("#reportForm").serialize(),
+                type: "post",
+                dataType: "text",
+                success: function () {
                     alert("举报申请已提交");
                     location.reload();
                 },
-                error:function () {
+                error: function () {
                     alter("举报失败")
                 }
             })
-        }else{
+        } else {
             alert("请填写内容");
         }
     }
 
     //评论验证
     function commentCode() {
-        if($('#content').val().trim()=="") {
+        if ($('#content').val().trim() == "") {
             alert("请先输入内容，再提交");
-        }else{
+        } else {
             $.ajax({
-                url:"/article/saveComment.do",
-                data:$('#commentForm').serialize(),
-                type:"post",
-                success:function(){
+                url: "/article/saveComment.do",
+                data: $('#commentForm').serialize(),
+                type: "post",
+                success: function () {
                     location.reload();
                 },
-                error:function () {
+                error: function () {
                     alter("评论失败")
                 }
             })
@@ -354,46 +378,47 @@
 
     //改变点赞状态
     function changeUpvote() {
-        
-        if(${empty existUser}){
+
+        if (${empty existUser}) {
             alert("请先登录！");
-        }else if($('#thisUpvote').hasClass("icon-feedback")){
+        } else if ($('#thisUpvote').hasClass("icon-feedback")) {
             $.ajax({
-                url:"/upvote/changeIsUpvote.do",
-                data:{
+                url: "/upvote/changeIsUpvote.do",
+                data: {
                     "upvoteUserName":
                         <c:if test="${empty existUser}">'游客'</c:if>
                     <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
                     "upvoteArticleId":${article.articleId},
-                    "isUpvote":"0"
+                    "isUpvote": "0"
                 },
-                dataType:"json",
-                type:"POST",
+                dataType: "json",
+                type: "POST",
                 success: function () {
-                    $('#thisUpvote').attr("class","icon-feedback1");
+                    $('#thisUpvote').attr("class", "icon-feedback1");
                     location.reload();
                 },
-                error:function () {
+                error: function () {
                     alert("点赞失败！")
                 }
             })
 
-        }else if($('#thisUpvote').hasClass('icon-feedback1')){
+        } else if ($('#thisUpvote').hasClass('icon-feedback1')) {
             $.ajax({
-                url:"/upvote/changeIsUpvote.do",
-                data:{
+                url: "/upvote/changeIsUpvote.do",
+                data: {
                     "upvoteUserName":
                         <c:if test="${empty existUser}">'游客'</c:if>
-                        <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
+                    <c:if test="${not empty existUser}">'${existUser.username}'</c:if>,
                     "upvoteArticleId":${article.articleId},
-                    "isUpvote":1},
-                dataType:"json",
-                type:"POST",
+                    "isUpvote": 1
+                },
+                dataType: "json",
+                type: "POST",
                 success: function () {
-                    $('#thisUpvote').attr("class","icon-feedback");
+                    $('#thisUpvote').attr("class", "icon-feedback");
                     location.reload();
                 },
-                error:function () {
+                error: function () {
                     alert("取消点赞失败！")
                 }
             })

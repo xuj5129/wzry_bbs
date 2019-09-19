@@ -1,10 +1,12 @@
 package com.bbs.controller;
 
+import com.bbs.domain.Zone;
 import com.bbs.domain.ZoneApply;
 import com.bbs.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,6 +28,11 @@ public class ZoneController {
         mv.addObject("zoneApply",zoneApply);
         mv.setViewName("addzone");
         return mv;
+    }
+
+    @RequestMapping("/findThisZoneByZoneId.do")
+    public @ResponseBody Zone findThisZoneByZoneId(int zoneId){
+        return zoneService.findZoneByZoneId(zoneId);
     }
 
 }

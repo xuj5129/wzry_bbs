@@ -21,6 +21,8 @@ public interface ZoneService {
 
     void changeStatus(int applyZoneId);
 
+    Zone findZoneByZoneId(int zoneId);
+
     List<Zone> findAllZone(Integer page, int pageSize);
 
     void changeIsDef(int zoneId, int isDef);

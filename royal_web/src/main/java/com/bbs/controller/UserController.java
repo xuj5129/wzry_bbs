@@ -147,8 +147,10 @@ public class UserController {
 
         //再将修改后的用户信息存入session域中
         request.getSession().setAttribute("existUser",existUser);
+        UserInfo showUser = userService.findUserObjectByUsername(existUser.getUsername());
         request.getSession().removeAttribute("changeMsg");
         mv.addObject("changeMsg",changeMsg);
+        mv.addObject("showUser",showUser);
         mv.setViewName("userInfo");
         return mv;
     }
@@ -157,8 +159,10 @@ public class UserController {
     @RequestMapping("/checkExistPwd.do")
     public ModelAndView checkExistPwd(String username,String oldPassword ,String newPassword){
         ModelAndView mv = new ModelAndView();
+        UserInfo user = userService.findUserObjectByUsername(username);
         ResultInfo resultInfo = userService.checkExistPwd(oldPassword,newPassword,username);
         mv.addObject("pwdMsg",resultInfo);
+        mv.addObject("showUser",user);
         mv.addObject("oldPassword",oldPassword);
         mv.addObject("newPassword",newPassword);
         mv.setViewName("userPwd");

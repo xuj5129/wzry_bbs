@@ -62,6 +62,11 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    public Zone findZoneByZoneId(int zoneId) {
+        return zoneDao.findZoneByZoneId(zoneId);
+    }
+
+    @Override
     public List <Zone> findAllZone(Integer page, int pageSize) {
         PageHelper.startPage(page,pageSize);
         return zoneDao.findAllZone();
