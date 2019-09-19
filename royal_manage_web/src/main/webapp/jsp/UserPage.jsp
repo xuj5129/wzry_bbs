@@ -62,10 +62,14 @@
                                     </th>
                                     <th>
                                         <select id="article_sendername" class="form-control" name="roleStr" >
-                                            <option value="">请选择用户组</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
+
+                                            <%--<c:if test="${ro==null}">--%>
+                                                <option value=""  selected>请选择用户组</option>
+                                                <option <c:if test="${ro == 1}">selected</c:if>>1</option>
+                                                <option <c:if test="${ro == 2}">selected</c:if>>2</option>
+                                                <option <c:if test="${ro == 3}">selected</c:if>>3</option>
+                                           <%-- </c:if>--%>
+
                                         </select>
                                     </th>
                                     <th colspan="2">
