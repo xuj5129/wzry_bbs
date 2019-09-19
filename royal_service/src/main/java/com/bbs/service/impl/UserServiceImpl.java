@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Service("userService")
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService {
             resultInfo.setSuccess(true);
             userDao.changeLoginStatus(existUser.getUsername(),1);
             existUser.setLoginstatus(1);
+            userDao.updateLastLoginTime(existUser.getUsername(),new Date());
             resultInfo.setObject(existUser);
         } else {
             resultInfo.setSuccess(false);
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
         return resultInfo;
     }
 
-
+    @Override
     public void changeLoginStatus(String username,Integer loginStatus){
         userDao.changeLoginStatus(username,loginStatus);
 
@@ -127,6 +129,7 @@ public class UserServiceImpl implements UserService {
     public void register(UserInfo userInfo) {
         userInfo.setLoginstatus(1);
         userDao.save(userInfo);
+        userDao.updateLastLoginTime(userInfo.getUsername(),new Date());
 
     }
 

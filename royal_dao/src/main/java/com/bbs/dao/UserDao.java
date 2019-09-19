@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 public interface UserDao {
     @Update("update bbs_user_table set email=#{email},picUrl=#{picurl} where userid=#{userid}")
@@ -81,6 +82,10 @@ public interface UserDao {
 
     @Select("select * from bbs_user_table where username like #{username}")
     List<UserInfo> findLikeUsername(@Param("username") String username);
+
     @Update("update bbs_user_table set loginStatus=#{loginStatus} where username=#{username}")
     void changeLoginStatus(@Param("username") String username, @Param("loginStatus") Integer loginStatus);
+
+    @Update("update bbs_user_table set lastLoginTime=#{lastLoginTime} where username=#{username}")
+    void updateLastLoginTime(@Param("username")String username,@Param("lastLoginTime")Date lastLoginTime);
 }
