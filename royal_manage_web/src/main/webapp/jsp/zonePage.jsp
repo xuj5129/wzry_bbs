@@ -40,7 +40,7 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="/zone/findAllZone.do?page=1&pageSize=${pageInfo.pageSize}">用户帖管理</a></li>
+                        <li><a href="/zone/findAllZone.do?page=1&pageSize=${pageInfo.pageSize}">板块管理</a></li>
                         <li class="active">版块管理</li>
                     </ol>
                 </div>

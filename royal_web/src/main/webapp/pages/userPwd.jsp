@@ -53,10 +53,10 @@
                 <ul class="user-info-l-b">
                     <li><i class="info-icon"></i>我的资料</li>
                     <li class="cur"><i class="safe-icon"></i>修改密码</li>
-                    <c:if test="${existUser.role == 2}">
+                    <c:if test="${showUser.role == 2}">
                         <li><i class="safe-icon"></i>开辟新板块</li>
                     </c:if>
-                    <c:if test="${existUser.role == 1}">
+                    <c:if test="${showUser.role == 1}">
                         <li ><i class="safe-icon"></i>申请高级用户</li>
                     </c:if>
                 </ul>
